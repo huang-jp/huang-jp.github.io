@@ -56,8 +56,6 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
-	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -110,8 +108,6 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -130,9 +126,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -148,6 +142,2870 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-DuplicateRemoval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/DuplicateRemoval/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:46:57.608Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查询相同数据：	<br>select * from table1 inner join table2 on table1.codeid&#x3D;table2.codeid </p>
+<p>两张表数据数据（去掉重复数据）：		<br>select t1.codeid ,t1.cedename from  table1  union  select t2.codeid ,t2.cedename from  table1</p>
+<p>全部数据（包括重复数据）：       	<br>select codeid,cedename from table1 union all select codeid,cedename from table2  </p>
+<p>SQL查询一个表中另外一个表不存在的数据：</p>
+<p>#方法一：使用 not in ,容易理解,效率低  <del>执行时间为：1.395秒</del><br>SELECT table1.name FROM table1 WHERE table1.name NOT IN (SELECT table2.name FROM table2);<br>#方法二：使用 left join…on… , “B.ID isnull” 表示左连接之后在B.ID 字段为 null的记录  <del>执行时间：0.739秒</del><br>SELECT COUNT(1) FROM ecs_goods LEFT JOIN ecs_member_price ON ecs_goods.goods_id&#x3D;ecs_member_price.goods_id WHERE ecs_member_price.goods_id IS NULL;<br>#方法三：逻辑相对复杂,但是速度最快  <del>执行时间: 0.570秒</del><br>SELECT COUNT(1) FROM  ecs_goods c WHERE (SELECT COUNT(1) AS num FROM ecs_member_price WHERE ecs_member_price.goods_id&#x3D;ecs_goods.goods_id) &#x3D; 0;</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/DuplicateRemoval/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LearningSuggestions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/LearningSuggestions/">Java初学者的学习建议</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/LearningSuggestions/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:44:11.151Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这一部分其实也算是今天的重点，这一部分用来回答很多群里的朋友所问过的问题，那就是我你是如何学习Java的，能不能给点建议？ <br>今天我是打算来点干货，因此咱们就不说一些学习方法和技巧了，直接来谈每个阶段要学习的内容甚至是一些书籍。这一部分的内容，<br>同样适用于一些希望转行到Java的同学。<br>一位资深程序员大牛给予Java初学者的学习建议<br>在大家看之前，我要先声明两点。<br>1、由于我本人是Java后端开发出身，因此所推荐的学习内容是Java Web和Java后端开发的路线，<br>非Java Web和Java后端开发的同学请适当参考其学习思想即可，切勿照搬。<br>2、下面对于【第一部分】的推荐内容，目的是让你尽快<br>成为一个可以参加工作的Java开发者，更适用于处于待业状态，准备转行Java的同学。如果你是在校学生，务必要在学好基础（比如<br>计算机系统、算法、编译原理等等）的前提下，再考虑去进行下面的学习。第一部分：对于尚未做过Java工作的同学，包括一些在校<br>生以及刚准备转行Java的同学。<br><img src="/images/LearningSuggestions/1.jpeg" alt="1"></p>
+<p>一、Java基础 首先去找一个Java的基础教程学一下，这里可以推荐一个地址，或者你也可以参照这个地址上去找相应的视频。 学习<br>Java基础的时候，应该尽量多动手，很多时候，你想当然的事情，等你写出来运行一下，你就会发现不是这么回事儿，不信你就试试。 <br>学完以上内容以后，你应该对Java有一个基本的了解了，你可以用Java语言写出一些简单的程序，并且你用的是最简单的编辑器，比<br>如记事本。 这个时候，不要急于进入下一部分，留下几天好好写一些程序，尽可能熟悉这些基础内容。</p>
+<p>二、Web开发 等你写上几天程序以后，你往往会比较迷茫，因为你写的东西似乎看起来毫无用处，比如实现一个简单的计算器，读取<br>一个文件等。这个时候你就应该去学着写一些让你觉得有意思的东西了，所以你应该学习更多的知识。 这些内容主要是Web开发相关<br>的内容，包括HTML&#x2F;CSS&#x2F;JS（前端页面）、Servlet&#x2F;JSP（J2EE）以及Mysql（数据库）相关的知识。 它们的学习顺序应该是从前到<br>后，因此最先学习的应该是HTML&#x2F;CSS&#x2F;JS（前端页面），这部分内容你可以去上面的那个runoob网站上找。你可以试着自己写一些页<br>面，当然，你可以尽你最大的努力让它变得最漂亮。这部分内容对于后端Java来说，理论上不是特别重要，但至少要达到可以自己写出<br>一些简单页面的水平。 接下来，你需要学习的是Servlet&#x2F;JSP（J2EE）部分，这部分是Java后端开发必须非常精通的部分，因此这部分<br>是这三部分中最需要花精力的，而且这个时候，你要学会使用开发工具，而不能再使用记事本了，可以选择eclipse。 当 你下载安装好<br>eclipse以后，请视频中的教程一步一步去学习，一定要多动手。关于Servlet&#x2F;Jsp部分视频的选择，业界比较认可马士兵的视频， 因此<br>推荐给大家。当然了，我本人并没有看过他的视频，所以不好说的太绝对，如果大家自己有更好的选择，可以坚持自己的，不要被我干<br>扰。 原本我也是打算出教学视频的，但是由于时间问题，还是决定放弃了。 最后一步，你需要学会使用数据库，mysql是<br>个不错的入门选择，而且Java领域里主流的关系型数据库就是mysql。这部分一般在你学习Servlet&#x2F;Jsp的时候，就会接触到的，其中的<br>JDBC部分就是数据库相关的部分。你不仅要学会使用JDBC操作数据库，还要学会使用数据库客户端工具，比如navicat，sqlyog，<br>二选一即可。</p>
+<p>三、开发框架当你学会以上内容以后，这个时候你还不足以参加工作，你还需要继续深造。公司里为了提高开发的效率，会使用一些Java <br>Web框架，因此你还需要学习一些开发框架。目前比较主流的是SSM框架，即spring、springmvc、 mybatis。你需要学会这三个框架的搭<br>建，并用它们做出一个简单的增删改查的Web项目。你可以不理解那些配置都是什么含义，以及为什么要这么做，这 些留着后面你去了解。<br>但你一定要可以快速的利用它们三个搭建出一个Web框架，你可以记录下你第一次搭建的过程，相信我，你一定会用到的。还 要提一句的是，<br>你在搭建SSM的过程中，可能会经常接触到一个叫maven的工具。这个工具也是你以后工作当中几乎是必须要使用的工具，所以你在搭建 <br>SSM的过程中，也可以顺便了解一下maven的知识。在你目前这个阶段，你只需要在网络上了解一下maven基本的使用方法即可，一些高端的<br>用法随着你 工作经验的增加，会逐渐接触到的。关于学习SSM框架的地址给大家推荐一个，这里面有视频，大家可以去观看。<br>四、找工作当你<br>完成开发框架的学习以后，你就该找工作了，在校的找实习，毕业的找全职。与此同时，在找工作的同时，你不应该停下你的学习，准确的说，<br>是你在以后都不能停下学习。上面这些内容你只是囫囵吞枣的学会了使用，你可以逐步尝试着去了解更多的东西，网络是你最重要的老师。<br>第二部分：对于参加工作一年以内的同学。恭喜你，这个时候，你已经拥有了一份Java的工作。这个阶段是你成长极快的阶段，而且你可能会<br>经常加班。但是加班不代表你就可以松懈了，永远记得我说的那句话，从你入行那一刻起，你就要不停的学习。在这一年里，你至少需要看完<br>《Java编程思想》这本书。这本书的内容是帮助你对于Java有一个更加深入的了解，是Java基础的升级版。这本书很厚，当初看这本书，我花<br>了整整三个月。正常速度的话，应该可以在半年左右看完。我这里不要求过高，只要你在一年以内把这本书看完即可。当然了，我所说的看完，<br>是充分吸收，而不是读一遍就完事了，因此有些内容你可能会看不止一遍。总而言之，这个阶段的核心学习思想就是，在工作中实践，并且更<br>加深入的了解Java基础</p>
+<p>第二部分：对于参加工作1年到2年的同学。 这部分时间段的同学，已经对Java有了一个更加深入的了解。但是对于面向对象的体会可能还不够<br>深刻，编程的时候还停留在完成功能的层次，很少会去考虑设计的问题。 于是这个时候，设计模式就来了。我当时看的是《大话设计模式》这<br>本书，并且写了完整版的设计模式博客。因此，我要求大家，最多在你工作一年的时候，必须开始写博客，而设计模式就是你博客的开端。 请记<br>住，我所提的基本都是最低要求，因此不要有任何松懈的心理，否则五年后，你不要去羡慕别人高于你的工资，也不要去羡慕别人进入了某公司。<br> 这一年，你必须对于设计模式了如指掌，《大话设计模式》可以作为你的开端。 此外，设计模式并不是你这一年唯一的任务，你还需要看一些关<br>于代码编写优化的书。比如《重构 改善既有代码的设计》，《effective java》。 总而言之，这个阶段，你的核心任务就是提高你的代码能力，要<br>能写出一手优雅的代码。<br> 第三部分：对于参加工作2年到3年的同学 有的同学在这个时候觉得自己已经很牛逼了，于是忍不住开始慢慢松懈。请记住，你还嫩的多。 这个<br>阶段，有一本书是你必须看的，它叫做《深入理解Java虚拟机》。这本书绝对是Java开发者最重要的书，没有之一。在我眼里，这本书的重要性<br>还要高于《Java编程思想》。 这本书的内容是帮助你全面的了解Java虚拟机，在这个阶段，你一定已经知道Java是运行在JVM之上的。所以，<br>对于JVM，你没有任何理由不了解它。 另外，在过去2年的工作当中，你肯定或多或少接触过并发。这个时候，你应该去更加深入的了解并发相关<br>的知识，而这部分内容，我比较推荐《Java并发编程实战》这本书。只要你把这本书啃下来了，并发的部分基本已经了解了十之六七。 与此同时，<br>这个阶段你要做的事情还远不止如此。这个时候，你应该对于你所使用的框架应该有了更深入的了解，对于Java的类库也有了更深入的了解。因此，<br>你需要去看一些JDK中的类的源码，也包括你所使用的框架的源码。 这些源码能看懂的前提是，你必须对设计模式非常了解。否则的话，你看源码<br>的过程中，永远会有这样那样的疑问，这段代码为什么要这么写？为什么要定义这个接口，它看起来好像很多余？</p>
+<p>由 此也可以看出，这些学习的过程是环环相扣的，如果你任何一个阶段拉下来了，那么你就真的跟不上了，或者说是一步慢步步慢。而且我很负责<br>的告诉你，我在这个 阶段的时候，所学习的东西远多于这里所罗列出来的。因此千万不要觉得你已经学的很多了，我所说的这些都只是最低要求，<br>不光是我，很多人在这个时间段所学习 的内容都远超本文的范围。 如果你不能跟上节奏的话，若干年后，如果不是程序猿市场还不错的话，你很可能<br>不仅仅是工资比别人低，公司没别人好，而是根本就找不到工作。 总而言之，这个阶段，你需要做的是深入了解Java底层和Java类库（比如并发那本<br>书就是Java并发包java.concurrent的内容），也就是JVM和JDK的相关内容。而且还要更深入的去了解你所使用的框架，方式比较推荐看源码或者看<br>官方文档。 另外，还有一种学习的方式，在2年这个阶段，也应该启用了，那就是造轮子。 不要听信那套“不要重复造轮子”的论调，那是公司为了节省<br>时间成本编造出来的。重复造轮子或许对别人没有价值，因为你造的轮子可能早就有了，而且一般情况下你造出来的轮子还没有现存的好。但是对别人<br>没有价值，不代表对你自己没有价值。 一个造轮子的过程，是一个从无到有的过程。这个过程可以对你进行系统的锻炼，它不仅考察你的编码能力，还<br>考察你的框架设计能力，你需要让你的轮子拥有足够好的扩展性、健壮性。 而且在造轮子的过程中，你会遇到各种各样的难题，这些难题往往又是你学<br>习的契机。当你把轮子造好的时候，你一定会发现，其实你自己收获了很多。 所以，这个阶段，除了上面提到的了解JVM、JDK和框架源码以外，也请<br>你根据别人优秀的源码，去造一个任何你能够想象出来的轮子。</p>
+<p>第四部分：参加工作3年到4年的同学 这个阶段的同学，提升已经是很难了，而且这个阶段的学习往往会比较多样化。 因为在前3年的过程中，你肯定<br>或多或少接触过一些其它的技术，比如大数据、分布式缓存、分布式消息服务、分布式计算、软负载均衡等等。这些技术，你能精通任何一项，都将<br>是你未来面试时巨大的优势，因此如果你对某一项技术感兴趣的话，这个时候可以深入去研究一下。这项技术不一定是你工作所用到的，但一定是相<br>关的。 而且在研究一门新技术时，切忌朝三暮四。有的同学今天去整整大数据，搞搞Hadoop、hbase一类的东西。过不了一段时间，就觉得没意思，<br>又去研究分布式缓存，比如redis。然后又过不了一段时间，又去研究分布式计算，比如整整Mapreduce或者storm。 结果到最后，搞得自己好像什么都<br>会一样，在简历上大言不惭的写上大数据、分布式缓存、分布式计算都了解，其实任何一个都只是浮于表面。到时候面试官随便一问，就把你给识破了。<br> 一定要记住，作为一个程序猿，平日里所接触的技术可能会很多，但是想要让一门技术成为你的优势，那么一定是你对这门技术的了解强过绝大多数人<br>才行。 因此在这个阶段，你就不能再简单的去学习前3年的内容了，虽然前面的学习如果还不够深入的话依旧要继续，但这个时候你应该更多的考虑建立<br>你的优势，也可以称为差异性。 差异性相信不难理解，就是让你自己变得与众不同。你前面三年的学习足够你成为一名基本合格的Java开发者，但你离成<br>为一名优秀的Java开发者还有很大的距离。 所 谓优秀，即能别人所不能。而你前三年所学习的内容，是很多做过几年的Java开发都能够掌握的。那么为了<br>让自己有差异性，你就需要另辟蹊径，找一个方向深 入研究下去，以期在将来，你能够成为这个领域的专家，比如分布式计算领域的专家，大数据领域的<br>专家，并发领域的专家等等。 此 外，你除了建立你的差异性之外，还要去弥补你基础上的不足，直到现在，我都没有提及基础知识。原因是基础是很枯燥<br>无味的，学的太早不仅容易懵逼，而且懵逼 的同时还容易产生心理阴影，以至于以后再不想去研究这些基础。但基础又是你深入研究一些领域时所必须掌<br>握的，比如你去研究分布式计算，你不懂算法你玩个毛 毛？比如你去做分布式缓存，你对计算机系统的内存不了解，你如何去做缓存？ 如果你的基础本来<br>就非常强，那么恭喜你，相信你在之前的工作中已经充分体会到了这些基础对你的帮助。但我相信大部分人的基础都很薄弱，哪怕是科班毕业的人，很多人<br>也不敢说自己当初的基础学的多么强大，比如算法、计算机系统原理、编译原理这些。 但是每个人时间都是有限的，而且这些基础的书籍每一本读下来，没<br>个一年半载的，还真拿不下来，因此还是要有所抉择的。虽然艺多不压身，但问题是艺多是有代价的，是需要你付出时间和精力的，而我个人更赞成在同等<br>代价的情况下获取最大的收获。 首先，我比较推崇的基础书籍有三本，分别是《深入理解计算机系统》，《tcp&#x2F;ip详解 卷一、二、三》，《数据结构与算法》。<br>其中TCP&#x2F;IP有三本书，但我们这里把这三本看成是一本大书。 这三本分别适合三种人，《深入理解计算机系统》比较适合一直从事Java Web开发和APP后端<br>开发工作的人群。《tcp&#x2F;ip详解 卷一、二、三》比较适合做网络编程的人群，比如你使用netty去开发的话，那么就要对TCP&#x2F;IP有更深入的了解。而《数据结构<br>与算法》这本书，则比较适合做计算研究工作的人，比如刚才提到的分布式计算。 另外，我要强调的是，这里所说的适合，并不是其它两本对你就没有用。<br>比如你做Java Web和APP后端开发，《tcp&#x2F;ip详解 卷一、二、三》这本书对你的作用也是很大的。这里只是分出个主次关系而已，你要是时间足够的话，<br>能把三本都精读那当然最好不过了。但如果时间有限的话，那么就先挑对你帮助最大的书去读。 理论上来讲，这一年你能把这三本其中一本精读下来，<br>就已经非常厉害了。有了基础，有了前面的工作经验，你就可以去开拓属于你的领域了。 在这一年里，一定要规划好自己的领域，建立好自己的优势，<br>制造出差异性。如果你对自己的领域不够清晰的话，随着你工作的时间日益增多，你接触的技术会越来越多，这个时候，你很容易被淹死在技术的海洋<br>里，看似接触的技术越来越多，会用的也越来越多，但你毫无优势。 有的同学可能会问，“我，我也不知道我的领域是什么啊？怎么办呢？” 对于这种人，<br>我只想说，“卧槽，这还问我？要不干脆我替你学习得了，好不好？”</p>
+<p>第五部分：参加工作4年到5年的同学 经过前面一年的历练，相信你在自己所钻研的领域已经有了自己一定的见解，这个时候，技术上你应该已经遇到瓶颈了。<br> 这个时候不要着急提高自己的技术，已经是时候提高你的影响力了，你可以尝试去一些知名的公司去提高你的背景，你可以发表一些文章去影响更多的人。<br>当然，你也可以去Github创建一个属于你的开源项目，去打造自己的产品。这次的开源项目不同于之前的造轮子，你这个时候是真的要去尽量尝试造出来真<br>正对别人有价值的轮子。 技术学到这个阶段，很容易遇到瓶颈，而且往往达到一定程度后，你再深入下去的收效就真的微乎其微了，除非你是专门搞学术研<br>究的。然而很可惜，大部分程序猿做不到这一步，那是科学家做的事情。 这个时候提高影响力不仅仅是因为技术上容易遇到瓶颈，更多的是影响力可以给你<br>创造更多的机会。程序猿在某种程度上和明星很像，一个好的电视剧和电影就可以成就一批明星，程序猿有的时候也是，一个好的项目就可以成就一群程序猿<br>。 比如国内几个脍炙人口的项目，像淘宝、支付宝、QQ、百度、微信等等。这每一个项目，都成就了一批程序猿。我敢说，这里面任何一个项目，如果你是<br>它的核心开发，光是这样一个Title，就已经是你非常大的优势。更何况还不止如此，Title说到底也是个名头，更重要的是，这种项目在做的时候，对你的历练<br>一定也是非常给力的。 而你如果想要参与这样的项目，除了靠运气之外，影响力也是很重要的一个手段。比如你在分布式计算领域有一定的影响力，那么如果<br>有什么好的关于分布式计算的项目，对方就很可能会邀请你。就算人家不邀请你，你自己主动去面试的时候，对方如果知道你在这个领域的影响力，也肯定会<br>起到很大的作用，而这个作用，甚至可能会超过你现在的技术能力。 所以，在这个阶段，你最大的任务是提高自己的影响力，为自己未来的十年工作生涯那一天<br>做准备。如果你能够靠你的影响力和以前积累的技术，参与到一个伟大的项目当中，那么你后面的五年也就有着落了。 当然了，我现在满打满算，做程序猿也就<br>4年半不到，因此关于4年到5年这一部分，我的见解不一定是对的，就算是对的，也不一定是适合任何人的。所以，希望大家自己有的判断力，去决定到底该如何<br>度过这一年。</p>
+<p>结语本文到此就基本结束了，整篇文章很长，但其实主要就说的内容就是Java生涯的学习。关于这部分，我已经给出了自己的见解，但是还是<br>那句话，每个人吸收知识的时候，都要有抽取精华，去除糟粕的能力。我所说的，可能有些是对的，有些是错的，有些是适合你的，有些是不太<br>适合你的，你要自己能够判断。其实你在生活和工作当中也是一样的，你身边的人形形色色，有的人你喜欢，有的人你很讨厌。但其实你喜欢的<br>人也有缺点，你讨厌的人也有优点。你要学会从你讨厌的人身上学会他的优点，千万不要一棒子打死，这只会让你失去很多学习成长的机会。 好<br>了，说了这么多了，就到此为止吧，希望本文可以帮助到作为程序猿或即将成为程序猿的你。给自己一次蜕变IT高薪的机会。我们学的不仅是技术<br>更是梦想。<br><img src="/images/LearningSuggestions/2.jpg" alt="2"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/LearningSuggestions/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LogSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/LogSystem/">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/LogSystem/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:41:47.853Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>       Logstash是一个完全开源的工具，他可以对你的日志进行收集、分析，并将其存储供以后使用（如，搜索），您可以使用它。说到搜索，logstash带有一个web界面，搜索和展示所有日志。<br>        kibana 也是一个开源和免费的工具，他可以帮助您汇总、分析和搜索重要数据日志并提供友好的web界面。他可以为 Logstash 和 ElasticSearch 提供的日志分析的 Web 界面</p>
+<p> 简单来讲他具体的工作流程就是 logstash agent 监控并过滤日志，将过滤后的日志内容发给redis(这里的redis只处理队列不做存储)，logstash index将日志收集在一起交给<br>全文搜索服务ElasticSearch 可以用ElasticSearch进行自定义搜索 通过Kibana 来结合 自定义搜索进行页面展示，下图是 Kibana官网上的流程图<br><img src="/images/LogSystem/1.png" alt="1"><br>具体的网址：<a target="_blank" rel="noopener" href="http://blog.51cto.com/storysky/1158707">http://blog.51cto.com/storysky/1158707</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/LogSystem/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LogPlatform" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/LogPlatform/">使用logstash+elasticsearch+kibana快速搭建日志平台</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/LogPlatform/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:40:29.868Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:<br>根据关键字查询日志详情<br>监控系统的运行状况<br>统计分析，比如接口的调用次数、执行时间、成功率等<br>异常数据自动触发消息通知<br>基于日志的数据挖掘<br>很多团队在日志方面可能遇到的一些问题有:<br>开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力<br>日志数据分散在多个系统，难以查找<br>日志数据量大，查询速度慢<br>一个调用会涉及多个系统，难以在这些系统的日志中快速定位数据<br>数据不够实时<br>常见的一些重量级的开源Trace系统有<br>facebook scribe<br>cloudera flume<br>twitter zipkin<br>storm<br>这些项目功能强大，但对于很多团队来说过于复杂，配置和部署比较麻烦，在系统规模大到一定程度前推荐轻量级下载即用的方案，比如logstash+elasticsearch+kibana(LEK)组合。<br>对于日志来说，最常见的需求就是收集、查询、显示，正对应logstash、elasticsearch、kibana的功能。<br>logstash<br>logstash主页<br>logstash部署简单，下载一个jar就可以用了，对日志的处理逻辑也很简单，就是一个pipeline的过程<br>inputs &gt;&gt; codecs &gt;&gt; filters &gt;&gt; outputs</p>
+<p>对应的插件有<br>从上面可以看到logstash支持常见的日志类型，与其他监控系统的整合也很方便，可以将数据输出到zabbix、nagios、email等。<br>推荐用redis作为输入缓冲队列。<br>你还可以把数据统计后输出到graphite，实现统计数据的可视化显示。<br>elasticsearch<br>elasticsearch主页<br>elasticsearch是基于lucene的开源搜索引擎<br>kibana<br>kibana主页<br>kibana是一个功能强大的elasticsearch数据显示客户端，logstash已经内置了kibana，你也可以单独部署kibana，最新版的kibana3是纯html+js客户端，可以很方便的部署到Apache、Nginx等Http服务器。<br>安装部署<br>下面列一下一个简易LEK体验环境的搭建步骤<br>安装jdk 1.7<br>oracle java主页<br>省略安装过程，推荐1.7+版本<br>java -version</p>
+<p>设置java的环境变量，比如<br>sudo vim ~&#x2F;.bashrc</p>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>export JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-7-oracle<br>export JRE_HOME&#x3D;${JAVA_HOME}&#x2F;jre<br>export CLASSPATH&#x3D;.:${JAVA_HOME}&#x2F;lib:${JRE_HOME}&#x2F;lib<br>export PATH&#x3D;${JAVA_HOME}&#x2F;bin:$PATH  </p>
+<blockquote>
+</blockquote>
+</blockquote>
+<p>source ~&#x2F;.bashrc</p>
+<p>安装redis<br>redis主页<br>cd ~&#x2F;src<br>wget <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-2.6.16.tar.gz">http://download.redis.io/releases/redis-2.6.16.tar.gz</a><br>tar -zxf redis-2.6.16.tar.gz<br>cd redis-2.6.16<br>make<br>sudo make install</p>
+<p>可以通过redis源代码里utils&#x2F;install_server下的脚本简化配置工作<br>cd utils<br>sudo .&#x2F;install_server.sh </p>
+<p>install_server.sh在问你几个问题后会把redis安装为开机启动的服务，可以通过下面的命令行来启动&#x2F;停止服务<br>sudo &#x2F;etc&#x2F;init.d&#x2F;redis_ start&#x2F;end </p>
+<p>启动redis客户端来验证安装<br>redis-cli</p>
+<blockquote>
+<p>keys *</p>
+</blockquote>
+<p>安装Elasticsearch<br>Elasticsearch主页<br>cd &#x2F;search<br>sudo mkdir elasticsearch<br>cd elasticsearch<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip">http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip</a><br>sudo unzip elasticsearch-0.90.5.zip</p>
+<p>elasticsearch解压即可使用非常方便，接下来我们看一下效果，首先启动ES服务，切换到elasticsearch目录，运行bin下的elasticsearch<br>cd &#x2F;search&#x2F;elasticsearch&#x2F;elasticsearch-0.90.5<br>bin&#x2F;elasticsearch -f</p>
+<p>访问默认的9200端口<br>curl -X GET <a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200</a></p>
+<p>安装logstash<br>logstash主页<br>cd &#x2F;search<br>sudo mkdir logstash<br>cd logstash<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar">http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar</a></p>
+<p>logstash下载即可使用，命令行参数可以参考logstash flags，主要有<br>agent   #运行Agent模式<br>-f CONFIGFILE #指定配置文件</p>
+<p>web     #自动Web服务<br>-p PORT #指定端口，默认9292</p>
+<p>安装kibana<br>logstash的最新版已经内置kibana，你也可以单独部署kibana。kibana3是纯粹JavaScript+html的客户端，所以可以部署到任意http服务器上。<br>cd &#x2F;search<br>sudo mkdir kibana<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip">http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip</a><br>sudo unzip kibana-latest.zip<br>sudo cp -r  kibana-latest &#x2F;var&#x2F;www&#x2F;html</p>
+<p>可以修改config.js来配置elasticsearch的地址和索引。<br>用浏览器访问试试看 <a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html">http://127.0.0.1/html/kibana-latest/index.html</a><br>集成<br>把上面的系统集成起来<br>首先把redis和elasticsearch都启动起来<br>为logstash新建一个配置文件<br>cd &#x2F;search&#x2F;logstash<br>sudo vi redis.conf</p>
+<p>配置文件内容如下<br>input {<br>  redis {<br>    host &#x3D;&gt; “127.0.0.1”<br>    port &#x3D;&gt; “6379”<br>    key &#x3D;&gt; “logstash:demo”<br>    data_type &#x3D;&gt; “list”<br>    codec  &#x3D;&gt; “json”<br>    type &#x3D;&gt; “logstash-redis-demo”<br>    tags &#x3D;&gt; [“logstashdemo”]<br>  }<br>}</p>
+<p>output {<br>  elasticsearch {<br>    host &#x3D;&gt; “127.0.0.1”<br>  }</p>
+<p>}</p>
+<p>用这个配置文件启动logstash agent<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar agent -f &#x2F;search&#x2F;logstash&#x2F;redis.conf &amp;</p>
+<p>启动logstash内置的web<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar web &amp;</p>
+<p>查看web，应该还没有数据<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
+<p>在redis 加一条数据<br>RPUSH logstash:demo “{&quot;time&quot;: &quot;2013-01-01T01:23:55&quot;, &quot;message&quot;: &quot;logstash demo message&quot;}”</p>
+<p>看看elasticsearch中的索引现状<br>curl 127.0.0.1:9200&#x2F;_search?pretty&#x3D;true </p>
+<p>curl -s <a target="_blank" rel="noopener" href="http://127.0.0.1:9200/_status?pretty=true">http://127.0.0.1:9200/_status?pretty=true</a> | grep logstash</p>
+<p>再通过logstash web查询一下看看<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
+<p>通过单独的kibana界面查看<br><a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json">http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json</a></p>
+<p>数据清理<br>logstash默认按天创建ES索引，这样的好处是删除历史数据时直接删掉整个索引就可以了，方便快速。<br>elasticsearch也可以设置每个文档的ttl(time to live)，相当于设置文档的过期时间，但相比删除整个索引要耗费更多的IO操作。<br>索引<br>elasticsearch默认会按照分隔符对字段拆分，日志有些字段不要分词，比如url，可以为这类字段设置not_analyzed属性。<br>设置multi-field-type属性可以将字段映射到其他类型。multi-field-type。<br>大量日志导入时用bulk方式。<br>对于日志查询来说，filter比query更快 过滤器里不会执行评分而且可以被自动缓存。query-dsl。<br>elasticsearch默认一个索引操作会在所有分片都完成对文档的索引后才返回，你可以把复制设置为异步来加快批量日志的导入。<br>elasticsearch 优化<br>优化JVM <br>优化系统可以打开最大文件描述符的数量 <br>适当增加索引刷新的间隔<br>最佳实践<br>首先你的程序要写日志<br>记录的日志要能帮助你分析问题，只记录”参数错误”这样的日志对解决问题毫无帮助<br>不要依赖异常，异常只处理你没考虑到的地方<br>要记录一些关键的参数，比如发生时间、执行时间、日志来源、输入参数、输出参数、错误码、异常堆栈信息等<br>要记录sessionid、transitionid、userid等帮你快速定位以及能把各个系统的日志串联起来的关键参数<br>推荐纯文本+json格式<br>使用队列<br>具体网址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html">https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html</a><br>或<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ityouknow/p/4933103.html">https://www.cnblogs.com/ityouknow/p/4933103.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/LogPlatform/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CommonTechnologies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/CommonTechnologies/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:36:08.618Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经常使用到的技术：<br>1.html、css<br>2.java工作原理（jvm）<br>3.java语法、数据结构和算法<br>4.java语言特性（封装、继承、多态、抽象）<br>5.java设计模式（在开发中会经常用到）<br>6.java反射机制（常用框架都会用到反射机制）<br>7.io（文件读写）<br>8.多线程<br>9.网络编程<br>10.javascript<br>11.jquery<br>12.数据库（oracle、mysql等等）<br>13.servlet<br>14.JDBC<br>15.javabean<br>16.WEB项目分层架构<br>17.前后台交互<br>18.ajax<br>19.过滤器及过滤器原理<br>20.常用框架（Struts、hibernate、spring、springMVC、i&#x2F;mybatis）<br>21.框架整合<br>22.工作流（流程引擎工作机制）<br>23.xml、properties、json<br>24.常用页面以及后台插件（tree、时间、poi等等）<br>25.nosql数据库以及应用场景（mongoDB）<br>26.缓存数据库以及机制（redis、memcached）<br>27.第三方接口调用<br>28.SDK<br>29.web应用服务器（tomcat、weblogic）<br>30.linux<br>31.日志<br>32.数据库连接池<br>33.maven<br>34.svn<br>35.建模工具（powerdesiner、axure）使用<br>36.TCP&#x2F;IP<br><img src="/images/CommonTechnologies/1.png" alt="1"><br><img src="/images/CommonTechnologies/2.png" alt="2"><br><img src="/images/CommonTechnologies/3.png" alt="3"><br><img src="/images/CommonTechnologies/4.png" alt="4"><br><img src="/images/CommonTechnologies/5.png" alt="5"><br><img src="/images/CommonTechnologies/6.png" alt="6"><br><img src="/images/CommonTechnologies/7.png" alt="7"><br><img src="/images/CommonTechnologies/8.png" alt="8"><br><img src="/images/CommonTechnologies/9.png" alt="9"><br><img src="/images/CommonTechnologies/10.png" alt="10"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/CommonTechnologies/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-BigData" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/BigData/">大数据学习路线（完整详细版）</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/BigData/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:34:48.879Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大数据学习路线</p>
+<p>java(Java se,javaweb)<br>Linux(shell,高并发架构,lucene,solr)<br>Hadoop(Hadoop,HDFS,Mapreduce,yarn,hive,hbase,sqoop,zookeeper,flume)<br>机器学习(R,mahout)<br>Storm(Storm,kafka,redis)<br>Spark(scala,spark,spark core,spark sql,spark streaming,spark mllib,spark graphx)<br>Python(python,spark python) <br>云计算平台(docker,kvm,openstack)</p>
+<p>名词解释</p>
+<p>一、Linux<br>lucene： 全文检索引擎的架构<br>solr： 基于lucene的全文搜索服务器，实现了可配置、可扩展并对查询性能进行了优化，并且提供了一个完善的功能管理界面。</p>
+<p>二、Hadoop<br>HDFS： 分布式存储系统，包含NameNode，DataNode。NameNode：元数据，DataNode。DataNode：存数数据。<br>yarn： 可以理解为MapReduce的协调机制，本质就是Hadoop的处理分析机制，分为ResourceManager NodeManager。<br>MapReduce： 软件框架，编写程序。<br>Hive： 数据仓库 可以用SQL查询，可以运行Map&#x2F;Reduce程序。用来计算趋势或者网站日志，不应用于实时查询，需要很长时间返回结果。<br>HBase： 数据库。非常适合用来做大数据的实时查询。Facebook用Hbase存储消息数据并进行消息实时的分析<br>ZooKeeper： 针对大型分布式的可靠性协调系统。Hadoop的分布式同步等靠Zookeeper实现，例如多个NameNode，active standby切换。<br>Sqoop： 数据库相互转移，关系型数据库和HDFS相互转移<br>Mahout： 可扩展的机器学习和数据挖掘库。用来做推荐挖掘，聚集，分类，频繁项集挖掘。<br>Chukwa： 开源收集系统，监视大型分布式系统，建立在HDFS和Map&#x2F;Reduce框架之上。显示、监视、分析结果。<br>Ambari： 用于配置、管理和监视Hadoop集群，基于Web，界面友好。</p>
+<p>三、Cloudera<br>Cloudera Manager： 管理 监控 诊断 集成<br>Cloudera CDH：(Cloudera’s Distribution，including Apache Hadoop) Cloudera对Hadoop做了相应的改变，发行版本称为CDH。<br>Cloudera Flume： 日志收集系统，支持在日志系统中定制各类数据发送方，用来收集数据。<br>Cloudera Impala： 对存储在Apache Hadoop的HDFS，HBase的数据提供直接查询互动的SQL。<br>Cloudera hue： web管理器，包括hue ui，hui server，hui db。hue提供所有CDH组件的shell界面的接口，可以在hue编写mr。</p>
+<p>四、机器学习&#x2F;R<br>R： 用于统计分析、绘图的语言和操作环境，目前有Hadoop-R<br>mahout： 提供可扩展的机器学习领域经典算法的实现，包括聚类、分类、推荐过滤、频繁子项挖掘等，且可通过Hadoop扩展到云中。</p>
+<p>五、storm<br>Storm： 分布式，容错的实时流式计算系统，可以用作实时分析，在线机器学习，信息流处理，连续性计算，分布式RPC，实时处理消息并更新数据库。<br>Kafka： 高吞吐量的分布式发布订阅消息系统，可以处理消费者规模的网站中的所有动作流数据（浏览，搜索等）。相对Hadoop的日志数据和离线分析，可以实现实时处理。目前通过Hadoop的并行加载机制来统一线上和离线的消息处理<br>Redis： 由c语言编写，支持网络、可基于内存亦可持久化的日志型、key-value型数据库。</p>
+<p>六、Spark<br>Scala： 一种类似java的完全面向对象的编程语言。<br>jblas： 一个快速的线性代数库（JAVA）。基于BLAS与LAPACK，矩阵计算实际的行业标准，并使用先进的基础设施等所有的计算程序的ATLAS艺术的实现，使其非常快。<br>Spark： Spark是在Scala语言中实现的类似于Hadoop MapReduce的通用并行框架，除了Hadoop MapReduce所具有的优点，但不同于MapReduce的是job中间输出结果可以保存在内存中，从而不需要读写HDFS，因此Spark能更好的适用于数据挖掘与机器学习等需要迭代的MapReduce算法。可以和Hadoop文件系统并行运作，用过Mesos的第三方集群框架可以支持此行为。<br>Spark SQL： 作为Apache Spark大数据框架的一部分,可用于结构化数据处理并可以执行类似SQL的Spark数据查询<br>Spark Streaming： 一种构建在Spark上的实时计算框架，扩展了Spark处理大数据流式数据的能力。<br>Spark MLlib： MLlib是Spark是常用的机器学习算法的实现库，目前(2014.05)支持二元分类，回归，聚类以及协同过滤。同时也包括一个底层的梯度下降优化基础算法。MLlib以来jblas线性代数库，jblas本身以来远程的Fortran程序。<br>Spark GraphX： GraphX是Spark中用于图和图并行计算的API，可以在Spark之上提供一站式数据解决方案，可以方便且高效地完成图计算的一整套流水作业。<br>Fortran： 最早出现的计算机高级程序设计语言，广泛应用于科学和工程计算领域。<br>BLAS： 基础线性代数子程序库，拥有大量已经编写好的关于线性代数运算的程序。<br>LAPACK： 著名的公开软件，包含了求解科学与工程计算中最常见的数值线性代数问题，如求解线性方程组、线性最小二乘问题、特征值问题和奇异值问题等。<br>ATLAS： BLAS线性算法库的优化版本。<br>Spark Python： Spark是由scala语言编写的，但是为了推广和兼容，提供了java和python接口。</p>
+<p>七、Python<br>Python: 一种面向对象的、解释型计算机程序设计语言。</p>
+<p>八、云计算平台<br>Docker： 开源的应用容器引擎<br>kvm： (Keyboard Video Mouse)<br>openstack：  开源的云计算管理平台项目</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/BigData/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-DesignMode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/DesignMode/">Java开发中的23种设计模式详解</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/DesignMode/" class="archive-article-date">
+  	<time datetime="2022-09-15T14:48:16.687Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总体来说设计模式分为三大类：<br>创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。<br>结构型模式，共七种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。<br>行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。<br>其实还有两类：并发型模式和线程池模式。用一个图片来整体描述一下：<br><img src="/images/DesignMode/1.jpeg" alt="1"><br> <br>二、设计模式的六大原则<br>1、开闭原则（Open Close Principle）<br>开闭原则就是说对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。所以一句话概括就是：为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。<br>2、里氏代换原则（Liskov Substitution Principle）<br>里氏代换原则(Liskov Substitution Principle LSP)面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。 LSP是继承复用的基石，只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。里氏代换原则是对“开-闭”原则的补充。实现“开-闭”原则的关键步骤就是抽象化。而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。—— From Baidu 百科<br>3、依赖倒转原则（Dependence Inversion Principle）<br>这个是开闭原则的基础，具体内容：真对接口编程，依赖于抽象而不依赖于具体。<br>4、接口隔离原则（Interface Segregation Principle）<br>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。还是一个降低类之间的耦合度的意思，从这儿我们看出，其实设计模式就是一个软件的设计思想，从大型软件架构出发，为了升级和维护方便。所以上文中多次出现：降低依赖，降低耦合。<br>5、迪米特法则（最少知道原则）（Demeter Principle）<br>为什么叫最少知道原则，就是说：一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。<br>6、合成复用原则（Composite Reuse Principle）<br>原则是尽量使用合成&#x2F;聚合的方式，而不是使用继承。<br>三、Java的23中设计模式<br>从这一块开始，我们详细介绍Java中23种设计模式的概念，应用场景等情况，并结合他们的特点及设计模式的原则进行分析。<br>1、工厂方法模式（Factory Method）<br>工厂方法模式分为三种：<br>11、普通工厂模式，就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。首先看下关系图：<br>举例如下：（我们举一个发送邮件和短信的例子）<br>首先，创建二者的共同接口：<br> <br>public interface Sender {  <br>    public void Send();  <br>}  <br> <br>其次，创建实现类：<br> <br>public class MailSender implements Sender {  <br>    @Override  <br>    public void Send() {  <br>        System.out.println(“this is mailsender!”);  <br>    }  <br>}  <br> <br>public class SmsSender implements Sender {  <br>  <br>    @Override  <br>    public void Send() {  <br>        System.out.println(“this is sms sender!”);  <br>    }  <br>}  <br> <br>最后，建工厂类：<br> <br>public class SendFactory {  <br>  <br>    public Sender produce(String type) {  <br>        if (“mail”.equals(type)) {  <br>            return new MailSender();  <br>        } else if (“sms”.equals(type)) {  <br>            return new SmsSender();  <br>        } else {  <br>            System.out.println(“请输入正确的类型!”);  <br>            return null;  <br>        }  <br>    }  <br>}  <br> <br>我们来测试下：<br> <br>public class FactoryTest {  <br>  <br>    public static void main(String[] args) {  <br>        SendFactory factory &#x3D; new SendFactory();  <br>        Sender sender &#x3D; factory.produce(“sms”);  <br>        sender.Send();  <br>    }  <br>}  <br> <br>输出：this is sms sender!<br>22、多个工厂方法模式，是对普通工厂方法模式的改进，在普通工厂方法模式中，如果传递的字符串出错，则不能正确创建对象，而多个工厂方法模式是提供多个工厂方法，分别创建对象。关系图：<br><img src="/images/DesignMode/2.jpeg" alt="2"><br>将上面的代码做下修改，改动下SendFactory类就行，如下：<br> <br>public class SendFactory {  <br>   public Sender produceMail(){  <br>        return new MailSender();  <br>    }  <br>      <br>    public Sender produceSms(){  <br>        return new SmsSender();  <br>    }  <br>}  <br> <br>测试类如下：<br> <br>public class FactoryTest {  <br>  <br>    public static void main(String[] args) {  <br>        SendFactory factory &#x3D; new SendFactory();  <br>        Sender sender &#x3D; factory.produceMail();  <br>        sender.Send();  <br>    }  <br>}  <br> <br>输出：this is mailsender!<br>33、静态工厂方法模式，将上面的多个工厂方法模式里的方法置为静态的，不需要创建实例，直接调用即可。<br> <br>public class SendFactory {  <br>      <br>    public static Sender produceMail(){  <br>        return new MailSender();  <br>    }  <br>      <br>    public static Sender produceSms(){  <br>        return new SmsSender();  <br>    }  <br>}  <br> <br>public class FactoryTest {  <br>  <br>    public static void main(String[] args) {      <br>        Sender sender &#x3D; SendFactory.produceMail();  <br>        sender.Send();  <br>    }  <br>}  <br> <br>输出：this is mailsender!<br>总体来说，工厂模式适合：凡是出现了大量的产品需要创建，并且具有共同的接口时，可以通过工厂方法模式进行创建。在以上的三种模式中，第一种如果传入的字符串有误，不能正确创建对象，第三种相对于第二种，不需要实例化工厂类，所以，大多数情况下，我们会选用第三种——静态工厂方法模式。<br>2、抽象工厂模式（Abstract Factory）<br>工厂方法模式有一个问题就是，类的创建依赖工厂类，也就是说，如果想要拓展程序，必须对工厂类进行修改，这违背了闭包原则，所以，从设计角度考虑，有一定的问题，如何解决？就用到抽象工厂模式，创建多个工厂类，这样一旦需要增加新的功能，直接增加新的工厂类就可以了，不需要修改之前的代码。因为抽象工厂不太好理解，我们先看看图，然后就和代码，就比较容易理解。<br><img src="/images/DesignMode/3.jpeg" alt="3"><br>请看例子：<br> <br>public interface Sender {  <br>    public void Send();  <br>}  <br> <br>两个实现类：<br> <br>public class MailSender implements Sender {  <br>    @Override  <br>    public void Send() {  <br>        System.out.println(“this is mailsender!”);  <br>    }  <br>}  <br> <br>public class SmsSender implements Sender {  <br>  <br>    @Override  <br>    public void Send() {  <br>        System.out.println(“this is sms sender!”);  <br>    }  <br>}  <br> <br>两个工厂类：<br> <br>public class SendMailFactory implements Provider {  <br>      <br>    @Override  <br>    public Sender produce(){  <br>        return new MailSender();  <br>    }  <br>}  <br> <br>public class SendSmsFactory implements Provider{  <br>  <br>    @Override  <br>    public Sender produce() {  <br>        return new SmsSender();  <br>    }  <br>}  <br> <br>在提供一个接口：<br> <br>public interface Provider {  <br>    public Sender produce();  <br>}  <br> <br>测试类：<br> <br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        Provider provider &#x3D; new SendMailFactory();  <br>        Sender sender &#x3D; provider.produce();  <br>        sender.Send();  <br>    }  <br>}  <br> <br>其实这个模式的好处就是，如果你现在想增加一个功能：发及时信息，则只需做一个实现类，实现Sender接口，同时做一个工厂类，实现Provider接口，就OK了，无需去改动现成的代码。这样做，拓展性较好！<br>3、单例模式（Singleton）<br>单例对象（Singleton）是一种常用的设计模式。在Java应用中，单例对象能保证在一个JVM中，该对象只有一个实例存在。这样的模式有几个好处：<br>1、某些类创建比较频繁，对于一些大型的对象，这是一笔很大的系统开销。<br>2、省去了new操作符，降低了系统内存的使用频率，减轻GC压力。<br>3、有些类如交易所的核心交易引擎，控制着交易流程，如果该类可以创建多个的话，系统完全乱了。（比如一个军队出现了多个司令员同时指挥，肯定会乱成一团），所以只有使用单例模式，才能保证核心交易服务器独立控制整个流程。<br>首先我们写一个简单的单例类：<br> <br>public class Singleton {  <br>  <br>    &#x2F;* 持有私有静态实例，防止被引用，此处赋值为null，目的是实现延迟加载 <em>&#x2F;  <br>    private static Singleton instance &#x3D; null;  <br>  <br>    &#x2F;</em> 私有构造方法，防止被实例化 <em>&#x2F;  <br>    private Singleton() {  <br>    }  <br>  <br>    &#x2F;</em> 静态工程方法，创建实例 <em>&#x2F;  <br>    public static Singleton getInstance() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            instance &#x3D; new Singleton();  <br>        }  <br>        return instance;  <br>    }  <br>  <br>    &#x2F;</em> 如果该对象被用于序列化，可以保证对象在序列化前后保持一致 *&#x2F;  <br>    public Object readResolve() {  <br>        return instance;  <br>    }  <br>}  
+ </p>
+<p>这个类可以满足基本要求，但是，像这样毫无线程安全保护的类，如果我们把它放入多线程的环境下，肯定就会出现问题了，如何解决？我们首先会想到对getInstance方法加synchronized关键字，如下：</p>
+<p>public static synchronized Singleton getInstance() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            instance &#x3D; new Singleton();  <br>        }  <br>        return instance;  <br>    }  <br> <br>但是，synchronized关键字锁住的是这个对象，这样的用法，在性能上会有所下降，因为每次调用getInstance()，都要对对象上锁，事实上，只有在第一次创建对象的时候需要加锁，之后就不需要了，所以，这个地方需要改进。我们改成下面这个：<br> <br>public static Singleton getInstance() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            synchronized (instance) {  <br>                if (instance &#x3D;&#x3D; null) {  <br>                    instance &#x3D; new Singleton();  <br>                }  <br>            }  <br>        }  <br>        return instance;  <br>    }  <br> <br>似乎解决了之前提到的问题，将synchronized关键字加在了内部，也就是说当调用的时候是不需要加锁的，只有在instance为null，并创建对象的时候才需要加锁，性能有一定的提升。但是，这样的情况，还是有可能有问题的，看下面的情况：在Java指令中创建对象和赋值操作是分开进行的，也就是说instance &#x3D; new Singleton();语句是分两步执行的。但是JVM并不保证这两个操作的先后顺序，也就是说有可能JVM会为新的Singleton实例分配空间，然后直接赋值给instance成员，然后再去初始化这个Singleton实例。这样就可能出错了，我们以A、B两个线程为例：<br>a&gt;A、B线程同时进入了第一个if判断<br>b&gt;A首先进入synchronized块，由于instance为null，所以它执行instance &#x3D; new Singleton();<br>c&gt;由于JVM内部的优化机制，JVM先画出了一些分配给Singleton实例的空白内存，并赋值给instance成员（注意此时JVM没有开始初始化这个实例），然后A离开了synchronized块。<br>d&gt;B进入synchronized块，由于instance此时不是null，因此它马上离开了synchronized块并将结果返回给调用该方法的程序。<br>e&gt;此时B线程打算使用Singleton实例，却发现它没有被初始化，于是错误发生了。<br>所以程序还是有可能发生错误，其实程序在运行过程是很复杂的，从这点我们就可以看出，尤其是在写多线程环境下的程序更有难度，有挑战性。我们对该程序做进一步优化：<br> <br>private static class SingletonFactory{           <br>        private static Singleton instance &#x3D; new Singleton();           <br>    }           <br>    public static Singleton getInstance(){           <br>        return SingletonFactory.instance;           <br>    }   <br> <br>实际情况是，单例模式使用内部类来维护单例的实现，JVM内部的机制能够保证当一个类被加载的时候，这个类的加载过程是线程互斥的。这样当我们第一次调用getInstance的时候，JVM能够帮我们保证instance只被创建一次，并且会保证把赋值给instance的内存初始化完毕，这样我们就不用担心上面的问题。同时该方法也只会在第一次调用的时候使用互斥机制，这样就解决了低性能问题。这样我们暂时总结一个完美的单例模式：<br> <br>public class Singleton {  <br>  <br>    &#x2F;* 私有构造方法，防止被实例化 <em>&#x2F;  <br>    private Singleton() {  <br>    }  <br>  <br>    &#x2F;</em> 此处使用一个内部类来维护单例 <em>&#x2F;  <br>    private static class SingletonFactory {  <br>        private static Singleton instance &#x3D; new Singleton();  <br>    }  <br>  <br>    &#x2F;</em> 获取实例 <em>&#x2F;  <br>    public static Singleton getInstance() {  <br>        return SingletonFactory.instance;  <br>    }  <br>  <br>    &#x2F;</em> 如果该对象被用于序列化，可以保证对象在序列化前后保持一致 <em>&#x2F;  <br>    public Object readResolve() {  <br>        return getInstance();  <br>    }  <br>}  <br> <br>其实说它完美，也不一定，如果在构造函数中抛出异常，实例将永远得不到创建，也会出错。所以说，十分完美的东西是没有的，我们只能根据实际情况，选择最适合自己应用场景的实现方法。也有人这样实现：因为我们只需要在创建类的时候进行同步，所以只要将创建和getInstance()分开，单独为创建加synchronized关键字，也是可以的：<br> <br>public class SingletonTest {  <br>  <br>    private static SingletonTest instance &#x3D; null;  <br>  <br>    private SingletonTest() {  <br>    }  <br>  <br>    private static synchronized void syncInit() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            instance &#x3D; new SingletonTest();  <br>        }  <br>    }  <br>  <br>    public static SingletonTest getInstance() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            syncInit();  <br>        }  <br>        return instance;  <br>    }  <br>}  <br> <br>考虑性能的话，整个程序只需创建一次实例，所以性能也不会有什么影响。<br>补充：采用”影子实例”的办法为单例对象的属性同步更新<br> <br>public class SingletonTest {  <br>  <br>    private static SingletonTest instance &#x3D; null;  <br>    private Vector properties &#x3D; null;  <br>  <br>    public Vector getProperties() {  <br>        return properties;  <br>    }  <br>  <br>    private SingletonTest() {  <br>    }  <br>  <br>    private static synchronized void syncInit() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            instance &#x3D; new SingletonTest();  <br>        }  <br>    }  <br>  <br>    public static SingletonTest getInstance() {  <br>        if (instance &#x3D;&#x3D; null) {  <br>            syncInit();  <br>        }  <br>        return instance;  <br>    }  <br>  <br>    public void updateProperties() {  <br>        SingletonTest shadow &#x3D; new SingletonTest();  <br>        properties &#x3D; shadow.getProperties();  <br>    }  <br>}  <br> <br>通过单例模式的学习告诉我们：<br>1、单例模式理解起来简单，但是具体实现起来还是有一定的难度。<br>2、synchronized关键字锁定的是对象，在用的时候，一定要在恰当的地方使用（注意需要使用锁的对象和过程，可能有的时候并不是整个对象及整个过程都需要锁）。<br>到这儿，单例模式基本已经讲完了，结尾处，笔者突然想到另一个问题，就是采用类的静态方法，实现单例模式的效果，也是可行的，此处二者有什么不同？<br>首先，静态类不能实现接口。（从类的角度说是可以的，但是那样就破坏了静态了。因为接口中不允许有static修饰的方法，所以即使实现了也是非静态的）<br>其次，单例可以被延迟初始化，静态类一般在第一次加载是初始化。之所以延迟加载，是因为有些类比较庞大，所以延迟加载有助于提升性能。<br>再次，单例类可以被继承，他的方法可以被覆写。但是静态类内部方法都是static，无法被覆写。<br>最后一点，单例类比较灵活，毕竟从实现上只是一个普通的Java类，只要满足单例的基本需求，你可以在里面随心所欲的实现一些其它功能，但是静态类不行。从上面这些概括中，基本可以看出二者的区别，但是，从另一方面讲，我们上面最后实现的那个单例模式，内部就是用一个静态类来实现的，所以，二者有很大的关联，只是我们考虑问题的层面不同罢了。两种思想的结合，才能造就出完美的解决方案，就像HashMap采用数组+链表来实现一样，其实生活中很多事情都是这样，单用不同的方法来处理问题，总是有优点也有缺点，最完美的方法是，结合各个方法的优点，才能最好的解决问题！<br>4、建造者模式（Builder）<br>工厂类模式提供的是创建单个类的模式，而建造者模式则是将各种产品集中起来进行管理，用来创建复合对象，所谓复合对象就是指某个类具有不同的属性，其实建造者模式就是前面抽象工厂模式和最后的Test结合起来得到的。我们看一下代码：<br>还和前面一样，一个Sender接口，两个实现类MailSender和SmsSender。最后，建造者类如下：<br> <br>public class Builder {  <br>      <br>    private List<Sender> list &#x3D; new ArrayList<Sender>();  <br>      <br>    public void produceMailSender(int count){  <br>        for(int i&#x3D;0; i&lt;count; i++){  <br>            list.add(new MailSender());  <br>        }  <br>    }  <br>      <br>    public void produceSmsSender(int count){  <br>        for(int i&#x3D;0; i&lt;count; i++){  <br>            list.add(new SmsSender());  <br>        }  <br>    }  <br>}  <br> <br>测试类：<br> <br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        Builder builder &#x3D; new Builder();  <br>        builder.produceMailSender(10);  <br>    }  <br>}  <br> <br>从这点看出，建造者模式将很多功能集成到一个类里，这个类可以创造出比较复杂的东西。所以与工程模式的区别就是：工厂模式关注的是创建单个产品，而建造者模式则关注创建符合对象，多个部分。因此，是选择工厂模式还是建造者模式，依实际情况而定。<br>5、原型模式（Prototype）<br>原型模式虽然是创建型的模式，但是与工程模式没有关系，从名字即可看出，该模式的思想就是将一个对象作为原型，对其进行复制、克隆，产生一个和原对象类似的新对象。本小结会通过对象的复制，进行讲解。在Java中，复制对象是通过clone()实现的，先创建一个原型类：<br> <br>public class Prototype implements Cloneable {  <br>  <br>    public Object clone() throws CloneNotSupportedException {  <br>        Prototype proto &#x3D; (Prototype) super.clone();  <br>        return proto;  <br>    }  <br>}  <br> <br>很简单，一个原型类，只需要实现Cloneable接口，覆写clone方法，此处clone方法可以改成任意的名称，因为Cloneable接口是个空接口，你可以任意定义实现类的方法名，如cloneA或者cloneB，因为此处的重点是super.clone()这句话，super.clone()调用的是Object的clone()方法，而在Object类中，clone()是native的，具体怎么实现，我会在另一篇文章中，关于解读Java中本地方法的调用，此处不再深究。在这儿，我将结合对象的浅复制和深复制来说一下，首先需要了解对象深、浅复制的概念：<br>浅复制：将一个对象复制后，基本数据类型的变量都会重新创建，而引用类型，指向的还是原对象所指向的。<br>深复制：将一个对象复制后，不论是基本数据类型还有引用类型，都是重新创建的。简单来说，就是深复制进行了完全彻底的复制，而浅复制不彻底。<br>此处，写一个深浅复制的例子：<br> <br>public class Prototype implements Cloneable, Serializable {  <br>  <br>    private static final long serialVersionUID &#x3D; 1L;  <br>    private String string;  <br>  <br>    private SerializableObject obj;  <br>  <br>    &#x2F;</em> 浅复制 <em>&#x2F;  <br>    public Object clone() throws CloneNotSupportedException {  <br>        Prototype proto &#x3D; (Prototype) super.clone();  <br>        return proto;  <br>    }  <br>  <br>    &#x2F;</em> 深复制 <em>&#x2F;  <br>    public Object deepClone() throws IOException, ClassNotFoundException {  <br>  <br>        &#x2F;</em> 写入当前对象的二进制流 <em>&#x2F;  <br>        ByteArrayOutputStream bos &#x3D; new ByteArrayOutputStream();  <br>        ObjectOutputStream oos &#x3D; new ObjectOutputStream(bos);  <br>        oos.writeObject(this);  <br>  <br>        &#x2F;</em> 读出二进制流产生的新对象 *&#x2F;  <br>        ByteArrayInputStream bis &#x3D; new ByteArrayInputStream(bos.toByteArray());  <br>        ObjectInputStream ois &#x3D; new ObjectInputStream(bis);  <br>        return ois.readObject();  <br>    }  <br>  <br>    public String getString() {  <br>        return string;  <br>    }  <br>  <br>    public void setString(String string) {  <br>        this.string &#x3D; string;  <br>    }  <br>  <br>    public SerializableObject getObj() {  <br>        return obj;  <br>    }  <br>  <br>    public void setObj(SerializableObject obj) {  <br>        this.obj &#x3D; obj;  <br>    }  <br>  <br>}  <br>  <br>class SerializableObject implements Serializable {  <br>    private static final long serialVersionUID &#x3D; 1L;  <br>}  <br> <br> <br>要实现深复制，需要采用流的形式读入当前对象的二进制输入，再写出二进制数据对应的对象。<br>我们接着讨论设计模式，上篇文章我讲完了5种创建型模式，这章开始，我将讲下7种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。其中对象的适配器模式是各种模式的起源，我们看下面的图：<br><img src="/images/DesignMode/4.jpeg" alt="4"><br> 适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。首先，我们来看看类的适配器模式，先看类图：<br><img src="/images/DesignMode/5.jpeg" alt="5"><br>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里，看代码：<br>public class Source {  <br>  <br>    public void method1() {  <br>        System.out.println(“this is original method!”);  <br>    }  <br>}  </p>
+<p>public interface Targetable {  <br>  <br>    &#x2F;* 与原类中的方法相同 <em>&#x2F;  <br>    public void method1();  <br>  <br>    &#x2F;</em> 新类的方法 *&#x2F;  <br>    public void method2();  <br>}  </p>
+<p>public class Adapter extends Source implements Targetable {  <br>  <br>    @Override  <br>    public void method2() {  <br>        System.out.println(“this is the targetable method!”);  <br>    }  <br>}  <br>Adapter类继承Source类，实现Targetable接口，下面是测试类：</p>
+<p>public class AdapterTest {  <br>  <br>    public static void main(String[] args) {  <br>        Targetable target &#x3D; new Adapter();  <br>        target.method1();  <br>        target.method2();  <br>    }  <br>}  <br>输出：<br>this is original method!<br>this is the targetable method!<br>这样Targetable接口的实现类就具有了Source类的功能。<br>对象的适配器模式<br>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例，以达到解决兼容性的问题。看图：<br><img src="/images/DesignMode/6.jpeg" alt="6"><br> <br>只需要修改Adapter类的源码即可：<br>public class Wrapper implements Targetable {  <br>  <br>    private Source source;  <br>      <br>    public Wrapper(Source source){  <br>        super();  <br>        this.source &#x3D; source;  <br>    }  <br>    @Override  <br>    public void method2() {  <br>        System.out.println(“this is the targetable method!”);  <br>    }  <br>  <br>    @Override  <br>    public void method1() {  <br>        source.method1();  <br>    }  <br>}  <br>测试类：<br>public class AdapterTest {  <br>  <br>    public static void main(String[] args) {  <br>        Source source &#x3D; new Source();  <br>        Targetable target &#x3D; new Wrapper(source);  <br>        target.method1();  <br>        target.method2();  <br>    }  <br>}  <br>输出与第一种一样，只是适配的方法不同而已。<br>第三种适配器模式是接口的适配器模式，接口的适配器是这样的：有时我们写的一个接口中有多个抽象方法，当我们写该接口的实现类时，必须实现该接口的所有方法，这明显有时比较浪费，因为并不是所有的方法都是我们需要的，有时只需要某一些，此处为了解决这个问题，我们引入了接口的适配器模式，借助于一个抽象类，该抽象类实现了该接口，实现了所有的方法，而我们不和原始的接口打交道，只和该抽象类取得联系，所以我们写一个类，继承该抽象类，重写我们需要的方法就行。看一下类图：<br><img src="/images/DesignMode/7.jpeg" alt="7"><br>这个很好理解，在实际开发中，我们也常会遇到这种接口中定义了太多的方法，以致于有时我们在一些实现类中并不是都需要。看代码：<br>public interface Sourceable {  <br>      <br>    public void method1();  <br>    public void method2();  <br>}  <br>抽象类Wrapper2：<br>public abstract class Wrapper2 implements Sourceable{  <br>      <br>    public void method1(){}  <br>    public void method2(){}  <br>}  </p>
+<p>public class SourceSub1 extends Wrapper2 {  <br>    public void method1(){  <br>        System.out.println(“the sourceable interface’s first Sub1!”);  <br>    }  <br>}  </p>
+<p>public class SourceSub2 extends Wrapper2 {  <br>    public void method2(){  <br>        System.out.println(“the sourceable interface’s second Sub2!”);  <br>    }  <br>}  </p>
+<p>public class WrapperTest {  <br>  <br>    public static void main(String[] args) {  <br>        Sourceable source1 &#x3D; new SourceSub1();  <br>        Sourceable source2 &#x3D; new SourceSub2();  <br>          <br>        source1.method1();  <br>        source1.method2();  <br>        source2.method1();  <br>        source2.method2();  <br>    }  <br>}  <br>测试输出：<br>the sourceable interface’s first Sub1!<br>the sourceable interface’s second Sub2!<br>达到了我们的效果！<br> 讲了这么多，总结一下三种适配器模式的应用场景：<br>类的适配器模式：当希望将一个类转换成满足另一个新接口的类时，可以使用类的适配器模式，创建一个新类，继承原有的类，实现新的接口即可。<br>对象的适配器模式：当希望将一个对象转换成满足另一个新接口的对象时，可以创建一个Wrapper类，持有原类的一个实例，在Wrapper类的方法中，调用实例的方法就行。<br>接口的适配器模式：当不希望实现一个接口中所有的方法时，可以创建一个抽象类Wrapper，实现所有方法，我们写别的类的时候，继承抽象类即可。<br>7、装饰模式（Decorator）<br>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例，关系图如下：<br><img src="/images/DesignMode/8.jpeg" alt="8"><br>Source类是被装饰类，Decorator类是一个装饰类，可以为Source类动态的添加一些功能，代码如下：<br>public interface Sourceable {  <br>    public void method();  <br>}  </p>
+<p>public class Source implements Sourceable {  <br>  <br>    @Override  <br>    public void method() {  <br>        System.out.println(“the original method!”);  <br>    }  <br>}  </p>
+<p>public class Decorator implements Sourceable {  <br>  <br>    private Sourceable source;  <br>      <br>    public Decorator(Sourceable source){  <br>        super();  <br>        this.source &#x3D; source;  <br>    }  <br>    @Override  <br>    public void method() {  <br>        System.out.println(“before decorator!”);  <br>        source.method();  <br>        System.out.println(“after decorator!”);  <br>    }  <br>}  <br>测试类：</p>
+<p>public class DecoratorTest {  <br>  <br>    public static void main(String[] args) {  <br>        Sourceable source &#x3D; new Source();  <br>        Sourceable obj &#x3D; new Decorator(source);  <br>        obj.method();  <br>    }  <br>}  <br>输出：<br>before decorator!<br>the original method!<br>after decorator!<br>装饰器模式的应用场景：<br>1、需要扩展一个类的功能。<br>2、动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）<br>缺点：产生过多相似的对象，不易排错！<br>8、代理模式（Proxy）<br>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作，比如我们在租房子的时候回去找中介，为什么呢？因为你对该地区房屋的信息掌握的不够全面，希望找一个更熟悉的人去帮你做，此处的代理就是这个意思。再如我们有的时候打官司，我们需要请律师，因为律师在法律方面有专长，可以替我们进行操作，表达我们的想法。先来看看关系图：<br><img src="/images/DesignMode/9.jpeg" alt="9"><br> <br>根据上文的阐述，代理模式就比较容易的理解了，我们看下代码：<br>public interface Sourceable {  <br>    public void method();  <br>}  </p>
+<p>public class Source implements Sourceable {  <br>  <br>    @Override  <br>    public void method() {  <br>        System.out.println(“the original method!”);  <br>    }  <br>}  </p>
+<p>public class Proxy implements Sourceable {  <br>  <br>    private Source source;  <br>    public Proxy(){  <br>        super();  <br>        this.source &#x3D; new Source();  <br>    }  <br>    @Override  <br>    public void method() {  <br>        before();  <br>        source.method();  <br>        atfer();  <br>    }  <br>    private void atfer() {  <br>        System.out.println(“after proxy!”);  <br>    }  <br>    private void before() {  <br>        System.out.println(“before proxy!”);  <br>    }  <br>}  <br>测试类：</p>
+<p>public class ProxyTest {  <br>  <br>    public static void main(String[] args) {  <br>        Sourceable source &#x3D; new Proxy();  <br>        source.method();  <br>    }  <br>  <br>}  <br>输出：<br>before proxy!<br>the original method!<br>after proxy!<br>代理模式的应用场景：<br>如果已有的方法在使用的时候需要对原有的方法进行改进，此时有两种办法：<br>1、修改原有的方法来适应。这样违反了“对扩展开放，对修改关闭”的原则。<br>2、就是采用一个代理类调用原有的方法，且对产生的结果进行控制。这种方法就是代理模式。<br>使用代理模式，可以将功能划分的更加清晰，有助于后期维护！<br>9、外观模式（Facade）<br>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="/images/DesignMode/10.jpeg" alt="10"><br>我们先看下实现类：<br>public class CPU {  <br>      <br>    public void startup(){  <br>        System.out.println(“cpu startup!”);  <br>    }  <br>      <br>    public void shutdown(){  <br>        System.out.println(“cpu shutdown!”);  <br>    }  <br>}  </p>
+<p>public class Memory {  <br>      <br>    public void startup(){  <br>        System.out.println(“memory startup!”);  <br>    }  <br>      <br>    public void shutdown(){  <br>        System.out.println(“memory shutdown!”);  <br>    }  <br>}  </p>
+<p>public class Disk {  <br>      <br>    public void startup(){  <br>        System.out.println(“disk startup!”);  <br>    }  <br>      <br>    public void shutdown(){  <br>        System.out.println(“disk shutdown!”);  <br>    }  <br>}  </p>
+<p>public class Computer {  <br>    private CPU cpu;  <br>    private Memory memory;  <br>    private Disk disk;  <br>      <br>    public Computer(){  <br>        cpu &#x3D; new CPU();  <br>        memory &#x3D; new Memory();  <br>        disk &#x3D; new Disk();  <br>    }  <br>      <br>    public void startup(){  <br>        System.out.println(“start the computer!”);  <br>        cpu.startup();  <br>        memory.startup();  <br>        disk.startup();  <br>        System.out.println(“start computer finished!”);  <br>    }  <br>      <br>    public void shutdown(){  <br>        System.out.println(“begin to close the computer!”);  <br>        cpu.shutdown();  <br>        memory.shutdown();  <br>        disk.shutdown();  <br>        System.out.println(“computer closed!”);  <br>    }  <br>}  <br>User类如下：</p>
+<p>public class User {  <br>  <br>    public static void main(String[] args) {  <br>        Computer computer &#x3D; new Computer();  <br>        computer.startup();  <br>        computer.shutdown();  <br>    }  <br>}  <br>输出：<br>start the computer!<br>cpu startup!<br>memory startup!<br>disk startup!<br>start computer finished!<br>begin to close the computer!<br>cpu shutdown!<br>memory shutdown!<br>disk shutdown!<br>computer closed!<br>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式！<br>10、桥接模式（Bridge）<br>桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。我们来看看关系图：<br><img src="/images/DesignMode/11.jpeg" alt="11"><br>实现代码：<br>先定义接口：<br>public interface Sourceable {  <br>    public void method();  <br>}  <br>分别定义两个实现类：<br>public class SourceSub1 implements Sourceable {  <br>  <br>    @Override  <br>    public void method() {  <br>        System.out.println(“this is the first sub!”);  <br>    }  <br>}  </p>
+<p>public class SourceSub2 implements Sourceable {  <br>  <br>    @Override  <br>    public void method() {  <br>        System.out.println(“this is the second sub!”);  <br>    }  <br>}  <br>定义一个桥，持有Sourceable的一个实例：<br>public abstract class Bridge {  <br>    private Sourceable source;  <br>  <br>    public void method(){  <br>        source.method();  <br>    }  <br>      <br>    public Sourceable getSource() {  <br>        return source;  <br>    }  <br>  <br>    public void setSource(Sourceable source) {  <br>        this.source &#x3D; source;  <br>    }  <br>}  </p>
+<p>public class MyBridge extends Bridge {  <br>    public void method(){  <br>        getSource().method();  <br>    }  <br>}  <br>测试类：<br>public class BridgeTest {  <br>      <br>    public static void main(String[] args) {  <br>          <br>        Bridge bridge &#x3D; new MyBridge();  <br>          <br>        &#x2F;<em>调用第一个对象</em>&#x2F;  <br>        Sourceable source1 &#x3D; new SourceSub1();  <br>        bridge.setSource(source1);  <br>        bridge.method();  <br>          <br>        &#x2F;<em>调用第二个对象</em>&#x2F;  <br>        Sourceable source2 &#x3D; new SourceSub2();  <br>        bridge.setSource(source2);  <br>        bridge.method();  <br>    }  <br>}  <br>output：<br>this is the first sub!<br>this is the second sub!<br>这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。接下来我再画个图，大家就应该明白了，因为这个图是我们JDBC连接的原理，有数据库学习基础的，一结合就都懂了。<br><img src="/images/DesignMode/12.jpeg" alt="12"><br>11、组合模式（Composite）<br>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，看看关系图：<br><img src="/images/DesignMode/13.jpeg" alt="13"><br>直接来看代码：<br>public class TreeNode {  <br>      <br>    private String name;  <br>    private TreeNode parent;  <br>    private Vector<TreeNode> children &#x3D; new Vector<TreeNode>();  <br>      <br>    public TreeNode(String name){  <br>        this.name &#x3D; name;  <br>    }  <br>  <br>    public String getName() {  <br>        return name;  <br>    }  <br>  <br>    public void setName(String name) {  <br>        this.name &#x3D; name;  <br>    }  <br>  <br>    public TreeNode getParent() {  <br>        return parent;  <br>    }  <br>  <br>    public void setParent(TreeNode parent) {  <br>        this.parent &#x3D; parent;  <br>    }  <br>      <br>    &#x2F;&#x2F;添加孩子节点  <br>    public void add(TreeNode node){  <br>        children.add(node);  <br>    }  <br>      <br>    &#x2F;&#x2F;删除孩子节点  <br>    public void remove(TreeNode node){  <br>        children.remove(node);  <br>    }  <br>      <br>    &#x2F;&#x2F;取得孩子节点  <br>    public Enumeration<TreeNode> getChildren(){  <br>        return children.elements();  <br>    }  <br>}  </p>
+<p>public class Tree {  <br>  <br>    TreeNode root &#x3D; null;  <br>  <br>    public Tree(String name) {  <br>        root &#x3D; new TreeNode(name);  <br>    }  <br>  <br>    public static void main(String[] args) {  <br>        Tree tree &#x3D; new Tree(“A”);  <br>        TreeNode nodeB &#x3D; new TreeNode(“B”);  <br>        TreeNode nodeC &#x3D; new TreeNode(“C”);  <br>          <br>        nodeB.add(nodeC);  <br>        tree.root.add(nodeB);  <br>        System.out.println(“build the tree finished!”);  <br>    }  <br>}  <br>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。<br>12、享元模式（Flyweight）<br>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br><img src="/images/DesignMode/14.jpeg" alt="14"><br>FlyWeightFactory负责创建和管理享元单元，当一个客户端请求时，工厂需要检查当前对象池中是否有符合条件的对象，如果有，就返回已经存在的对象，如果没有，则创建一个新对象，FlyWeight是超类。一提到共享池，我们很容易联想到Java里面的JDBC连接池，想想每个连接的特点，我们不难总结出：适用于作共享的一些个对象，他们有一些共有的属性，就拿数据库连接池来说，url、driverClassName、username、password及dbname，这些属性对于每个连接来说都是一样的，所以就适合用享元模式来处理，建一个工厂类，将上述类似属性作为内部数据，其它的作为外部数据，在方法调用时，当做参数传进来，这样就节省了空间，减少了实例的数量。<br>看个例子：<br><img src="/images/DesignMode/15.jpeg" alt="15"><br>看下数据库连接池的代码：<br>public class ConnectionPool {  <br>      <br>    private Vector<Connection> pool;  <br>      <br>    &#x2F;<em>公有属性</em>&#x2F;  <br>    private String url &#x3D; “jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;test”;  <br>    private String username &#x3D; “root”;  <br>    private String password &#x3D; “root”;  <br>    private String driverClassName &#x3D; “com.mysql.jdbc.Driver”;  <br>  <br>    private int poolSize &#x3D; 100;  <br>    private static ConnectionPool instance &#x3D; null;  <br>    Connection conn &#x3D; null;  <br>  <br>    &#x2F;<em>构造方法，做一些初始化工作</em>&#x2F;  <br>    private ConnectionPool() {  <br>        pool &#x3D; new Vector<Connection>(poolSize);  <br>  <br>        for (int i &#x3D; 0; i &lt; poolSize; i++) {  <br>            try {  <br>                Class.forName(driverClassName);  <br>                conn &#x3D; DriverManager.getConnection(url, username, password);  <br>                pool.add(conn);  <br>            } catch (ClassNotFoundException e) {  <br>                e.printStackTrace();  <br>            } catch (SQLException e) {  <br>                e.printStackTrace();  <br>            }  <br>        }  <br>    }  <br>  <br>    &#x2F;* 返回连接到连接池 *&#x2F;  <br>    public synchronized void release() {  <br>        pool.add(conn);  <br>    }  <br>  <br>    &#x2F;* 返回连接池中的一个数据库连接 *&#x2F;  <br>    public synchronized Connection getConnection() {  <br>        if (pool.size() &gt; 0) {  <br>            Connection conn &#x3D; pool.get(0);  <br>            pool.remove(conn);  <br>            return conn;  <br>        } else {  <br>            return null;  <br>        }  <br>    }  <br>}  <br> <br>通过连接池的管理，实现了数据库连接的共享，不需要每一次都重新创建连接，节省了数据库重新创建的开销，提升了系统的性能！本章讲解了7种结构型模式，因为篇幅的问题，剩下的11种行为型模式，<br>本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。这段时间一直在写关于设计模式的东西，终于写到一半了，写博文是个很费时间的东西，因为我得为读者负责，不论是图还是代码还是表述，都希望能尽量写清楚，以便读者理解，我想不论是我还是读者，都希望看到高质量的博文出来，从我本人出发，我会一直坚持下去，不断更新，源源动力来自于读者朋友们的不断支持，我会尽自己的努力，写好每一篇文章！希望大家能不断给出意见和建议，共同打造完美的博文！<br> <br> <br>先来张图，看看这11中模式的关系：<br>第一类：通过父类与子类的关系进行实现。第二类：两个类之间。第三类：类的状态。第四类：通过中间类<br><img src="/images/DesignMode/16.jpeg" alt="16"><br>13、策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口，设计一个抽象类（可有可无，属于辅助类），提供辅助函数，关系图如下：<br><img src="/images/DesignMode/17.jpeg" alt="17"><br>图中ICalculator提供同意的方法，<br>AbstractCalculator是辅助类，提供辅助方法，接下来，依次实现下每个类：<br>首先统一接口：<br>public interface ICalculator {  <br>    public int calculate(String exp);  <br>}  <br>辅助类：<br>public abstract class AbstractCalculator {  <br>      <br>    public int[] split(String exp,String opt){  <br>        String array[] &#x3D; exp.split(opt);  <br>        int arrayInt[] &#x3D; new int[2];  <br>        arrayInt[0] &#x3D; Integer.parseInt(array[0]);  <br>        arrayInt[1] &#x3D; Integer.parseInt(array[1]);  <br>        return arrayInt;  <br>    }  <br>}  <br>三个实现类：<br>public class Plus extends AbstractCalculator implements ICalculator {  <br>  <br>    @Override  <br>    public int calculate(String exp) {  <br>        int arrayInt[] &#x3D; split(exp,”\+”);  <br>        return arrayInt[0]+arrayInt[1];  <br>    }  <br>}  </p>
+<p>public class Minus extends AbstractCalculator implements ICalculator {  <br>  <br>    @Override  <br>    public int calculate(String exp) {  <br>        int arrayInt[] &#x3D; split(exp,”-“);  <br>        return arrayInt[0]-arrayInt[1];  <br>    }  <br>  <br>}  </p>
+<p>public class Multiply extends AbstractCalculator implements ICalculator {  <br>  <br>    @Override  <br>    public int calculate(String exp) {  <br>        int arrayInt[] &#x3D; split(exp,”\*”);  <br>        return arrayInt[0]*arrayInt[1];  <br>    }  <br>}  <br>简单的测试类：<br>public class StrategyTest {  <br>  <br>    public static void main(String[] args) {  <br>        String exp &#x3D; “2+8”;  <br>        ICalculator cal &#x3D; new Plus();  <br>        int result &#x3D; cal.calculate(exp);  <br>        System.out.println(result);  <br>    }  <br>}  <br>输出：10<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>14、模板方法模式（Template Method）<br>解释一下模板方法模式，就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法，定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用，先看个关系图：<br><img src="/images/DesignMode/18.jpeg" alt="18"><br>就是在AbstractCalculator类中定义一个主方法calculate，calculate()调用spilt()等，Plus和Minus分别继承AbstractCalculator类，通过对AbstractCalculator的调用实现对子类的调用，看下面的例子：<br>public abstract class AbstractCalculator {  <br>      <br>    &#x2F;<em>主方法，实现对本类其它方法的调用</em>&#x2F;  <br>    public final int calculate(String exp,String opt){  <br>        int array[] &#x3D; split(exp,opt);  <br>        return calculate(array[0],array[1]);  <br>    }  <br>      <br>    &#x2F;<em>被子类重写的方法</em>&#x2F;  <br>    abstract public int calculate(int num1,int num2);  <br>      <br>    public int[] split(String exp,String opt){  <br>        String array[] &#x3D; exp.split(opt);  <br>        int arrayInt[] &#x3D; new int[2];  <br>        arrayInt[0] &#x3D; Integer.parseInt(array[0]);  <br>        arrayInt[1] &#x3D; Integer.parseInt(array[1]);  <br>        return arrayInt;  <br>    }  <br>}  </p>
+<p>public class Plus extends AbstractCalculator {  <br>  <br>    @Override  <br>    public int calculate(int num1,int num2) {  <br>        return num1 + num2;  <br>    }  <br>}  <br>测试类：</p>
+<p>public class StrategyTest {  <br>  <br>    public static void main(String[] args) {  <br>        String exp &#x3D; “8+8”;  <br>        AbstractCalculator cal &#x3D; new Plus();  <br>        int result &#x3D; cal.calculate(exp, “\+”);  <br>        System.out.println(result);  <br>    }  <br>}  <br>我跟踪下这个小程序的执行过程：首先将exp和”\+”做参数，调用AbstractCalculator类里的calculate(String,String)方法，在calculate(String,String)里调用同类的split()，之后再调用calculate(int ,int)方法，从这个方法进入到子类中，执行完return num1 + num2后，将值返回到AbstractCalculator类，赋给result，打印出来。正好验证了我们开头的思路。<br>15、观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承，学的时候应该 记得归纳，记得本文最开始的那个图。观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。先来看看关系图：<br><img src="/images/DesignMode/19.jpeg" alt="19"><br>我解释下这些类的作用：MySubject类就是我们的主对象，Observer1和Observer2是依赖于MySubject的对象，当MySubject变化时，Observer1和Observer2必然变化。AbstractSubject类中定义着需要监控的对象列表，可以对其进行修改：增加或删除被监控对象，且当MySubject变化时，负责通知在列表内存在的对象。我们看实现代码：<br>一个Observer接口：<br>public interface Observer {  <br>    public void update();  <br>}  <br>两个实现类：<br>public class Observer1 implements Observer {  <br>  <br>    @Override  <br>    public void update() {  <br>        System.out.println(“observer1 has received!”);  <br>    }  <br>}  </p>
+<p>public class Observer2 implements Observer {  <br>  <br>    @Override  <br>    public void update() {  <br>        System.out.println(“observer2 has received!”);  <br>    }  <br>  <br>}  <br>Subject接口及实现类：<br>public interface Subject {  <br>      <br>    &#x2F;<em>增加观察者</em>&#x2F;  <br>    public void add(Observer observer);  <br>      <br>    &#x2F;<em>删除观察者</em>&#x2F;  <br>    public void del(Observer observer);  <br>      <br>    &#x2F;<em>通知所有的观察者</em>&#x2F;  <br>    public void notifyObservers();  <br>      <br>    &#x2F;<em>自身的操作</em>&#x2F;  <br>    public void operation();  <br>}  </p>
+<p>public abstract class AbstractSubject implements Subject {  <br>  <br>    private Vector<Observer> vector &#x3D; new Vector<Observer>();  <br>    @Override  <br>    public void add(Observer observer) {  <br>        vector.add(observer);  <br>    }  <br>  <br>    @Override  <br>    public void del(Observer observer) {  <br>        vector.remove(observer);  <br>    }  <br>  <br>    @Override  <br>    public void notifyObservers() {  <br>        Enumeration<Observer> enumo &#x3D; vector.elements();  <br>        while(enumo.hasMoreElements()){  <br>            enumo.nextElement().update();  <br>        }  <br>    }  <br>}  </p>
+<p>public class MySubject extends AbstractSubject {  <br>  <br>    @Override  <br>    public void operation() {  <br>        System.out.println(“update self!”);  <br>        notifyObservers();  <br>    }  <br>  <br>}  </p>
+<p>测试类：</p>
+<p>public class ObserverTest {  <br>  <br>    public static void main(String[] args) {  <br>        Subject sub &#x3D; new MySubject();  <br>        sub.add(new Observer1());  <br>        sub.add(new Observer2());  <br>          <br>        sub.operation();  <br>    }  <br>  <br>}  <br>输出：<br>update self!<br>observer1 has received!<br>observer2 has received!<br> 这些东西，其实不难，只是有些抽象，不太容易整体理解，建议读者：根据关系图，新建项目，自己写代码（或者参考我的代码）,按照总体思路走一遍，这样才能体会它的思想，理解起来容易！ <br>16、迭代子模式（Iterator）<br>顾名思义，迭代器模式就是顺序访问聚集中的对象，一般来说，集合中非常常见，如果对集合类比较熟悉的话，理解本模式会十分轻松。这句话包含两层意思：一是需要遍历的对象，即聚集对象，二是迭代器对象，用于对聚集对象进行遍历访问。我们看下关系图：<br><img src="/images/DesignMode/20.jpeg" alt="20"></p>
+<p>这个思路和我们常用的一模一样，MyCollection中定义了集合的一些操作，MyIterator中定义了一系列迭代操作，且持有Collection实例，我们来看看实现代码：<br>两个接口：<br>public interface Collection {  <br>      <br>    public Iterator iterator();  <br>      <br>    &#x2F;<em>取得集合元素</em>&#x2F;  <br>    public Object get(int i);  <br>      <br>    &#x2F;<em>取得集合大小</em>&#x2F;  <br>    public int size();  <br>}  </p>
+<p>public interface Iterator {  <br>    &#x2F;&#x2F;前移  <br>    public Object previous();  <br>      <br>    &#x2F;&#x2F;后移  <br>    public Object next();  <br>    public boolean hasNext();  <br>      <br>    &#x2F;&#x2F;取得第一个元素  <br>    public Object first();  <br>}  <br>两个实现：<br>public class MyCollection implements Collection {  <br>  <br>    public String string[] &#x3D; {“A”,”B”,”C”,”D”,”E”};  <br>    @Override  <br>    public Iterator iterator() {  <br>        return new MyIterator(this);  <br>    }  <br>  <br>    @Override  <br>    public Object get(int i) {  <br>        return string[i];  <br>    }  <br>  <br>    @Override  <br>    public int size() {  <br>        return string.length;  <br>    }  <br>}  </p>
+<p>public class MyIterator implements Iterator {  <br>  <br>    private Collection collection;  <br>    private int pos &#x3D; -1;  <br>      <br>    public MyIterator(Collection collection){  <br>        this.collection &#x3D; collection;  <br>    }  <br>      <br>    @Override  <br>    public Object previous() {  <br>        if(pos &gt; 0){  <br>            pos–;  <br>        }  <br>        return collection.get(pos);  <br>    }  <br>  <br>    @Override  <br>    public Object next() {  <br>        if(pos&lt;collection.size()-1){  <br>            pos++;  <br>        }  <br>        return collection.get(pos);  <br>    }  <br>  <br>    @Override  <br>    public boolean hasNext() {  <br>        if(pos&lt;collection.size()-1){  <br>            return true;  <br>        }else{  <br>            return false;  <br>        }  <br>    }  <br>  <br>    @Override  <br>    public Object first() {  <br>        pos &#x3D; 0;  <br>        return collection.get(pos);  <br>    }  <br>  <br>}  <br>测试类：<br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        Collection collection &#x3D; new MyCollection();  <br>        Iterator it &#x3D; collection.iterator();  <br>          <br>        while(it.hasNext()){  <br>            System.out.println(it.next());  <br>        }  <br>    }  <br>}  <br>输出：A B C D E<br>此处我们貌似模拟了一个集合类的过程，感觉是不是很爽？其实JDK中各个类也都是这些基本的东西，加一些设计模式，再加一些优化放到一起的，只要我们把这些东西学会了，掌握好了，我们也可以写出自己的集合类，甚至框架！<br>17、责任链模式（Chain of Responsibility）<br>接下来我们将要谈谈责任链模式，有多个对象，每个对象持有对下一个对象的引用，这样就会形成一条链，请求在这条链上传递，直到某一对象决定处理该请求。但是发出者并不清楚到底最终那个对象会处理该请求，所以，责任链模式可以实现，在隐瞒客户端的情况下，对系统进行动态的调整。先看看关系图：<br><img src="/images/DesignMode/21.jpeg" alt="21"></p>
+<p> <br>Abstracthandler类提供了get和set方法，方便MyHandle类设置和修改引用对象，MyHandle类是核心，实例化后生成一系列相互持有的对象，构成一条链。<br>public interface Handler {  <br>    public void operator();  <br>}  </p>
+<p>public abstract class AbstractHandler {  <br>      <br>    private Handler handler;  <br>  <br>    public Handler getHandler() {  <br>        return handler;  <br>    }  <br>  <br>    public void setHandler(Handler handler) {  <br>        this.handler &#x3D; handler;  <br>    }  <br>      <br>}  </p>
+<p>public class MyHandler extends AbstractHandler implements Handler {  <br>  <br>    private String name;  <br>  <br>    public MyHandler(String name) {  <br>        this.name &#x3D; name;  <br>    }  <br>  <br>    @Override  <br>    public void operator() {  <br>        System.out.println(name+”deal!”);  <br>        if(getHandler()!&#x3D;null){  <br>            getHandler().operator();  <br>        }  <br>    }  <br>}  </p>
+<p>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        MyHandler h1 &#x3D; new MyHandler(“h1”);  <br>        MyHandler h2 &#x3D; new MyHandler(“h2”);  <br>        MyHandler h3 &#x3D; new MyHandler(“h3”);  <br>  <br>        h1.setHandler(h2);  <br>        h2.setHandler(h3);  <br>  <br>        h1.operator();  <br>    }  <br>}  <br>输出：<br>h1deal!<br>h2deal!<br>h3deal!<br>此处强调一点就是，链接上的请求可以是一条链，可以是一个树，还可以是一个环，模式本身不约束这个，需要我们自己去实现，同时，在一个时刻，命令只允许由一个对象传给另一个对象，而不允许传给多个对象。<br> 18、命令模式（Command）<br>命令模式很好理解，举个例子，司令员下令让士兵去干件事情，从整个事情的角度来考虑，司令员的作用是，发出口令，口令经过传递，传到了士兵耳朵里，士兵去执行。这个过程好在，三者相互解耦，任何一方都不用去依赖其他人，只需要做好自己的事儿就行，司令员要的是结果，不会去关注到底士兵是怎么实现的。我们看看关系图：<br><img src="/images/DesignMode/22.jpeg" alt="22"><br>Invoker是调用者（司令员），Receiver是被调用者（士兵），MyCommand是命令，实现了Command接口，持有接收对象，看实现代码：</p>
+<p>public interface Command {  <br>    public void exe();  <br>}  </p>
+<p>public class MyCommand implements Command {  <br>  <br>    private Receiver receiver;  <br>      <br>    public MyCommand(Receiver receiver) {  <br>        this.receiver &#x3D; receiver;  <br>    }  <br>  <br>    @Override  <br>    public void exe() {  <br>        receiver.action();  <br>    }  <br>}  </p>
+<p>public class Receiver {  <br>    public void action(){  <br>        System.out.println(“command received!”);  <br>    }  <br>}  </p>
+<p>public class Invoker {  <br>      <br>    private Command command;  <br>      <br>    public Invoker(Command command) {  <br>        this.command &#x3D; command;  <br>    }  <br>  <br>    public void action(){  <br>        command.exe();  <br>    }  <br>}  </p>
+<p>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        Receiver receiver &#x3D; new Receiver();  <br>        Command cmd &#x3D; new MyCommand(receiver);  <br>        Invoker invoker &#x3D; new Invoker(cmd);  <br>        invoker.action();  <br>    }  <br>}  <br>输出：command received!<br>这个很哈理解，命令模式的目的就是达到命令的发出者和执行者之间解耦，实现请求和执行分开，熟悉Struts的同学应该知道，Struts其实就是一种将请求和呈现分离的技术，其中必然涉及命令模式的思想！<br>其实每个设计模式都是很重要的一种思想，看上去很熟，其实是因为我们在学到的东西中都有涉及，尽管有时我们并不知道，其实在Java本身的设计之中处处都有体现，像AWT、JDBC、集合类、IO管道或者是Web框架，里面设计模式无处不在。因为我们篇幅有限，很难讲每一个设计模式都讲的很详细，不过我会尽我所能，尽量在有限的空间和篇幅内，把意思写清楚了，更好让大家明白。本章不出意外的话，应该是设计模式最后一讲了，首先还是上一下上篇开头的那个图：<br><img src="/images/DesignMode/23.jpeg" alt="23"><br>本章讲讲第三类和第四类。<br>19、备忘录模式（Memento）<br>主要目的是保存一个对象的某个状态，以便在适当的时候恢复对象，个人觉得叫备份模式更形象些，通俗的讲下：假设有原始类A，A中有各种属性，A可以决定需要备份的属性，备忘录类B是用来存储A的一些内部状态，类C呢，就是一个用来存储备忘录的，且只能存储，不能修改等操作。做个图来分析一下：<br><img src="/images/DesignMode/24.jpeg" alt="24"><br>Original类是原始类，里面有需要保存的属性value及创建一个备忘录类，用来保存value值。Memento类是备忘录类，Storage类是存储备忘录的类，持有Memento类的实例，该模式很好理解。直接看源码：<br>public class Original {  <br>      <br>    private String value;  <br>      <br>    public String getValue() {  <br>        return value;  <br>    }  <br>  <br>    public void setValue(String value) {  <br>        this.value &#x3D; value;  <br>    }  <br>  <br>    public Original(String value) {  <br>        this.value &#x3D; value;  <br>    }  <br>  <br>    public Memento createMemento(){  <br>        return new Memento(value);  <br>    }  <br>      <br>    public void restoreMemento(Memento memento){  <br>        this.value &#x3D; memento.getValue();  <br>    }  <br>}  </p>
+<p>public class Memento {  <br>      <br>    private String value;  <br>  <br>    public Memento(String value) {  <br>        this.value &#x3D; value;  <br>    }  <br>  <br>    public String getValue() {  <br>        return value;  <br>    }  <br>  <br>    public void setValue(String value) {  <br>        this.value &#x3D; value;  <br>    }  <br>}  </p>
+<p>public class Storage {  <br>      <br>    private Memento memento;  <br>    public Storage(Memento memento) {  <br>        this.memento &#x3D; memento;  <br>    }  <br>  <br>    public Memento getMemento() {  <br>        return memento;  <br>    }  <br>  <br>    public void setMemento(Memento memento) {  <br>        this.memento &#x3D; memento;  <br>    }  <br>}  <br>测试类：<br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>          <br>        &#x2F;&#x2F; 创建原始类  <br>        Original origi &#x3D; new Original(“egg”);  <br>  <br>        &#x2F;&#x2F; 创建备忘录  <br>        Storage storage &#x3D; new Storage(origi.createMemento());  <br>  <br>        &#x2F;&#x2F; 修改原始类的状态  <br>        System.out.println(“初始化状态为：” + origi.getValue());  <br>        origi.setValue(“niu”);  <br>        System.out.println(“修改后的状态为：” + origi.getValue());  <br>  <br>        &#x2F;&#x2F; 回复原始类的状态  <br>        origi.restoreMemento(storage.getMemento());  <br>        System.out.println(“恢复后的状态为：” + origi.getValue());  <br>    }  <br>}  <br>输出：<br>初始化状态为：egg<br>修改后的状态为：niu<br>恢复后的状态为：egg<br>简单描述下：新建原始类时，value被初始化为egg，后经过修改，将value的值置为niu，最后倒数第二行进行恢复状态，结果成功恢复了。其实我觉得这个模式叫“备份-恢复”模式最形象。<br>20、状态模式（State）<br>核心思想就是：当对象的状态改变时，同时改变其行为，很好理解！就拿QQ来说，有几种状态，在线、隐身、忙碌等，每个状态对应不同的操作，而且你的好友也能看到你的状态，所以，状态模式就两点：1、可以通过改变状态来获得不同的行为。2、你的好友能同时看到你的变化。看图：<br><img src="/images/DesignMode/25.jpeg" alt="25"><br>State类是个状态类，Context类可以实现切换，我们来看看代码：<br> <br>package com.xtfggef.dp.state;  <br>  <br>&#x2F;** <br> * 状态类的核心类 <br> * 2012-12-1 <br> * @author erqing <br> * <br> *&#x2F;  <br>public class State {  <br>      <br>    private String value;  <br>      <br>    public String getValue() {  <br>        return value;  <br>    }  <br>  <br>    public void setValue(String value) {  <br>        this.value &#x3D; value;  <br>    }  <br>  <br>    public void method1(){  <br>        System.out.println(“execute the first opt!”);  <br>    }  <br>      <br>    public void method2(){  <br>        System.out.println(“execute the second opt!”);  <br>    }  <br>}  </p>
+<p>package com.xtfggef.dp.state;  <br>  <br>&#x2F;** <br> * 状态模式的切换类   2012-12-1 <br> * @author erqing <br> *  <br> *&#x2F;  <br>public class Context {  <br>  <br>    private State state;  <br>  <br>    public Context(State state) {  <br>        this.state &#x3D; state;  <br>    }  <br>  <br>    public State getState() {  <br>        return state;  <br>    }  <br>  <br>    public void setState(State state) {  <br>        this.state &#x3D; state;  <br>    }  <br>  <br>    public void method() {  <br>        if (state.getValue().equals(“state1”)) {  <br>            state.method1();  <br>        } else if (state.getValue().equals(“state2”)) {  <br>            state.method2();  <br>        }  <br>    }  <br>}  <br>测试类：<br> <br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>          <br>        State state &#x3D; new State();  <br>        Context context &#x3D; new Context(state);  <br>          <br>        &#x2F;&#x2F;设置第一种状态  <br>        state.setValue(“state1”);  <br>        context.method();  <br>          <br>        &#x2F;&#x2F;设置第二种状态  <br>        state.setValue(“state2”);  <br>        context.method();  <br>    }  <br>}  <br>输出：<br> <br>execute the first opt!<br>execute the second opt!<br>根据这个特性，状态模式在日常开发中用的挺多的，尤其是做网站的时候，我们有时希望根据对象的某一属性，区别开他们的一些功能，比如说简单的权限控制等。<br>21、访问者模式（Visitor）<br>访问者模式把数据结构和作用于结构上的操作解耦合，使得操作集合可相对自由地演化。访问者模式适用于数据结构相对稳定算法又易变化的系统。因为访问者模式使得算法操作增加变得容易。若系统数据结构对象易于变化，经常有新的数据对象增加进来，则不适合使用访问者模式。访问者模式的优点是增加操作很容易，因为增加操作意味着增加新的访问者。访问者模式将有关行为集中到一个访问者对象中，其改变不影响系统数据结构。其缺点就是增加新的数据结构很困难。—— From 百科<br>简单来说，访问者模式就是一种分离对象数据结构与行为的方法，通过这种分离，可达到为一个被访问者动态添加新的操作而无需做其它的修改的效果。简单关系图：<br><img src="/images/DesignMode/26.jpeg" alt="26"><br>来看看原码：一个Visitor类，存放要访问的对象，<br>public interface Visitor {  <br>    public void visit(Subject sub);  <br>}  </p>
+<p>public class MyVisitor implements Visitor {  <br>  <br>    @Override  <br>    public void visit(Subject sub) {  <br>        System.out.println(“visit the subject：”+sub.getSubject());  <br>    }  <br>}  <br>Subject类，accept方法，接受将要访问它的对象，getSubject()获取将要被访问的属性，<br>public interface Subject {  <br>    public void accept(Visitor visitor);  <br>    public String getSubject();  <br>}  </p>
+<p>public class MySubject implements Subject {  <br>  <br>    @Override  <br>    public void accept(Visitor visitor) {  <br>        visitor.visit(this);  <br>    }  <br>  <br>    @Override  <br>    public String getSubject() {  <br>        return “love”;  <br>    }  <br>}  <br>测试：<br> <br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>          <br>        Visitor visitor &#x3D; new MyVisitor();  <br>        Subject sub &#x3D; new MySubject();  <br>        sub.accept(visitor);      <br>    }  <br>}  <br>输出：visit the subject：love<br> <br>该模式适用场景：如果我们想为一个现有的类增加新功能，不得不考虑几个事情：1、新功能会不会与现有功能出现兼容性问题？2、以后会不会再需要添加？3、如果类不允许修改代码怎么办？面对这些问题，最好的解决方法就是使用访问者模式，访问者模式适用于数据结构相对稳定的系统，把数据结构和算法解耦，<br>22、中介者模式（Mediator）<br>中介者模式也是用来降低类类之间的耦合的，因为如果类类之间有依赖关系的话，不利于功能的拓展和维护，因为只要修改一个对象，其它关联的对象都得进行修改。如果使用中介者模式，只需关心和Mediator类的关系，具体类类之间的关系及调度交给Mediator就行，这有点像spring容器的作用。先看看图：<br><img src="/images/DesignMode/27.jpeg" alt="27"><br>User类统一接口，User1和User2分别是不同的对象，二者之间有关联，如果不采用中介者模式，则需要二者相互持有引用，这样二者的耦合度很高，为了解耦，引入了Mediator类，提供统一接口，MyMediator为其实现类，里面持有User1和User2的实例，用来实现对User1和User2的控制。这样User1和User2两个对象相互独立，他们只需要保持好和Mediator之间的关系就行，剩下的全由MyMediator类来维护！基本实现：<br>public interface Mediator {  <br>    public void createMediator();  <br>    public void workAll();  <br>}  </p>
+<p>public class MyMediator implements Mediator {  <br>  <br>    private User user1;  <br>    private User user2;  <br>      <br>    public User getUser1() {  <br>        return user1;  <br>    }  <br>  <br>    public User getUser2() {  <br>        return user2;  <br>    }  <br>  <br>    @Override  <br>    public void createMediator() {  <br>        user1 &#x3D; new User1(this);  <br>        user2 &#x3D; new User2(this);  <br>    }  <br>  <br>    @Override  <br>    public void workAll() {  <br>        user1.work();  <br>        user2.work();  <br>    }  <br>}  </p>
+<p>public abstract class User {  <br>      <br>    private Mediator mediator;  <br>      <br>    public Mediator getMediator(){  <br>        return mediator;  <br>    }  <br>      <br>    public User(Mediator mediator) {  <br>        this.mediator &#x3D; mediator;  <br>    }  <br>  <br>    public abstract void work();  <br>}  </p>
+<p>public class User1 extends User {  <br>  <br>    public User1(Mediator mediator){  <br>        super(mediator);  <br>    }  <br>      <br>    @Override  <br>    public void work() {  <br>        System.out.println(“user1 exe!”);  <br>    }  <br>}  </p>
+<p>public class User2 extends User {  <br>  <br>    public User2(Mediator mediator){  <br>        super(mediator);  <br>    }  <br>      <br>    @Override  <br>    public void work() {  <br>        System.out.println(“user2 exe!”);  <br>    }  <br>}  <br>测试类：<br> <br>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>        Mediator mediator &#x3D; new MyMediator();  <br>        mediator.createMediator();  <br>        mediator.workAll();  <br>    }  <br>}  <br>输出：<br>user1 exe!<br>user2 exe!<br>23、解释器模式（Interpreter）<br>解释器模式是我们暂时的最后一讲，一般主要应用在OOP开发中的编译器的开发中，所以适用面比较窄。<br><img src="/images/DesignMode/28.jpeg" alt="28"><br>Context类是一个上下文环境类，Plus和Minus分别是用来计算的实现，代码如下：<br>public interface Expression {  <br>    public int interpret(Context context);  <br>}  </p>
+<p>public class Plus implements Expression {  <br>  <br>    @Override  <br>    public int interpret(Context context) {  <br>        return context.getNum1()+context.getNum2();  <br>    }  <br>}  </p>
+<p>public class Minus implements Expression {  <br>  <br>    @Override  <br>    public int interpret(Context context) {  <br>        return context.getNum1()-context.getNum2();  <br>    }  <br>}  </p>
+<p>public class Context {  <br>      <br>    private int num1;  <br>    private int num2;  <br>      <br>    public Context(int num1, int num2) {  <br>        this.num1 &#x3D; num1;  <br>        this.num2 &#x3D; num2;  <br>    }  <br>      <br>    public int getNum1() {  <br>        return num1;  <br>    }  <br>    public void setNum1(int num1) {  <br>        this.num1 &#x3D; num1;  <br>    }  <br>    public int getNum2() {  <br>        return num2;  <br>    }  <br>    public void setNum2(int num2) {  <br>        this.num2 &#x3D; num2;  <br>    }  <br>      <br>      <br>}  </p>
+<p>public class Test {  <br>  <br>    public static void main(String[] args) {  <br>  <br>        &#x2F;&#x2F; 计算9+2-8的值  <br>        int result &#x3D; new Minus().interpret((new Context(new Plus()  <br>                .interpret(new Context(9, 2)), 8)));  <br>        System.out.println(result);  <br>    }  <br>}  <br>最后输出正确的结果：3。  <br> 基本就这样，解释器模式用来做各种各样的解释器，如正则表达式等的解释器等等！<br>设计模式基本就这么大概讲完了，总体感觉有点简略，的确，这么点儿篇幅，不足以对整个23种设计模式做全面的阐述，此处读者可将它作为一个理论基础去学习，通过这四篇博文，先基本有个概念，虽然我讲的有些简单，但基本都能说明问题及他们的特点，如果对哪一个感兴趣，可以继续深入研究！同时我也会不断更新，尽量补全遗</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/DesignMode/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-50Programming" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/50Programming/">50道经典的JAVA编程题</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/50Programming/" class="archive-article-date">
+  	<time datetime="2022-09-15T14:44:56.874Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>【程序1】 TestRabbit.java <br>题目：古典问题：有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少？ <br>1.程序分析： 兔子的规律为数列1,1,2,3,5,8,13,21….<br>解答：<br>    package test50;</p>
+<pre><code>public class TestRabbit &#123;
+
+public static int sumRabbitNumber(int m)&#123;
+
+    int n = 1;//第0个月对数
+
+    int e = 0;//第0个月对数
+
+    int cup = 0;
+
+    for(int i=1; i&lt;m; i++)&#123;
+
+        cup = n;
+
+        n = e + n;
+
+        e = cup;
+
+    &#125;
+
+    return n;
+
+&#125;
+
+
+
+public static void main(String[] args) &#123;
+
+    for(int i=1; i&lt;=10; i++)&#123;
+
+        System.out.print(sumRabbitNumber(i)+&quot;,&quot;);
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>}<br>【程序2】 FindPrimeNumber.java <br>题目：判断101-200之间有多少个素数，并输出所有素数。 <br>1.程序分析：判断素数的方法：用一个数分别去除2<del>sqrt(n)或者2</del>n&#x2F;2,常用2~n&#x2F;2，</p>
+<p>因为一个数的一半的平方大于其本身是从5开始的，解方程：n&#x2F;2的平方&gt;n .如果能被整除，<br>则表明此数不是素数，反之是素数。<br>解答：<br>    package test50;<br>    public class FindPrimeNumber {</p>
+<pre><code>public static boolean isPrimeNumber(int n)&#123;
+
+    if(n == 2) return true;
+
+    for(int i=2; i&lt;=n/2; i++)&#123;
+
+        if(n % i == 0) return false;
+
+    &#125;
+
+    return true;
+
+&#125;
+
+public static void main(String[] args) &#123;
+
+    int n = 0;
+
+    for(int i=101; i&lt;=200; i++)&#123;
+
+        if(isPrimeNumber(i))&#123;
+
+            n++;
+
+            System.out.print(i + &quot;,&quot;);
+
+        &#125;
+
+    &#125;
+
+    System.out.println(&quot;\n101-200之间有&quot;+n+&quot;个素数&quot;);
+
+&#125;
+</code></pre>
+<p>}<br>【程序3】FindDaffodilNumber.java <br>题目：打印出所有的”水仙花数”，所谓”水仙花数”是指一个三位数，其各位数字立方和等于该数本身。例如： <br>153是一个”水仙花数”，因为153&#x3D;1的三次方＋5的三次方＋3的三次方。 <br>1.程序分析：利用for循环控制100-999个数，每个数分解出个位，十位，百位。<br>解答：<br>    package test50;<br>    public class FindDaffodilNumber {</p>
+<pre><code>public static boolean isDaffodNumber(int n)&#123;
+
+    char[] ch = String.valueOf(n).toCharArray();
+
+    int cup = 0;
+
+    for(int i=0; i&lt;ch.length; i++)&#123;
+
+        cup = cup + (int)Math.pow(Integer.parseInt(String.valueOf(ch[i])), 3) ;
+
+    &#125;
+
+    return (cup == n);
+
+&#125;
+
+
+
+public static void main(String[] args) &#123;
+
+    for(int i=100; i&lt;1000; i++)&#123;
+
+        if(isDaffodNumber(i))&#123;
+
+            System.out.print(i + &quot;,&quot;);
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>}<br>【程序4】FenJie.java <br>题目：将一个正整数分解质因数。例如：输入90,打印出90&#x3D;2<em>3</em>3*5。 <br>程序分析：对n进行分解质因数，应先找到一个最小的质数k，然后按下述步骤完成： <br>(1)如果这个质数恰等于n，则说明分解质因数的过程已经结束，打印出即可。 <br>(2)如果n&lt;&gt;k，但n能被k整除，则应打印出k的值，并用n除以k的商,作为新的正整数你n,重复执行第一步。 <br>(3)如果n不能被k整除，则用k+1作为k的值,重复执行第一步。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+/**
+</code></pre>
+<p> *程序分析：对n进行分解质因数，应先找到一个最小的质数k，然后按下述步骤完成： </p>
+<p> *(1)运用两层循环</p>
+<p> *(2)外循环得到2~n之间的所有质数，内循环将n循环除以质数，知道不能整除</p>
+<p> *(3)要是内循环n等于1了就说明n被完全整除了</p>
+<p> *&#x2F;</p>
+<pre><code>public class Explode &#123;
+
+public static boolean isPrimeNumber(int n)&#123;
+
+    if(n == 2) return true;
+
+    for(int i=2; i&lt;=n/2; i++)&#123;
+
+        if(n % i == 0) return false;
+
+    &#125;
+
+    return true;
+
+&#125;
+
+public static void main(String[] args) &#123;
+
+    BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+            System.in));
+
+    int N = 0;
+    try &#123;
+
+        N = Integer.parseInt(buffer.readLine());
+
+    &#125; catch (IOException e) &#123;
+
+        e.printStackTrace();
+
+    &#125;
+
+    System.out.print(N+&quot;=&quot;);
+
+    for(int i=2; i&lt;N; i++)&#123;
+
+        if(!isPrimeNumber(i)) continue;
+
+        while(N%i == 0)&#123;
+
+            System.out.print(i);
+
+            N = N/i;
+
+            if(N != 1) System.out.print(&quot;*&quot;);
+
+            else break;
+
+        &#125;
+
+    &#125;
+
+    if(N != 1) System.out.println(N);
+
+&#125;
+</code></pre>
+<p>}<br>【程序5】 ConditionOperator.java <br>题目：利用条件运算符的嵌套来完成此题：学习成绩&gt;&#x3D;90分的同学用A表示，60-89分之间的用B表示，60分以下的用C表示。 <br>1.程序分析：(a&gt;b)?a:b这是条件运算符的基本例子。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+public class ConditionOperator &#123;
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int N = 0;
+
+        try &#123;
+
+            N = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(&quot;学习成绩为：&quot; + ((N &lt; 60) ? &quot;C&quot; : (N &lt; 90) ? &quot;B&quot; : &quot;A&quot;));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序6】GcdTest.java辗转相除法 <br>题目：输入两个正整数m和n，求其最大公约数和最小公倍数。 <br>1.程序分析：利用辗除法。<br> 2.辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的相除余数的最大公约数。 </p>
+<p> 3.最小公倍数等于两数之积除以最大公约数</p>
+<p>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+public class GCDAndLCM &#123;
+
+    public static int getGCDNormal(int m, int n)&#123;//最大公约数普通求法
+
+        int i = (m &gt; n ? n : m);
+
+        for(; i&gt;1; i--)&#123;
+
+            if(m%i == 0 &amp;&amp; n%i == 0)
+
+                return i;
+
+        &#125;
+
+        return 1;
+
+    &#125;
+
+    
+
+    public static int getGCD(int m, int n)&#123;//最大公约数辗转相除法
+
+        if(m%n == 0) return n;
+
+        else return getGCD(n, m%n);//递归辗转相除
+
+    &#125;
+
+    
+
+    public static int getLCM(int m, int n)&#123;
+
+        return (m * n)/getGCD(m, n);//最小公倍数等于两数之积除以最大公约数
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int m = 0, n = 0;
+
+        try &#123;
+
+            m = Integer.parseInt(buffer.readLine());
+
+            n = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(&quot;最小公倍数:&quot; + getLCM(m, n));
+
+        System.out.println(&quot;最大公约数:&quot; + getGCD(m, n));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序7】 StChar.java <br>题目：输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数。 <br>1.程序分析：利用while语句,条件为输入的字符不为’n’.<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.HashMap;
+
+import java.util.Iterator;
+
+import java.util.Map;
+
+import java.util.Set;
+
+/**
+
+*1.程序分析：利用循环,使用Map存储数据.其实完全可以使用4个变量来解决,这边舍近求远复习下Map啦
+
+*/
+
+public class StChar &#123;
+
+    public static Map&lt;Integer, Integer&gt; countChar(String str)&#123;
+
+        Map&lt;Integer, Integer&gt; m = new HashMap&lt;Integer, Integer&gt;();
+
+        m.put(1, 0);
+
+        m.put(2, 0);
+
+        m.put(3, 0);
+
+        m.put(4, 0);
+
+        char[] ch = str.toCharArray();
+
+        for(int i=0; i&lt;ch.length; i++)&#123;
+
+            if(ch[i] &gt;= &#39;a&#39; &amp;&amp; ch[i] &lt;= &#39;z&#39; || ch[i] &gt;= &#39;A&#39; &amp;&amp; ch[i] &lt;= &#39;Z&#39;)
+
+                m.put(1, m.get(1) + 1);
+
+            else if(ch[i] == &#39; &#39;)
+
+                m.put(2, m.get(2) + 1);
+
+            else if(ch[i] &gt;= &#39;0&#39; &amp;&amp; ch[i] &lt;= &#39;9&#39;)
+
+                m.put(3, m.get(3) + 1);
+
+            else
+
+                m.put(4, m.get(4) + 1);
+
+        &#125;
+
+        return m;
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        String str = null;
+
+        try &#123;
+
+            str = buffer.readLine();
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        Map&lt;Integer, Integer&gt; m = countChar(str);
+
+        Set&lt;Integer&gt; keys = m.keySet();
+
+        Iterator&lt;Integer&gt; it = keys.iterator();
+
+        int n, k;
+
+        while(it.hasNext())&#123;
+
+            k = it.next();
+
+            n = m.get(k);
+
+            switch (k) &#123;
+
+            case 1:
+
+                System.out.println(&quot;英文字母: &quot;+n);
+
+                break;
+
+            case 2:
+
+                System.out.println(&quot;空格: &quot;+n);
+
+                break;
+
+            case 3:
+
+                System.out.println(&quot;数字: &quot;+n);
+
+                break;
+
+            case 4:
+
+                System.out.println(&quot;其它字符: &quot;+n);
+
+                break;
+
+            default:
+
+                break;
+
+            &#125;
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序8】 TestAdd.java <br>题目：求s&#x3D;a+aa+aaa+aaaa+aa…a的值，其中a是一个数字。例如2+22+222+2222+22222(此时共有5个数相加)，几个数相加有键盘控制。 <br>1.程序分析：关键是计算出每一项的值。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+
+public class TestAdd &#123;
+
+    public static long sumAdd(int a, int n)&#123;
+
+        long cup = 0;
+
+        long ans = 0;
+
+        for(int i=0; i&lt;n; i++)&#123;
+
+            cup = 0;
+
+            for(int j=0; j&lt;=i; j++)&#123;
+
+                cup = cup + a * (long)Math.pow(10, j);
+
+            &#125;
+
+            ans = ans + cup;
+
+        &#125;
+
+        return ans;
+
+    &#125;
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int n = 0;
+
+        try &#123;
+
+            n = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(sumAdd(2, n));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序9】 WanShu.java <br>题目：一个数如果恰好等于它的因子之和，这个数就称为”完数”。例如6&#x3D;1＋2＋3.编程 找出1000以内的所有完数。<br>解答：<br>    package test50;</p>
+<pre><code>public class WanShu &#123;
+
+    public static boolean isWanShu(int a)&#123;
+
+        int cup = 0;
+
+        for(int i=1; i&lt;a; i++)&#123;
+
+            if(a%i == 0)
+
+                cup = cup + i;
+
+        &#125;
+
+        return (cup == a);
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        for(int i=1; i&lt;1000; i++)&#123;
+
+            if(isWanShu(i))&#123;
+
+                System.out.print(i + &quot;,&quot;);
+
+            &#125;
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序10】TestBall.java <br>题目：一球从100米高度自由落下，每次落地后反跳回原高度的一半；再落下，求它在第10次落地时，共经过多少米？第10次反弹多高？<br>1.程序分析:递归实现<br>解答：<br>    package test50;</p>
+<pre><code>public class TestBall &#123;
+
+    public static double sumBallHeight(double h, int n)&#123;
+
+        if(n == 1) return h/2;
+
+        else return sumBallHeight(h/2, n-1);
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        System.out.println(sumBallHeight(100, 10));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序11】 TestTN.java <br>题目：有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？ <br>1.程序分析：可填在百位、十位、个位的数字都是1、2、3、4。组成所有的排列后再去 掉不满足条件的排列。<br>解答：<br>    package test50;</p>
+<pre><code>public class TestTN &#123;
+    public static void main(String[] args) &#123;
+        for(int i=1; i&lt;=4; i++)&#123;
+            for(int j=1; j&lt;=4; j++)&#123;
+                if(j == i) continue;
+                for(int k=1; k&lt;=4; k++)&#123;
+                    if(k == j || k == i) continue;
+                    System.out.print(i*100 + j*10 + k + &quot;,&quot;);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序12】 MoneyAward.java <br>题目：企业发放的奖金根据利润提成。利润(I)低于或等于10万元时，奖金可提10%；利润高于10万元，低于20万元时，低于10万元的部分按10%提成，高于10万元的部分，可可提成7.5%；20万到40万之间时，高于20万元的部分，可提成5%；40万到60万之间时高于40万元的部分，可提成3%；60万到100万之间时，高于60万元的部分，可提成1.5%，高于100万元时，超过100万元的部分按1%提成，从键盘输入当月利润I，求应发放奖金总数？ <br>1.程序分析：请利用数轴来分界，定位。注意定义时需把奖金定义成长整型。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.InputStreamReader;</p>
+<pre><code>public class MoneyAward &#123;
+    public static double sumMoneyAward(double i)&#123;
+        if(i &lt;= 10)&#123;
+            return i * 0.1;
+        &#125;else if(i &lt; 20)&#123;
+            return ((i - 10) * 0.075 + 1);
+        &#125;else if(i &lt; 40)&#123;
+            return (i - 20) * 0.05;
+        &#125;else if(i &lt; 60)&#123;
+            return (i - 40) * 0.03;
+        &#125;else if(i &lt; 100)&#123;
+            return (i - 60) * 0.015;
+        &#125;else&#123;
+            return (i - 100) * 0.001;
+        &#125;
+    &#125;
+     
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        double I = 0;
+        try &#123;
+            System.out.println(&quot;请输入当月利润I：(单位：万)&quot;);
+            I = Integer.parseInt(br.readLine());
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(&quot;奖金总数:&quot; + sumMoneyAward(I) + &quot;万&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序13】FindNumber.java <br>题目：一个整数，它加上100后是一个完全平方数，再加上168又是一个完全平方数，请问该数是多少？ <br>1.程序分析：在10万以内判断，先将该数加上100后再开方，再将该数加上268后再开方，如果开方后的结果满足如下条件，即是结果。请看具体分析：<br>解答：<br>    package test50;<br>    public class FindNumber {<br>        public static void main(String[] args) {<br>            for(int i&#x3D;1; i&lt;100000; i++){<br>                if(Math.sqrt(i + 100) % 1 &#x3D;&#x3D; 0 &amp;&amp; Math.sqrt(i + 268) % 1 &#x3D;&#x3D; 0){<br>                    System.out.println(i);<br>    &#x2F;&#x2F;              break;<br>                }<br>            }<br>        }<br>    }<br>【程序14】 TestDay.java <br>题目：输入某年某月某日，判断这一天是这一年的第几天？ <br>1.程序分析：以3月5日为例，应该先把前两个月的加起来，然后再加上5天即本年的第几天，特殊情况，闰年且输入月份大于3时需考虑多加一天。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.InputStreamReader;</p>
+<pre><code>public class TestDay &#123;
+    public static boolean isLeapYear(int y)&#123;
+        if((y%4 == 0 &amp;&amp; y%100 != 100) || y%400 == 0)
+            return true;
+        else 
+            return false;
+    &#125;
+    
+    public static int sumDays(int y, int m, int d)&#123;
+        int[] MonthDays = &#123;31,28,31,30,31,30,31,31,30,31,30,31&#125;;
+        if(isLeapYear(y)) MonthDays[1] = 29;
+        int ans = 0;
+        for(int i=0; i&lt;m-1; i++)&#123;
+            ans = ans + MonthDays[i];
+        &#125;
+        return ans + d;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String in = null;
+        try &#123;
+            System.out.println(&quot;请输入年月日，例如：2014-01-01&quot;);
+            in = br.readLine();
+        &#125; catch (Exception e) &#123;
+            System.out.println(&quot;格式错误&quot;);
+        &#125;
+        int y = Integer.parseInt(in.substring(0, in.indexOf(&#39;-&#39;)));
+        int m = Integer.parseInt(in.substring(in.indexOf(&#39;-&#39;) + 1, in.lastIndexOf(&#39;-&#39;)));
+        int d = Integer.parseInt(in.substring(in.lastIndexOf(&#39;-&#39;) + 1));
+        System.out.println(sumDays(y, m, d));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序15】Sort.java <br>题目：输入三个整数x,y,z，请把这三个数由小到大输出。 <br>1.程序分析：我们想办法把最小的数放到x上，先将x与y进行比较，如果x&gt;y则将x与y的值进行交换，然后再用x与z进行比较，如果x&gt;z则将x与z的值进行交换，这样能使x最小。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.IOException;<br>    import java.io.InputStreamReader;<br>    import java.util.ArrayList;<br>    import java.util.Collections;<br>    import java.util.Iterator;<br>    import java.util.List;</p>
+<pre><code>/**
+* 1.程序分析：舍近求远，练习容器，可以使用List容器很简单实现。
+*/
+public class Sort &#123;
+    public static List&lt;Double&gt; readDouble(String str, String sp)&#123;
+        List&lt;Double&gt; l = new ArrayList&lt;Double&gt;();
+        int j = 0;
+        for(int i=0; i&lt;str.length(); i++)&#123;
+            if(str.substring(i, i+1).equalsIgnoreCase(sp) )&#123;
+                l.add(Double.parseDouble(str.substring(j, i)));
+                j = i + 1;
+            &#125;
+        &#125;
+        return l;
+    &#125;
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List&lt;Double&gt; l = null;
+        try &#123;
+            System.out.println(&quot;输入数据，如:1,2,3,4,&quot;);
+            l = readDouble(br.readLine(), &quot;,&quot;);
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(l.isEmpty());
+        Collections.sort(l);
+        Iterator&lt;Double&gt; it = l.iterator();
+        while(it.hasNext())&#123;
+            System.out.print(it.next() + &quot; &quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序16】Nine.java <br>题目：输出9*9口诀。 <br>1.程序分析：分行与列考虑，共9行9列，i控制行，j控制列。<br>解答：<br>    package test50;</p>
+<pre><code>public class Nine &#123;
+    public static void main(String[] args) &#123;
+        for(int i=1; i&lt;=9; i++)&#123;
+            for(int j=1; j&lt;=i; j++)&#123;
+                System.out.print(j + &quot;*&quot; + i + &quot;=&quot; + i*j + &quot;  &quot;);
+            &#125;
+            System.out.println();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序17】MonkeyEatPeach.java <br>题目：猴子吃桃问题：猴子第一天摘下若干个桃子，当即吃了一半，还不瘾，又多吃了一个 第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。到第10天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少。 <br>1.程序分析：采取逆向思维的方法，从后往前推断。<br>解答：<br>    package test50;<br>    public class MonkeyEatPeach {<br>        public static int getNum(int d){<br>            if(d &#x3D;&#x3D; 0) return 1;<br>            else return (getNum(d-1) + 1) * 2;<br>        }<br>         <br>        public static void main(String[] args) {<br>            System.out.println(getNum(10));<br>        }<br>    }<br>【程序18】 Prog.java <br>题目：两个乒乓球队进行比赛，各出三人。甲队为a,b,c三人，乙队为x,y,z三人。已抽签决定比赛名单。有人向队员打听比赛的名单。a说他不和x比，c说他不和x,z比，请编程序找出三队赛手的名单。 <br>1.程序分析：判断素数的方法：用一个数分别去除2到sqrt(这个数)，如果能被整除， 则表明此数不是素数，反之是素数。<br>解答：<br>    package test50;<br>    public class Prog {<br>        public static void main(String[] args) {<br>            String[] team1 &#x3D; {“a”,”b”,”c”};<br>            String[] team2 &#x3D; {“x”,”y”,”z”};<br>            for(int i&#x3D;0; i&lt;3; i++){<br>                for(int j&#x3D;0; j&lt;3; j++){<br>                    if(i &#x3D;&#x3D; 0 &amp;&amp; j &#x3D;&#x3D; 0)&#x2F;&#x2F;a说他不和x比<br>                        continue;<br>                    else if(i &#x3D;&#x3D; 2 &amp;&amp; (j &#x3D;&#x3D; 0 || j &#x3D;&#x3D; 2))<br>                        continue;&#x2F;&#x2F;c说他不和x,z比<br>                    else{<br>                        System.out.println(team1[i] + “&lt;–&gt;” + team2[j]);<br>                    }<br>                }<br>            }<br>        }<br>    }<br>【程序19】LingXing.java <br>题目：打印出如下图案（菱形） <br>      * <br>    *** <br>  ***** <br>******* <br>  ***** <br>    *** <br>      * <br>1.程序分析：先把图形分成两部分来看待，前四行一个规律，后三行一个规律，利用双重 for循环，第一层控制行，第二层控制列。<br>解答：<br>    package test50;<br>    public class LingXing {<br>        public static void print(int n){<br>            int i &#x3D; 0;<br>            int j &#x3D; 0;<br>            for(i&#x3D;0; i&lt;n; i++){&#x2F;&#x2F;前四行<br>                for(j&#x3D;0; j&lt;n+i;j++){<br>                    if(j &lt; n-i-1)<br>                        System.out.print(“ “);<br>                    else<br>                        System.out.print(“<em>“);<br>                }<br>                System.out.println();<br>            }<br>            for(i&#x3D;1; i&lt;n; i++){&#x2F;&#x2F;后三行<br>                for(j&#x3D;0; j&lt;(2</em>n-i-1); j++){<br>                    if(j &lt; i)<br>                        System.out.print(“ “);<br>                    else<br>                        System.out.print(“*”);<br>                }<br>                System.out.println();<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        print(4);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序20】TestAdd2.java <br>题目：有一分数序列：2&#x2F;1，3&#x2F;2，5&#x2F;3，8&#x2F;5，13&#x2F;8，21&#x2F;13…求出这个数列的前20项之和。 <br>1.程序分析：请抓住分子与分母的变化规律。<br>解答：<br>    package test50;<br>    public class TestAdd2 {<br>        public static double add(int n){<br>            double ans &#x3D; 0;<br>            double a &#x3D; 2;<br>            double b &#x3D; 1;<br>            double cup &#x3D; 0;<br>            for(int i&#x3D;0; i&lt;n; i++){<br>                ans &#x3D; ans + a&#x2F;b;<br>                cup &#x3D; a;<br>                a &#x3D; a + b;<br>                b &#x3D; cup;<br>            }<br>            return ans;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(add(20));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序21】TestJieCheng.java <br>题目：求1+2!+3!+…+20!的和 <br>1.程序分析：此程序只是把累加变成了累乘。<br>解答：<br>    package test50;<br>    public class TestJieCheng {<br>        public static long jieCheng(int n){<br>            if(n &#x3D;&#x3D; 1) return 1;<br>            else return jieCheng(n-1)*n;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        long ans = 0;
+        for(int i=1; i&lt;=20; i++)&#123;
+            ans = ans + jieCheng(i);
+        &#125;
+        System.out.println(ans);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序22】TestJieCheng2.java <br>题目：利用递归方法求5!。 <br>1.程序分析：递归公式：fn&#x3D;fn_1*4!<br>解答：<br>    public static long jieCheng(int n){<br>        if(n &#x3D;&#x3D; 1) return 1;<br>        else return jieCheng(n-1)*n;<br>    }<br>【程序23】TestAge.java <br>题目：有5个人坐在一起，问第五个人多少岁？他说比第4个人大2岁。问第4个人岁数，他说比第3个人大2岁。问第三个人，又说比第2人大两岁。问第2个人，说比第一个人大两岁。最后问第一个人，他说是10岁。请问第五个人多大？ <br>1.程序分析：利用递归的方法，递归分为回推和递推两个阶段。要想知道第五个人岁数，需知道第四人的岁数,依次类推，推到第一人（10岁），再往回推。<br>解答：<br>    package test50;<br>    public class TestAge {<br>        public static int getAge(int n){<br>            if(n &#x3D;&#x3D; 1) return 10;<br>            else return getAge(n-1) + 2;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(getAge(5));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序24】TestNumber.java <br>题目：给一个不多于5位的正整数，要求：一、求它是几位数，二、逆序打印出各位数字。<br>解答：<br>    package test50;</p>
+<pre><code>import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class TestNumber &#123;
+    public static List&lt;Integer&gt; explodeNumber(long n)&#123;
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        long cup = n;
+        while(cup != 0)&#123;
+            l.add((int) (cup%10));
+            cup = cup/10;
+        &#125;
+        return l;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;给一个不多于5位的正整数:&quot;);
+        Scanner s = new Scanner(System.in);
+        long n = 0;
+        if(s.hasNext()) n = s.nextInt();
+        List&lt;Integer&gt; l = explodeNumber(n);
+        System.out.println(&quot;它是&quot;+l.size()+&quot;位数&quot;);
+        Iterator&lt;Integer&gt; it = l.iterator();
+        while(it.hasNext())&#123;
+            System.out.print(it.next());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序25】 HuiWenShu.java <br>题目：一个5位数，判断它是不是回文数。即12321是回文数，个位与万位相同，十位与千位相同。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;</p>
+<pre><code>public class HuiWenShu &#123;
+    public static List&lt;Integer&gt; explodeNumber(long n)&#123;
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        long cup = n;
+        while(cup != 0)&#123;
+            l.add((int) (cup%10));
+            cup = cup/10;
+        &#125;
+        return l;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入一个数:&quot;);
+        Scanner s = new Scanner(System.in);
+        long n = 0;
+        if(s.hasNext()) n = s.nextLong();
+        List&lt;Integer&gt; l = explodeNumber(n);
+        Integer[] a = (Integer[])l.toArray(new Integer[]&#123;&#125;);
+        for(int i=0; i&lt;=a.length/2; i++) &#123;
+            if(!a[i].equals(a[a.length-i-1]))&#123;
+                System.out.println(&quot;不是回文&quot;);
+                return;
+            &#125;
+        &#125;
+        System.out.println(&quot;是回文&quot;);
+    &#125;
+&#125;
+【程序26】Ex26.java (跳过了，好没意思的题啊) 
+</code></pre>
+<p>题目：请输入星期几的第一个字母来判断一下是星期几，如果第一个字母一样，则继续 判断第二个字母。 <br>1.程序分析：用情况语句比较好，如果第一个字母一样，则判断用情况语句或if语句判断第二个字母。<br>解答：<br>使用字符数组搞定<br>【程序27】 SuShu.java(详见【程序2】 FindPrimeNumber.java) <br>题目：求100之内的素数<br>解答：<br>参考见【程序2】 FindPrimeNumber.java <br>    public static boolean isPrimeNumber(int n){<br>        if(n &#x3D;&#x3D; 2) return true;<br>        for(int i&#x3D;2; i&lt;&#x3D;n&#x2F;2; i++){<br>            if(n % i &#x3D;&#x3D; 0) return false;<br>        }<br>        return true;<br>    }<br>【程序28】 TestSort.java <br>题目：对10个数进行排序 <br>1.程序分析：可以利用选择法，即从后9个比较过程中，选择一个最小的与第一个元素交换， 下次类推，即用第 <br>二个元素与后8个进行比较，并进行交换。<br>解答：<br>参见【程序15】Sort.java<br>【程序29】 TestAdd3.java <br>题目：求一个3*3矩阵对角线元素之和 <br>1.程序分析：利用双重for循环控制输入二维数组，再将a[i][i]累加后输出。<br>解答：<br>没啥意思的说。。。<br>【程序30】 ArraySort.java <br>题目：有一个已经排好序的数组。现输入一个数，要求按原来的规律将它插入数组中。 </p>
+<ol>
+<li><p>程序分析：首先判断此数是否大于最后一个数，然后再考虑插入中间的数的情况，插入后此元素之后的数， <br>依次后移一个位置。<br>解答：<br> package test50;</p>
+<p> &#x2F;**<br> *1. 程序分析：使用二分法<br> *&#x2F;<br> public class ArraySort {<br> public static int[] addNumber(int[] a, int n){<br>     int i&#x3D;0, j&#x3D;a.length-1;<br>     int cup &#x3D; 0;<br>     if(a[j]&lt;n) cup &#x3D; j+1;<br>     else if(a[i]&gt;n) cup &#x3D; i;<br>     else{<br>         while(j-i&gt;1){<br>             cup &#x3D; (i + j) &#x2F;2;<br>             if(n &gt; a[cup]){&#x2F;&#x2F;n大于中间数<br>                 i &#x3D; cup;<br>             }else if(n &lt; a[cup]){<br>                 j &#x3D; cup;<br>             }else{<br>                 break;<br>             }<br>         }<br>         cup &#x3D; j;<br>     }<br>     &#x2F;&#x2F;插入n<br>     int[] newa &#x3D; new int[a.length+1];<br>     for(i&#x3D;0,j&#x3D;0; i&lt;newa.length; i++){<br>         if(i &#x3D;&#x3D; cup){<br>             newa[i] &#x3D; n;<br>         }else{<br>             newa[i] &#x3D; a[j];<br>             j++;<br>         }<br>     }<br>     return newa;<br> }<br><br> public static void printArray(int[] a){<br>     for(int i&#x3D;0; i&lt;a.length; i++){<br>         System.out.print(a[i]+” “);<br>     }<br> }<br><br> public static void main(String[] args) {<br>     int[] a &#x3D; new int[]{2,3,5,6,7,9,12,16};&#x2F;&#x2F;已经排好序的数组<br>     a &#x3D; addNumber(a, 10);<br>     printArray(a);<br> }<br> }</p>
+</li>
+</ol>
+<p>【程序31】 ArrayConverse.java <br>题目：将一个数组逆序输出。 <br>1.程序分析：用第一个与最后一个交换。<br>解答：<br>    package test50;<br>    public class ArrayConverse {<br>        public static void arrayConverse(int[] a){<br>            int cup&#x3D;0;<br>            for(int i&#x3D;0,j&#x3D;a.length-1; i&lt;j; i++,j–){<br>                cup &#x3D; a[i];<br>                a[i] &#x3D; a[j];<br>                a[j] &#x3D; cup;<br>            }<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int[] a = new int[]&#123;1,2,3,4,5&#125;;
+        printArray(a);
+        arrayConverse(a);
+        printArray(a);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序32】 Ex32.java <br>题目：取一个整数a从右端开始的4～7位。 <br>程序分析：可以这样考虑： <br>(1)先使a右移4位。 <br>(2)设置一个低4位全为1,其余全为0的数。可用<del>(</del>0&lt;&lt;4) <br>(3)将上面二者进行&amp;运算。<br>解答：<br>    package test50;<br>    public class Ex32 {<br>        public static int[] getNum(int a, int m, int n){<br>            int[] ans &#x3D; new int[n-m+1];<br>            for(int i&#x3D;1,j&#x3D;0; j&lt;ans.length &amp;&amp; a&gt;0;i++){<br>                if(i&gt;&#x3D;m &amp;&amp; i&lt;&#x3D;n){<br>                    ans[j] &#x3D; a%10;<br>                    j++;<br>                }<br>                a &#x3D; a &#x2F; 10;<br>            }<br>            return ans;<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=a.length-1; i&gt;=0; i--)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int a = 123456789;
+        int[] ns = getNum(a, 4, 7);
+        System.out.println(a);
+        printArray(ns);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序33】YangHui.java <br>题目：打印出杨辉三角形（要求打印出10行如下图） <br>1.程序分析：  <br>       1 <br>      1 1 <br>     1 2 1 <br>    1 3 3 1 <br>   1 4 6 4 1 <br>1 5 10 10 5 1<br>解答：<br>    package test50;<br>    public class YangHui {<br>        public static int[][] getArray(int n){<br>            int[][] a &#x3D; new int[n][n];<br>            for(int i&#x3D;0; i&lt;n; i++){<br>                for(int j&#x3D;0; j&lt;&#x3D;i; j++){<br>                    if(j &#x3D;&#x3D; 0 || j &#x3D;&#x3D; i){<br>                        a[i][j] &#x3D; 1;<br>                    }else{<br>                        a[i][j] &#x3D; a[i-1][j-1] + a[i-1][j];<br>                    }<br>                }<br>            }<br>            return a;<br>        }</p>
+<pre><code>    public static void print(int[][] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            for(int j=0; j&lt;a.length-i-1; j++)&#123;
+                System.out.print(&quot; &quot;);
+            &#125;
+            for(int j=0; j&lt;a[i].length &amp;&amp; a[i][j]&gt;0; j++)&#123;
+                System.out.print(a[i][j]+&quot; &quot;);
+            &#125;
+            System.out.println();
+        &#125;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        print(getArray(6));
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序34】 略 前面更复杂的已经做过了 <br>题目：输入3个数a,b,c，按大小顺序输出。 <br>1.程序分析：利用指针方法。<br>解答：<br>参见【程序15】Sort.java<br>【程序35】 ArrayChange.java <br>题目：输入数组，最大的与第一个元素交换，最小的与最后一个元素交换，输出数组。<br>解答：<br>    package test50;<br>    public class ArrayChange {<br>        public static void sort(int[] a){&#x2F;&#x2F;类似冒泡排序<br>            int cup &#x3D; 0;<br>            int l &#x3D; a.length-1;<br>            for(int i&#x3D;1; i&lt;a.length-1; i++){<br>                if(a[i] &gt; a[0]){<br>                    cup &#x3D; a[i];<br>                    a[i] &#x3D; a[0];<br>                    a[0] &#x3D; cup;<br>                }<br>                if(a[i] &lt; a[l]){<br>                    cup &#x3D; a[i];<br>                    a[i] &#x3D; a[l];<br>                    a[l] &#x3D; cup;<br>                }<br>            }<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int[] a = new int[]&#123;2,3,5,1,2,34,1,0,24&#125;;
+        printArray(a);
+        sort(a);
+        printArray(a);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序36】 Array1.java <br>题目：有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数<br>解答：<br>注:我不是很理解这个题,按我的理解来做吧比如n&#x3D;{1,2,3,4,5,6,7,8,9} <br>m&#x3D;2,则应该得到的n&#x3D;{1,2,1,2,3,4,5,1,2} <br>m&#x3D;3,则应该得到的n&#x3D;{1,2,3,1,2,3,1,2,3}<br>【程序37】 Test3Quit.java <br>题目：有n个人围成一圈，顺序排号。从第一个人开始报数（从1到3报数），凡报到3的人退出圈子，问最后留下 <br>的是原来第几号的那位。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;<br>    &#x2F;**<br>    *有200个小朋友拉成一个圆圈，从其中一个小朋友开始依次编号1－200，从1号小朋友开始循环1－3报数，<br>    *数到3的小朋友就退出。编写一个Java应用程序，计算出最后一个小朋友的号码是多少。<br>    *&#x2F;<br>    public class Test3Quit {<br>        public static int play(List<Integer> l, int n, int m){<br>            int s &#x3D; l.size();<br>            if(s &lt;&#x3D; 1) return l.get(0);<br>            else {<br>                n &#x3D; n + m - 1;<br>                while(n &gt;&#x3D; s)<br>                    n &#x3D; n-s;<br>                l.remove(n);<br>                return play(l, n, m);<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入有多少个小朋友:&quot;);
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        for(int i=1; i&lt;=n; i++)&#123;
+            l.add(i);
+        &#125;
+        System.out.println(play(l, 0, 3));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序38】 TestLength.java <br>题目：写一个函数，求一个字符串的长度，在main函数中输入字符串，并输出其长度。<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestLength &#123;
+    public static int getLength(String str)&#123;
+        return str.toCharArray().length;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入你的字符串：&quot;);
+        String str = new Scanner(System.in).next();
+        System.out.println(&quot;你的字符串长度为:&quot;+getLength(str));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序39】 Test2.java <br>题目：编写一个函数，输入n为偶数时，调用函数求1&#x2F;2+1&#x2F;4+…+1&#x2F;n,当输入n为奇数时，调用函数 <br>1&#x2F;1+1&#x2F;3+…+1&#x2F;n(利用指针函数)<br>注：java里面貌似没有指针函数吧！这个题是不是C++的啊！我就不纠结指针函数了，实现功能就行了<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class Test2 &#123;
+    public static double sum(int n)&#123;
+        double ans = 0;
+        int i = 1;
+        if(n%2 == 0)
+            i = 2;
+        for(; i&lt;=n;i=i+2)&#123;
+            ans = ans + 1.0/i;
+        &#125;
+        return ans;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int n = new Scanner(System.in).nextInt();
+        System.out.println(sum(n));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序40】 Test3.java <br>题目：字符串排序。<br>注:把字符串转成char，进行排序<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class Test3 &#123;
+    public static String bubbleSort(String str)&#123;
+        boolean flag = true;
+        char[] chs = str.toCharArray();
+        char cup = 0;
+        for(int i=0; i&lt;str.length()-1 &amp;&amp; flag; i++)&#123;
+            flag = false;
+            for(int j=0; j&lt;str.length()-1-i; j++)&#123;
+                if((int)chs[j+1] &lt; (int)chs[j])&#123;
+                    flag = true;
+                    cup = chs[j+1];
+                    chs[j+1] = chs[j];
+                    chs[j] = cup;
+                &#125;
+            &#125;
+        &#125;
+        return new String(chs);
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        String str = new Scanner(System.in).next();
+        System.out.println(bubbleSort(str));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序41】 MonkeyPeach.java <br>题目：海滩上有一堆桃子，五只猴子来分。第一只猴子把这堆桃子凭据分为五份，多了一个，这只猴子把多的一 <br>个扔入海中，拿走了一份。第二只猴子把剩下的桃子又平均分成五份，又多了一个，它同样把多的一个扔入海中 <br>，拿走了一份，第三、第四、第五只猴子都是这样做的，问海滩上原来最少有多少个桃子？<br>解答：<br>    package test50;<br>    public class MonkeyPeach {<br>        public static int getNum(int n, int m){<br>            if(n &gt; 5) return m*4;<br>            else {<br>                double ans &#x3D; getNum(n+1, m) &#x2F; 4.0 * 5 + 1;<br>                if(ans%1 !&#x3D; 0.0 || ans &#x3D;&#x3D; 1){&#x2F;&#x2F;判断结果是否为整数，或者结果不为1<br>                    return 0;<br>                }else<br>                    return (int)ans;<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        int ans = 0;
+        for(int i=1; ; i++)&#123;
+            ans = getNum(1, i);
+            if(ans != 0)&#123;
+                System.out.println(&quot;当最后一只猴子拿走&quot; + i + &quot;个桃子时，海滩上原来桃子得到最小值为：&quot;);
+                System.out.println(ans);
+                break;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+感觉上面的实现方案有点小题大做了，要是直接验证结果的话会更快的得到答案，看代码：
+package test50;
+public class MonkeyPeach_1 &#123;
+    public static boolean isRight(int n) &#123;
+        for(int i=0; i&lt;5; i++) &#123;
+            if(n % 5 == 1) &#123;
+                n = n - 1;
+                n = n - n / 5;
+            &#125;else
+                return false;
+        &#125;
+        return true;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        for(int n=1; ; n++) &#123;
+            if(isRight(n)) &#123;
+                System.out.println(&quot;海滩上原来桃子得到最小值为：&quot; + n);
+                return;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序42】 Test4.java <br>题目：809*??&#x3D;800*??+9*??+1 <br>其中??代表的两位数,8*??的结果为两位数，9*??的结果为3位数。求??代表的两位数，及809*??后的结果。<br>解答：<br>第一种：所有的？？代表同一个数<br>    package test50;<br>    public class Test4 {<br>        public static void main(String[] args) {<br>            for(int i&#x3D;10; i&lt;100 &amp;&amp; 8<em>i&lt;100 &amp;&amp; 9</em>i&lt;1000; i++){<br>                if(809<em>i &#x3D;&#x3D; (800</em>i + 9<em>i + 1)){<br>                    System.out.println(“??代表的两位数:” + i);<br>                    System.out.println(“809</em>??后的结果” + i*809);<br>                    return;<br>                }<br>            }<br>            System.out.println(“没有符合的数”);<br>        }<br>    }</p>
+<pre><code> 
+第二种：所有的？？都不同
+package test50;
+public class Test4_1 &#123;
+    public static void main(String[] args) &#123;
+        for(int i=10; i&lt;100; i++)&#123;
+            for(int j=10; j&lt;100 &amp;&amp; 8*j&lt;100; j++)&#123;
+                for(int l=10; l&lt;100 &amp;&amp; 9*l&lt;1000; l++)&#123;
+                    if(809*i == 800*j + 9*l + 1)&#123;
+                        System.out.println(&quot;809*&quot;+i+&quot; == 800*&quot;+j+&quot;+ 9*&quot;+l+&quot; + 1&quot;);
+                        System.out.println(&quot;809*??后的结果&quot; + i*809);
+                        return;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        System.out.println(&quot;没有符合的数&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序43】 Test5.java <br>题目：求0—7所能组成的奇数个数。<br>注：当有一位数时：有1.3.5.7这4个奇数<br>当有两位数时：最高为有7种（除0）选择，最低为有4（1.3.5.7为奇数的条件）种  总数为4<em>7<br>当有三位数时：最高为有7中（除0）选择，第二位有8中选择，最后一位4种（1.3.5.7） 总数 4</em>8<em>7<br>当有四位数时：最高为有7中（除0）选择，第三位有8中选择，第二位有8中选择，最后一位4种（1.3.5.7） 总数 4</em>8<em>8</em>7<br>解答：<br>    package test50;<br>    public class Test5 {<br>        public static void main(String[] args) {<br>            int cup &#x3D; 7<em>4;&#x2F;&#x2F;二位数<br>            int count &#x3D; cup + 4;<br>            for(int i&#x3D;2; i&lt;8; i++){<br>                cup &#x3D; 8</em>cup;<br>                count &#x3D; count + cup;<br>            }<br>            System.out.println(“0—7所能组成的奇数个数:” + count);<br>        }<br>    }<br>【程序44】 TestEven.java <br>题目：一个偶数总能表示为两个素数之和。<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestEven &#123;
+    public static boolean isPrimeNumber(int n)&#123;
+        if(n &lt; 2)return false;
+        for(int i=2; i&lt;n; i++)&#123;
+            if(n%i == 0)
+                return false;
+        &#125;
+        return true;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int n = new Scanner(System.in).nextInt();
+        
+        if(n%2 != 0)&#123;
+            System.out.println(&quot;输入的不是偶数&quot;);
+            return;
+        &#125;
+        for(int i=2; i&lt;n; i++)&#123;
+            if(isPrimeNumber(i) &amp;&amp; isPrimeNumber(n - i))&#123;
+                System.out.println(n + &quot; = &quot; + i + &quot;+&quot; + (n-i));
+                return;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序45】TestPrime9.java <br>题目：判断一个素数能被几个9整除<br>解答：<br>这个题貌是有问题吧，素数只能被1和自身整除啊，9都不是素数。。。无解<br>【程序46】 TestString.java <br>题目：两个字符串连接程序<br>注：转换成数组的连接,实际使用String.concat()<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestString &#123;
+    public static String connextString(String str1, String str2)&#123;
+        byte[] buf = new byte[str1.length() + str2.length()];
+        str1.getBytes(0, str1.length(), buf, 0);
+        str2.getBytes(0, str2.length(), buf, str1.length());
+        return new String(buf);
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        System.out.println(&quot;输入第一个字符串:&quot;);
+        String str1 = s.next();
+        System.out.println(&quot;输入第二个字符串:&quot;);
+        String str2 = s.next();
+        System.out.println(connextString(str1, str2));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序47】 TestPrint.java <br>题目：读取7个数（1—50）的整数值，每读取一个值，程序打印出该值个数的＊。<br>解答：<br>    package test50;<br>    import java.util.Scanner;<br>    public class TestPrint {<br>        public static void main(String[] args) {<br>            Scanner s &#x3D; new Scanner(System.in);<br>            int[] a &#x3D; new int[7];<br>            for(int i&#x3D;0; i&lt;7; i++){<br>                System.out.print(“输入第”+(i+1)+”个整数：”);<br>                a[i] &#x3D; s.nextInt();<br>            }<br>            for(int i&#x3D;0; i&lt;7; i++){<br>                for(int j&#x3D;0; j&lt;a[i]; j++){<br>                    System.out.print(“*”);<br>                }<br>                System.out.println();<br>            }<br>        }<br>    }<br>【程序48】 TestCode.java <br>题目：某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，加密规则如下：每位数字 <br>都加上5,然后用和除以10的余数代替该数字，再将第一位和第四位交换，第二位和第三位交换。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestCode &#123;
+    public static void encrypt(int[] a)&#123;
+        int cup = 0;
+        for(int i=0; i&lt;4; i++)&#123;
+            a[i] = (a[i] + 5) % 10;
+        &#125;
+        cup = a[0];
+        a[0] = a[3];
+        a[3] = cup;
+        
+        cup = a[1];
+        a[1] = a[2];
+        a[2] = cup;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        int[] a = new int[4];
+        for(int i=0; i&lt;4; i++)&#123;
+            System.out.print(&quot;输入第&quot;+(i+1)+&quot;位数：&quot;);
+            a[i] = s.nextInt();
+        &#125;
+        encrypt(a);
+        for(int i=0; i&lt;4; i++)&#123;
+            System.out.print(a[i]);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序49】 TestString2.java <br>题目：计算字符串中子串出现的次数<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestString2 &#123;
+    public static int findString(String str1, String str2)&#123;
+        int count = 0;
+        char[] chs1 = str1.toCharArray();
+        char[] chs2 = str2.toCharArray();
+        for(int i=0,j=0; i&lt;chs1.length; i++)&#123;
+            for(j=0; j&lt;chs2.length; j++)&#123;
+                if(chs1[i+j] != chs2[j])
+                    break;
+            &#125;
+            if(j == chs2.length)&#123;//完全匹配
+                count++;
+                i = i + j - 1;
+            &#125;
+        &#125;
+        return count;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        System.out.println(&quot;输入字符串:&quot;);
+        String str1 = s.next();
+        System.out.println(&quot;输入要查找的字符串:&quot;);
+        String str2 = s.next();
+        System.out.println(&quot;查找到的个数：&quot; + findString(str1, str2));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序50】TestStu.java <br>题目：有五个学生，每个学生有3门课的成绩，从键盘输入以上数据（包括学生号，姓名，三门课成绩），计算 <br>出平均成绩，况原有的数据和计算出的平均分数存放在磁盘文件”stud”中。<br>解答：<br>    package test50;<br>    import java.io.BufferedWriter;<br>    import java.io.File;<br>    import java.io.FileWriter;<br>    import java.io.IOException;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestStu &#123;
+    public static void main(String[] args) &#123;
+        int n = 5;//人数
+        Scanner s = new Scanner(System.in);
+        String[] num = new String[n];
+        String[] name = new String[n];
+        float[][] grade = new float[n][3];
+        float[] ave = new float[n];
+        //输入数据
+        for(int i=0; i&lt;n; i++)&#123;
+            System.out.print(&quot;学号:&quot;);
+            num[i] = s.next();
+            System.out.print(&quot;姓名:&quot;);
+            name[i] = s.next();
+            for(int j=0; j&lt;3; j++)&#123;
+                System.out.print(&quot;第&quot;+(j+1)+&quot;门课成绩:&quot;);
+                grade[i][j] = s.nextFloat();
+            &#125;
+        &#125;
+        //处理数据
+        for(int i=0; i&lt;n; i++)&#123;
+            for(int j=0; j&lt;3; j++)&#123;
+                ave[i] += grade[i][j];
+            &#125;
+            ave[i] /= 3;
+        &#125;
+        //写入文件
+        try &#123;
+            FileWriter fw = new FileWriter(new File(&quot;d://stud.txt&quot;));
+            BufferedWriter bw  = new BufferedWriter(fw);
+            for(int i=0; i&lt;n; i++)&#123;
+                bw.write(&quot;学号:&quot; + num[i] + &quot;  &quot;);
+                bw.write(&quot;姓名:&quot; + name[i] + &quot;  &quot;);
+                bw.write(&quot;成绩:&#123;  &quot;);
+                for(int j=0; j&lt;3; j++)&#123;
+                    bw.write(grade[i][j] + &quot;  &quot;);
+                &#125;
+                bw.write(&quot;&#125; &quot;);
+                bw.write(&quot;平均成绩: &quot; + ave[i]);
+                bw.newLine();
+            &#125;
+            bw.close();
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/VellBibi/p/3500671.html">https://www.cnblogs.com/VellBibi/p/3500671.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/50Programming/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-IntegrationProject" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/IntegrationProject/">使用IntelliJ IDEA整合maven+Spring+SpringMVC+Mybatis框架详细步骤然后整合Shiro配置</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/IntegrationProject/" class="archive-article-date">
+  	<time datetime="2022-09-15T08:31:23.204Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>新建Maven项目：<br>点击File -&gt; New -&gt; Project -&gt; Maven -&gt; 勾选 Create from archetype -&gt; 选择 maven-archetype-webapp (注意：此处不要错选成上面的cocoom-22-archetype-webapp)<br><img src="/images/integrationProject/1.png" alt="1"><br><img src="/images/integrationProject/2.png" alt="2"></li>
+</ol>
+<p>在弹出的new project 选项卡中填写GroupId和Artifactid，其中GroupID是项目组织唯一的标识符，实际对应JAVA的包的结构，是main目录里java的目录结构，ArtifactID是项目的唯一的标识符，实际对应项目的名称，就是项目根目录的名称。对于入门练习，这两项可以随意填写。<br><img src="/images/integrationProject/3.png" alt="3"></p>
+<p>之后点击next 选择Maven版本（其中IDEA 专业版自带Maven，也可以选择自己下载的maven）。之后填写项目名称和项目地址，完成后点击Finish，完成项目骨架的创建。<br><img src="/images/integrationProject/4.png" alt="4"></p>
+<ol start="2">
+<li>在新建的项目中添加所需要的文件&#x2F;文件夹</li>
+</ol>
+<p>创建之后的项目如图所示，我们需要在这之上新建一些目录。<br><img src="/images/integrationProject/5.png" alt="5"></p>
+<p>在项目的根目录下新建target文件夹，系统自动将其设置为“Excluded”<br><img src="/images/integrationProject/6.png" alt="6"></p>
+<p>在src&#x2F;main目录下新建Directory：“java”，并将其设置为“Source Root”（即：此项目默认的代码文件源目录）<br><img src="/images/integrationProject/7.png" alt="7"><br><img src="/images/integrationProject/8.png" alt="8"></p>
+<p>在刚才新建的java文件下新建“com”包，再在com包下新建四个包，分别命名为：pojo,service,dao,controller。（如果出现下图中所示的包名重叠的情况，可以点击图中所示的图标，将“Hide empty middle package取消掉”）<br><img src="/images/integrationProject/9.png" alt="9"><br>上面新建的四个包：pojo,service,dao,controller，其所存放的分别是：</p>
+<p>pojo: 存放自定义的java类。如：paper类，user类，book类等，每个类的属性设为private，并提供public属性的getter&#x2F;setter方法让外界访问<br>service：定义接口，包含系统所提供的功能。（之后还会在service包下再新建impl包）。<br>dao：定义接口，包含与数据库进行交互的功能。<br>controller：控制器，负责接收页面请求，转发和处理。</p>
+<p>1、创建maven工程，在pom.xml文件中导入需要的jar包依赖：</p>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.test</groupId>
+  <artifactId>ssm</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+<pre><code>&lt;!-- 集中定义版本号 --&gt;
+&lt;properties&gt;
+    &lt;junit.version&gt;4.12&lt;/junit.version&gt;
+    &lt;spring.version&gt;4.1.3.RELEASE&lt;/spring.version&gt;
+    &lt;mybatis.version&gt;3.2.8&lt;/mybatis.version&gt;
+    &lt;mybatis.spring.version&gt;1.2.2&lt;/mybatis.spring.version&gt;
+    &lt;mybatis.paginator.version&gt;1.2.15&lt;/mybatis.paginator.version&gt;
+    &lt;mysql.version&gt;5.1.32&lt;/mysql.version&gt;
+    &lt;slf4j.version&gt;1.6.4&lt;/slf4j.version&gt;
+    &lt;jackson.version&gt;2.4.2&lt;/jackson.version&gt;
+    &lt;druid.version&gt;1.0.9&lt;/druid.version&gt;
+    &lt;httpclient.version&gt;4.3.5&lt;/httpclient.version&gt;
+    &lt;jstl.version&gt;1.2&lt;/jstl.version&gt;
+    &lt;servlet-api.version&gt;2.5&lt;/servlet-api.version&gt;
+    &lt;jsp-api.version&gt;2.0&lt;/jsp-api.version&gt;
+    &lt;joda-time.version&gt;2.5&lt;/joda-time.version&gt;
+    &lt;commons-lang3.version&gt;3.3.2&lt;/commons-lang3.version&gt;
+    &lt;commons-io.version&gt;1.3.2&lt;/commons-io.version&gt;
+    &lt;commons-net.version&gt;3.3&lt;/commons-net.version&gt;
+    &lt;!-- 因为官方的不支持mybatis逆向工程，在源码上有修改，需要自己手动编译 --&gt;
+    &lt;pagehelper.version&gt;3.4.2-fix&lt;/pagehelper.version&gt;
+    &lt;commons-fileupload.version&gt;1.3.1&lt;/commons-fileupload.version&gt;
+    &lt;jedis.version&gt;2.7.2&lt;/jedis.version&gt;
+    &lt;solrj.version&gt;4.10.3&lt;/solrj.version&gt;
+    &lt;swagger.version&gt;2.4.0&lt;/swagger.version&gt;
+&lt;/properties&gt;
+
+
+&lt;dependencies&gt;
+    &lt;!-- 时间操作组件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;joda-time&lt;/groupId&gt;
+        &lt;artifactId&gt;joda-time&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;joda-time.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Apache工具组件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;commons-lang3.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;commons-io.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;&lt;!-- 通信使用的，如http，ftp --&gt;
+        &lt;groupId&gt;commons-net&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-net&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;commons-net.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;		
+    &lt;!--Jackson Json处理工具包 --&gt;
+        &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;jackson.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- httpclient --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+        &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;httpclient.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 单元测试 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;junit.version&#125;&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 日志处理 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+        &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;slf4j.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Mybatis --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;mybatis.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;mybatis.spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.miemiedev&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-paginator&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;mybatis.paginator.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 分页插件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.github.pagehelper&lt;/groupId&gt;
+        &lt;artifactId&gt;pagehelper&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;pagehelper.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- MySql --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;mysql.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 连接池 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+        &lt;artifactId&gt;druid&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;druid.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Spring --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- JSP相关 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jstl&lt;/groupId&gt;
+        &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;jstl.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;servlet-api.version&#125;&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;jsp-api.version&#125;&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 文件上传组件 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;commons-fileupload.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Redis客户端 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+        &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;jedis.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- solr客户端 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.solr&lt;/groupId&gt;
+        &lt;artifactId&gt;solr-solrj&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;solrj.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- springfox-swagger2 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+        &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;swagger.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.springfox&lt;/groupId&gt;
+        &lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;
+        &lt;version&gt;$&#123;swagger.version&#125;&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+    &lt;build&gt;
+    &lt;plugins&gt;
+        &lt;!-- 配置Tomcat插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+            &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- java编译插件 --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.2&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;1.7&lt;/source&gt;
+                &lt;target&gt;1.7&lt;/target&gt;
+                &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+</project>
+ 
+
+<p>2、整合SpringMVC：</p>
+<p>（1）在web.xml文件中配置前端控制器：</p>
+<?xml version="1.0" encoding="UTF-8"?>
+<p><web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    id="serviceMarket" version="2.5"></p>
+<pre><code>&lt;display-name&gt;ssm-test&lt;/display-name&gt;
+&lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;index.htm&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;default.html&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;default.htm&lt;/welcome-file&gt;
+    &lt;welcome-file&gt;default.jsp&lt;/welcome-file&gt;
+&lt;/welcome-file-list&gt;
+
+&lt;!-- 加载spring相关配置文件 --&gt;
+&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:spring/applicationContext*.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt; 
+
+&lt;!-- 解决post乱码 --&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;utf-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;CharacterEncodingFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+
+
+&lt;!-- springmvc的前端控制器 --&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;ssm-test&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;!-- 加载springmvc的配置文件(处理器映射器、处理器适配器等等) --&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;classpath:spring/springmvc.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;ssm-test&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+</web-app>
+（2）编写springmvc.xml文件：
+
+<p>在文件中配置与springmvc框架相关的配置，比如：springmvc.xml约束、处理器映射器、处理器适配器、视图解析器、Handler等配置。</p>
+<?xml version="1.0" encoding="UTF-8"?>
+<p><beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"></p>
+<pre><code>&lt;!-- 使用注解驱动：自动配置处理器映射器与处理器适配器 --&gt;
+&lt;mvc:annotation-driven /&gt;
+
+&lt;!-- 注解方式：配置Handler，自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 --&gt;
+</code></pre>
+<p>        <!-- 批量加载：组件扫描方式： --><br>    &lt;context:component-scan base-package&#x3D;”com.zwp.controller” &#x2F;&gt;</p>
+<pre><code> &lt;!-- 视图解析器：解析jsp页面，默认使用jstl标签，classpath下得有jstl的包 --&gt;    
+</code></pre>
+<p>        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"><br>             <!-- 配置前后缀 --><br>             <property name="prefix" value="/WEB-INF/jsp/"></property><br>             <property name="suffix" value=".jsp"></property><br>        </bean></p>
+<pre><code>&lt;!-- 静态资源处理，不拦截静态资源，如css、js、imgs --&gt;
+&lt;mvc:resources location=&quot;/static/css/&quot; mapping=&quot;/static/css/**&quot;/&gt;
+&lt;mvc:resources location=&quot;/static/js/&quot; mapping=&quot;/static/js/**&quot;/&gt;
+&lt;mvc:resources location=&quot;/static/img/&quot; mapping=&quot;/static/img/**&quot;/&gt;
+
+&lt;!-- 文件上传相关配置 --&gt;
+&lt;bean id=&quot;multipartResolver&quot;
+    class=&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;&gt;
+    &lt;property name=&quot;defaultEncoding&quot; value=&quot;UTF-8&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;maxUploadSize&quot; value=&quot;10240000&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+</beans>
+（3）编写Handler：
+
+<p>&#x2F;&#x2F;User类的Handler<br>&#x2F;&#x2F;需要在类上面加@Controller注解，这样才能被自动扫描到<br>@Controller<br>@RequestMapping(“&#x2F;user”)<br>public class UserController {</p>
+<pre><code>private static Logger log=LoggerFactory.getLogger(UserController.class);
+  
+@RequestMapping(value=&quot;/login&quot;,method=RequestMethod.GET)  
+public String login(HttpServletRequest request,Model model)&#123;  
+    String username = request.getParameter(&quot;username&quot;);  
+    String password = request.getParameter(&quot;password&quot;);
+    System.out.println(&quot;username:&quot;+username+&quot;;password:&quot;+password);
+    User user=null;
+    if (username.equals(&quot;zwp&quot;) &amp;&amp; password.equals(&quot;123456&quot;)) &#123;
+         user = new User();  
+         user.setAge(11);
+         user.setId(1);
+         user.setPassword(&quot;123456&quot;);
+         user.setUsername(&quot;zwp&quot;);
+         
+         log.debug(user.toString());
+    &#125;
+   
+    model.addAttribute(&quot;user&quot;, user);  
+    return &quot;index&quot;;  
+&#125;  
+</code></pre>
+<p>}</p>
+<p>创建db.properties文件<br>jdbc.driverClass&#x3D;com.mysql.jdbc.Driver<br>jdbc.jdbcUrl&#x3D;jdbc:mysql:&#x2F;&#x2F;localhost:3306&#x2F;system?characterEncoding&#x3D;utf8<br>jdbc.user&#x3D;root<br>jdbc.password&#x3D;root<br>注意在其他配置的参数可能要改为对应以上路径</p>
+<p>整合MyBatis-Generator自动生成代码<br>（2）利用MyBatis-Generator自动创建实体类、Mybatis映射文件以及Dao接口。<br>使用这个插件可以快速生成一些代码,包含 实体类&#x2F;Mapper接口&#x2F;*Mapper.xml文件<br>在pom.xml中添加代码</p>
+<plugins>
+      <plugin>
+        <!--Mybatis-generator插件,用于自动生成Mapper和POJO-->
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>1.3.2</version>
+        <configuration>
+          <!--配置文件的位置-->
+          <configurationFile>yourLocation/mybatis-generator-config.xml</configurationFile>
+          <verbose>true</verbose>
+          <overwrite>true</overwrite>
+        </configuration>
+        <executions>
+          <execution>
+            <id>Generate MyBatis Artifacts</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+注意,plugins标签是build标签的子标签
+
+<p>添加好之后,我们就需要配置mybatis-generator-config.xml配置文件中的代码<br>旧的<br><?xml version="1.0" encoding="UTF-8" ?><br><!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" ><br><generatorConfiguration></p>
+<pre><code>&lt;!-- 本地数据库驱动程序jar包的全路径 --&gt;
+&lt;classPathEntry location=&quot;&quot;/&gt;
+
+&lt;context id=&quot;context&quot; targetRuntime=&quot;MyBatis3&quot;&gt;
+    &lt;commentGenerator&gt;
+        &lt;property name=&quot;suppressAllComments&quot; value=&quot;false&quot;/&gt;
+        &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;
+    &lt;/commentGenerator&gt;
+
+    &lt;!-- 数据库的相关配置 --&gt;
+    &lt;jdbcConnection driverClass=&quot;&quot; connectionURL=&quot;&quot; userId=&quot;&quot; password=&quot;&quot;/&gt;
+
+    &lt;javaTypeResolver&gt;
+        &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;
+    &lt;/javaTypeResolver&gt;
+
+    &lt;!-- 实体类生成的位置 --&gt;
+    &lt;javaModelGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+        &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;
+    &lt;/javaModelGenerator&gt;
+
+    &lt;!-- *Mapper.xml 文件的位置 --&gt;
+    &lt;sqlMapGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+    &lt;/sqlMapGenerator&gt;
+
+    &lt;!-- Mapper 接口文件的位置 --&gt;
+    &lt;javaClientGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot; type=&quot;XMLMAPPER&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+    &lt;/javaClientGenerator&gt;
+
+    &lt;!-- 相关表的配置 --&gt;
+    &lt;table tableName=&quot;表名&quot; enableCountByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;
+           enableUpdateByExample=&quot;false&quot;/&gt;
+&lt;/context&gt;
+</code></pre>
+</generatorConfiguration>
+
+<p>新的<br><?xml version="1.0" encoding="UTF-8" ?><br><!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" ><br><generatorConfiguration></p>
+<pre><code>&lt;!-- 本地数据库驱动程序jar包的全路径 --&gt;
+&lt;classPathEntry location=&quot;H:\Company\repository\repository\repository\mysql\mysql-connector-java\5.1.32\mysql-connector-java-5.1.32.jar&quot;/&gt;
+
+&lt;context id=&quot;context&quot; targetRuntime=&quot;MyBatis3&quot;&gt;
+    &lt;commentGenerator&gt;
+        &lt;property name=&quot;suppressAllComments&quot; value=&quot;false&quot;/&gt;
+        &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;
+    &lt;/commentGenerator&gt;
+
+    &lt;!-- 数据库的相关配置 --&gt;
+    &lt;jdbcConnection driverClass=&quot;com.mysql.jdbc.Driver&quot; connectionURL=&quot;jdbc:mysql://localhost:3306/system&quot; userId=&quot;root&quot; password=&quot;root&quot;/&gt;
+
+    &lt;javaTypeResolver&gt;
+        &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;
+    &lt;/javaTypeResolver&gt;
+
+    &lt;!-- 实体类生成的位置 --&gt;
+    &lt;javaModelGenerator targetPackage=&quot;com.mainPage.home.user.pojo&quot; targetProject=&quot;src/main/java&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+        &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;
+    &lt;/javaModelGenerator&gt;
+
+    &lt;!-- *Mapper.xml 文件的位置 --&gt;
+    &lt;sqlMapGenerator targetPackage=&quot;resources/mapper&quot; targetProject=&quot;src/main&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+    &lt;/sqlMapGenerator&gt;
+
+    &lt;!-- Mapper 接口文件的位置 --&gt;
+    &lt;javaClientGenerator targetPackage=&quot;com.mainPage.home.user.mapper&quot; targetProject=&quot;src/main/java&quot; type=&quot;XMLMAPPER&quot;&gt;
+        &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;
+    &lt;/javaClientGenerator&gt;
+
+    &lt;!-- 相关表的配置 --&gt;
+    &lt;table tableName=&quot;sys_user&quot; enableCountByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;
+           enableUpdateByExample=&quot;false&quot;/&gt;
+&lt;/context&gt;
+</code></pre>
+</generatorConfiguration>
+随后,在idea的右侧栏点击Maven,选中添加的Mybatis-generator插件并运行,就可以得到相应的代码啦~
+
+<p>在Intellij IDEA添加一个“Run运行”选项，使用maven运行mybatis-generator-maven-plugin插件<br>点击 菜单run中Edit Configurations,会出现<br><img src="/images/integrationProject/10.png" alt="10"><br>点击+号，选择maven，会出现<br><img src="/images/integrationProject/11.png" alt="11"><br> <br>在name和Commond line分别填上mybatis-generator:generate -e如上图所示，apply和ok<br>最后点击generator，生成model，mapper，dao<br><img src="/images/integrationProject/12.png" alt="12"></p>
+<p>&#x2F;&#x2F;User实体类<br>public class User {</p>
+<pre><code>private Integer id;
+private String username;
+private String password;
+private Integer age;
+public Integer getId() &#123;
+    return id;
+&#125;
+public void setId(Integer id) &#123;
+    this.id = id;
+&#125;
+public String getUsername() &#123;
+    return username;
+&#125;
+public void setUsername(String username) &#123;
+    this.username = username;
+&#125;
+public String getPassword() &#123;
+    return password;
+&#125;
+public void setPassword(String password) &#123;
+    this.password = password;
+&#125;
+public Integer getAge() &#123;
+    return age;
+&#125;
+public void setAge(Integer age) &#123;
+    this.age = age;
+&#125;
+
+@Override
+public String toString() &#123;
+    return &quot;User [id=&quot; + id + &quot;, username=&quot; + username + &quot;, password=&quot; + password + &quot;, age=&quot; + age + &quot;]&quot;;
+&#125;
+</code></pre>
+<p>}<br>（4）配置日志文件：</p>
+<p>在项目根目录下面创建log4j.properties日志文件，下面是日志文件的基本配置，可以满足大多数项目的需求。</p>
+<p>log4j.rootLogger&#x3D;INFO,Console,File<br>#定义日志输出目的地为控制台<br>log4j.appender.Console&#x3D;org.apache.log4j.ConsoleAppender<br>log4j.appender.Console.Target&#x3D;System.out<br>#可以灵活地指定日志输出格式，下面一行是指定具体的格式<br>log4j.appender.Console.layout &#x3D; org.apache.log4j.PatternLayout<br>log4j.appender.Console.layout.ConversionPattern&#x3D;[%c] - %m%n  </p>
+<p>#文件大小到达指定尺寸的时候产生一个新的文件<br>log4j.appender.File &#x3D; org.apache.log4j.RollingFileAppender<br>#指定输出目录<br>log4j.appender.File.File &#x3D; logs&#x2F;ssm.log<br>#定义文件最大大小<br>log4j.appender.File.MaxFileSize &#x3D; 10MB  </p>
+<h1 id="输出所以日志，如果换成DEBUG表示输出DEBUG以上级别日志"><a href="#输出所以日志，如果换成DEBUG表示输出DEBUG以上级别日志" class="headerlink" title="输出所以日志，如果换成DEBUG表示输出DEBUG以上级别日志"></a>输出所以日志，如果换成DEBUG表示输出DEBUG以上级别日志</h1><p>log4j.appender.File.Threshold &#x3D; ALL<br>log4j.appender.File.layout &#x3D; org.apache.log4j.PatternLayout<br>log4j.appender.File.layout.ConversionPattern &#x3D;[%p] [%d{yyyy-MM-dd HH:mm:ss}][%c]%m%n<br>（5）启动项目，进行测试：<br>IDEA配置tomcat：<br>点击上方的 Run 选项，选择Edit Configuration<br><img src="/images/integrationProject/13.png" alt="13"></p>
+<p>选择default -&gt; tomcat -&gt; local 选择下载安装到本地的tomcat服务器的地址<br><img src="/images/integrationProject/14.png" alt="14"></p>
+<p>切换到Deployment选项页 点击 + 号选择 Arctifact ，<br><img src="/images/integrationProject/15.png" alt="15"></p>
+<p>添加 项目名:war exploded 打包<br><img src="/images/integrationProject/16.png" alt="16"><br>最后在Application context 中选择 空白 那一项，点击 Apply 应用。<br><img src="/images/integrationProject/17.png" alt="17"><br>访问地址：<a target="_blank" rel="noopener" href="http://localhost:8080/user/login?username=zwp&amp;password=123456%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E4%B8%8B%E9%9D%A2%E9%A1%B5%E9%9D%A2%E5%88%99%E4%BB%A3%E8%A1%A8%E6%98%A0%E5%B0%84%E6%88%90%E5%8A%9F%E3%80%82">http://localhost:8080/user/login?username=zwp&amp;password=123456，如果出现下面页面则代表映射成功。</a><br><img src="/images/integrationProject/18.png" alt="18"><br> <br>至此，SpringMVC的配置就已经成功。<br>3、Spring和Mybatis框架的整合：</p>
+<p>整合思路：由Spring通过单例方式管理SqlSessionFactory；spring和mybatis整合生成代理对象，使用SqlSessionFactory创建SqlSession，持久层的mapper都需要有spring进行管理。</p>
+<p>（1）配置dao层，即配置sqlSessionFactory：（我的配置在applicationContext-dao.xml文件中）</p>
+<p><beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"></p>
+<pre><code>&lt;!-- 1.加载配置文件 --&gt;
+&lt;!-- 第一种加载多个.properties文件的方法 --&gt;
+&lt;context:property-placeholder location=&quot;classpath:resource/*.properties&quot;/&gt;
+
+&lt;!-- 2.配置数据库连接池 --&gt;
+&lt;bean id=&quot;dataSource&quot; class=&quot;com.alibaba.druid.pool.DruidDataSource&quot;
+  destroy-method=&quot;close&quot;&gt;
+&lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/system&quot; /&gt;
+&lt;property name=&quot;username&quot; value=&quot;root&quot; /&gt;
+&lt;property name=&quot;password&quot; value=&quot;root&quot; /&gt;
+&lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+&lt;property name=&quot;maxActive&quot; value=&quot;10&quot; /&gt;
+&lt;property name=&quot;minIdle&quot; value=&quot;5&quot; /&gt;
+</code></pre>
+</bean>
+    
+<pre><code>&lt;!-- 3.让spring创建并管理sqlsessionfactory，使用mybatis和spring整合包中的 --&gt;
+&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+    &lt;!-- 配置数据源，数据库连接池 --&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;!-- 加载mybatis的全局配置文件 --&gt;
+    &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis/SqlMapConfig.xml&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;!-- 4.mapper批量扫描：从mapper包中扫描出mapper,自动创建代理对象并且在spring容器中注册
+ 	需要遵循规范：mapper接口类名和mapper.xml映射文件名称一致，且在同一目录下，
+ 	自动扫描出来的mapper的bean的id为类名(首字母小写)--&gt;
+&lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+    &lt;property name=&quot;basePackage&quot; value=&quot;com.zwp.mapper&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+</beans>
+创建并编写SqlMapConfig.xml文件：
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库 -->
+            <property name="dialect" value="mysql" />
+        </plugin>
+    </plugins>
+</configuration>
+（2）配置service层：（我的配置在applicationContext-service.xml文件中）
+
+<p><beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"></p>
+<pre><code>&lt;!-- 自动扫描service层的接口与实现类 --&gt;
+&lt;context:component-scan base-package=&quot;com.zwp.service&quot; /&gt;
+</code></pre>
+</beans>
+ 
+<p>（3）配置事务：（我的配置在applicationContext-trans.xml文件中）</p>
+<p><beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"></p>
+<pre><code>&lt;!-- 事务管理器 --&gt;
+&lt;bean id=&quot;transactionManager&quot;
+    class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+    &lt;!-- 数据源 --&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;!-- 通知 --&gt;
+&lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;
+    &lt;tx:attributes&gt;
+        &lt;!-- 传播行为 --&gt;
+        &lt;tx:method name=&quot;add*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;create*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;insert*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;save*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;update*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;delete*&quot; propagation=&quot;REQUIRED&quot; /&gt;
+        &lt;tx:method name=&quot;find*&quot; propagation=&quot;SUPPORTS&quot; read-only=&quot;true&quot; /&gt;
+        &lt;tx:method name=&quot;select*&quot; propagation=&quot;SUPPORTS&quot; read-only=&quot;true&quot; /&gt;
+        &lt;tx:method name=&quot;get*&quot; propagation=&quot;SUPPORTS&quot; read-only=&quot;true&quot; /&gt;
+    &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+&lt;!-- 切面 --&gt;
+&lt;aop:config&gt;
+    &lt;aop:advisor advice-ref=&quot;txAdvice&quot;
+        pointcut=&quot;execution(* com.zwp.service.*.*(..))&quot; /&gt;
+&lt;/aop:config&gt;
+</code></pre>
+</beans>
+至此，Spring和Mybatis框架的整合就完成了。
+
+<p> </p>
+<p>4、测试：</p>
+<p>（1）创建测试用表：<br><img src="/images/integrationProject/19.png" alt="19"></p>
+<p>（3）建立Service和实现类：</p>
+<p>&#x2F;&#x2F;UserService接口类：<br>@Service<br>public interface UserService {</p>
+<pre><code>public User getUserById(int userId);
+</code></pre>
+<p>}<br>&#x2F;&#x2F;UserService的实现类<br>@Service<br>public class UserServiceImpl implements UserService {</p>
+<pre><code>//注入UserMapper接口
+@Autowired
+private UserMapper userMapper;
+
+@Override
+public User getUserById(int userId) &#123;
+    User user = userMapper.selectByPrimaryKey(userId);
+    return user;
+&#125;
+</code></pre>
+<p>}<br>（3）建立UserController类：</p>
+<p>&#x2F;&#x2F;User类的Handler<br>&#x2F;&#x2F;需要在类上面加@Controller注解，这样才能被自动扫描到<br>@Controller<br>@RequestMapping(“&#x2F;user”)<br>public class UserController {</p>
+<pre><code>@Autowired
+private UserService userService;
+
+private static Logger log=LoggerFactory.getLogger(UserController.class);
+  
+@RequestMapping(value=&quot;/getUserById/&#123;userId&#125;&quot;,method=RequestMethod.GET)
+public @ResponseBody User getUserById(@PathVariable Integer userId)&#123;
+    
+    return userService.getUserById(userId);
+&#125;
+
+@RequestMapping(value=&quot;/login&quot;,method=RequestMethod.GET)  
+public String login(HttpServletRequest request,Model model)&#123;  
+    String username = request.getParameter(&quot;username&quot;);  
+    String password = request.getParameter(&quot;password&quot;);
+    System.out.println(&quot;username:&quot;+username+&quot;;password:&quot;+password);
+    User user=null;
+    if (username.equals(&quot;zwp&quot;) &amp;&amp; password.equals(&quot;123456&quot;)) &#123;
+         user = new User();  
+         user.setAge(11);
+         user.setId(1);
+         user.setPassword(&quot;123456&quot;);
+         user.setUsername(&quot;zwp&quot;);
+         
+         log.debug(user.toString());
+    &#125;
+   
+    model.addAttribute(&quot;user&quot;, user);  
+    return &quot;index&quot;;  
+&#125;  
+</code></pre>
+<p>}<br>（4）部署项目，输入地址：<a target="_blank" rel="noopener" href="http://localhost:8080/user/getUserById/2%EF%BC%8C%E5%87%BA%E7%8E%B0%E4%B8%8B%E9%9D%A2%E5%93%8D%E5%BA%94%E7%BB%93%E6%9E%9C%EF%BC%8C%E5%88%99%E8%A1%A8%E7%A4%BA%E6%95%B4%E5%90%88%E6%88%90%E5%8A%9F%E4%BA%86%E3%80%82">http://localhost:8080/user/getUserById/2，出现下面响应结果，则表示整合成功了。</a><br><img src="/images/integrationProject/20.png" alt="20"><br>至此，Maven+Spring+SpringMVC+Mybatis的整合就完成了。<br>最后<br>在pom.xml还要修改为<br>&lt;pagehelper.version&gt;4.1.6&lt;&#x2F;pagehelper.version&gt;<br>否则会找不到PageHelper<br>在applicationContext-dao.xml的sqlSessionFactory里面加上</p>
+<!--扫描mapper.xml文件-->
+<property name="mapperLocations" value="classpath:mapper/*.xml"/>
+
+<p>整合shiro<br>1.创建数据库<br>数据库准备三张表：t_user用户表，t_role角色表，t_permission权限表</p>
+<p>CREATE TABLE <code>t_user</code> (<br>  <code>id</code> int(11) NOT NULL AUTO_INCREMENT,<br>  <code>username</code> varchar(255) DEFAULT NULL,<br>  <code>password</code> varchar(255) DEFAULT NULL,<br>  <code>role_id</code> int(11) DEFAULT NULL,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;5 DEFAULT CHARSET&#x3D;utf8;<br>CREATE TABLE <code>t_role</code> (<br>  <code>id</code> int(11) NOT NULL AUTO_INCREMENT,<br>  <code>rolename</code> varchar(255) DEFAULT NULL,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;3 DEFAULT CHARSET&#x3D;utf8;<br>CREATE TABLE <code>t_permission</code> (<br>  <code>id</code> int(11) NOT NULL AUTO_INCREMENT,<br>  <code>permission_name</code> varchar(255) DEFAULT NULL,<br>  <code>role_id</code> int(11) DEFAULT NULL,<br>  PRIMARY KEY (<code>id</code>)<br>) ENGINE&#x3D;InnoDB AUTO_INCREMENT&#x3D;3 DEFAULT CHARSET&#x3D;utf8;<br>&#x2F;&#x2F;分别向三张表中插入数据<br>INSERT INTO <code>t_permission</code> VALUES (‘1’, ‘user:create’, ‘1’);<br>INSERT INTO <code>t_permission</code> VALUES (‘2’, ‘student:<em>‘, ‘2’);<br>INSERT INTO <code>t_permission</code> VALUES (‘3’, ‘student:</em>‘, ‘1’);</p>
+<p>INSERT INTO <code>t_role</code> VALUES (‘1’, ‘admin’);<br>INSERT INTO <code>t_role</code> VALUES (‘2’, ‘teacher’);</p>
+<p>INSERT INTO <code>t_user</code> VALUES (‘1’, ‘yangqing’, ‘123’, ‘1’);<br>INSERT INTO <code>t_user</code> VALUES (‘2’, ‘jack’, ‘1’, ‘2’);<br>INSERT INTO <code>t_user</code> VALUES (‘3’, ‘marry’, ‘234’, null);<br>INSERT INTO <code>t_user</code> VALUES (‘4’, ‘json’, ‘1234’, null);<br>配置文件<br>向pom.xml添加依赖</p>
+<!-- 添加Servlet支持 -->
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>javax.servlet-api</artifactId>
+  <version>3.1.0</version>
+</dependency>
+
+<dependency>
+  <groupId>javax.servlet.jsp</groupId>
+  <artifactId>javax.servlet.jsp-api</artifactId>
+  <version>2.3.1</version>
+</dependency>
+
+<!-- 添加Spring支持 -->
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-core</artifactId>
+  <version>4.1.7.RELEASE</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-tx</artifactId>
+  <version>4.1.7.RELEASE</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-context-support</artifactId>
+  <version>4.1.7.RELEASE</version>
+</dependency>
+
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-web</artifactId>
+  <version>4.1.7.RELEASE</version>
+</dependency>
+
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-aop</artifactId>
+  <version>4.1.7.RELEASE</version>
+</dependency>
+
+<!-- 添加日志支持 -->
+<dependency>
+  <groupId>log4j</groupId>
+  <artifactId>log4j</artifactId>
+  <version>1.2.17</version>
+</dependency>
+
+<dependency>
+  <groupId>c3p0</groupId>
+  <artifactId>c3p0</artifactId>
+  <version>0.9.1</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.shiro</groupId>
+  <artifactId>shiro-core</artifactId>
+  <version>1.2.4</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.shiro</groupId>
+  <artifactId>shiro-web</artifactId>
+  <version>1.2.4</version>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.shiro</groupId>
+  <artifactId>shiro-spring</artifactId>
+  <version>1.2.4</version>
+</dependency>
+
+<p>并把&lt;pagehelper.version&gt;&lt;&#x2F;pagehelper.version&gt;改为4.1.6</p>
+<p>向web.xml文件添加</p>
+<!-- shiro过滤器定义 -->
+<filter>
+  <filter-name>shiroFilter</filter-name>
+  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+  <init-param>
+    <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->
+    <param-name>targetFilterLifecycle</param-name>
+    <param-value>true</param-value>
+  </init-param>
+</filter>
+<filter-mapping>
+  <filter-name>shiroFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+<!-- 编码过滤器 -->
+<filter>
+  <filter-name>encodingFilter</filter-name>
+  <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  <async-supported>true</async-supported>
+  <init-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </init-param>
+</filter>
+<filter-mapping>
+  <filter-name>encodingFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+<p>并在load-on-startup的下一行添加（可加可不加）<br><async-supported>true</async-supported></p>
+<p>在applicationContext-dao.xml添加</p>
+<!-- 自定义Realm -->
+<bean id="myRealm" class="com.sys.util.MyRealm"/>
+
+<!-- 安全管理器 -->
+<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    <property name="realm" ref="myRealm"/>
+</bean>
+
+<!-- Shiro过滤器 -->
+<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <!-- Shiro的核心安全接口,这个属性是必须的 -->
+    <property name="securityManager" ref="securityManager"/>
+    <!-- 身份认证失败，则跳转到登录页面的配置 -->
+    <property name="loginUrl" value="/login.jsp"/>
+    <!-- 权限认证失败，则跳转到指定页面 -->
+    <property name="unauthorizedUrl" value="/tUser/unauthorized"/>
+    <!-- Shiro连接约束配置,即过滤链的定义 -->
+    <property name="filterChainDefinitions">
+        <value>
+            /tUser/login=anon
+            /jsp/home/login/login.jsp=anon
+            /logout=logout
+            /admin=authc
+            /student=roles[teacher]
+            /tUser/teacher=perms["user:create"]
+            /**=authc
+        </value>
+    </property>
+</bean>
+
+<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+<!-- 开启Shiro注解 -->
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    <property name="securityManager" ref="securityManager"/>
+</bean>
+
+<!-- 配置事务通知属性 -->
+<p>&lt;tx:advice id&#x3D;”txAdvice” transaction-manager&#x3D;”transactionManager”&gt;<br>    <!-- 定义事务传播属性 --><br>    <a href="tx:attributes">tx:attributes</a><br>        &lt;tx:method name&#x3D;”insert*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”update*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”edit*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”save*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”add*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”new*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”set*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”remove*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”delete*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”change*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”check*” propagation&#x3D;”REQUIRED” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”get*” propagation&#x3D;”REQUIRED” read-only&#x3D;”true” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”find*” propagation&#x3D;”REQUIRED” read-only&#x3D;”true” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”load*” propagation&#x3D;”REQUIRED” read-only&#x3D;”true” &#x2F;&gt;<br>        &lt;tx:method name&#x3D;”*” propagation&#x3D;”REQUIRED” read-only&#x3D;”true” &#x2F;&gt;<br>    </tx:attributes><br></tx:advice></p>
+<!-- 配置事务切面 -->
+<p><a href="aop:config">aop:config</a><br>    &lt;aop:pointcut id&#x3D;”txPoint”<br>                  expression&#x3D;”execution(* com.sys.service.*.*(..))” &#x2F;&gt;<br>    &lt;aop:advisor advice-ref&#x3D;”txAdvice” pointcut-ref&#x3D;”txPoint” &#x2F;&gt;<br></aop:config></p>
+<p>SqlMapConfig.xml<br>在configuration里面添加<br><settings><br>        <!-- 开启驼峰命名法 --><br>        <setting name="mapUnderscoreToCamelCase" value="true"/><br>    </settings></p>
+<pre><code>&lt;!-- 别名 --&gt;
+&lt;typeAliases&gt;
+    &lt;package name=&quot;com.yang.entity&quot;/&gt;
+</code></pre>
+<p>spring-mvc.xml</p>
+<!-- 视图解析器 -->
+<p><bean id="viewResolver"
+      class="org.springframework.web.servlet.view.InternalResourceViewResolver"><br>    <property name="prefix" value="/"></property><br>    <property name="suffix" value=".jsp"></property><br></bean></p>
+<p>dao接口</p>
+<p>UserDao.java</p>
+<p>package com.yang.dao;</p>
+<p>import java.util.Set;</p>
+<p>import com.yang.entity.User;<br>&#x2F;**</p>
+<ul>
+<li><p>created by yangqing on 2018年2月19日 下午9:32:29<br> *&#x2F;<br>public interface UserDao {</p>
+<p> &#x2F;**</p>
+<ul>
+<li>通过用户名查找用户</li>
+<li>@param username</li>
+<li>@return User<br>  *&#x2F;<br> public User getByUserName(String username);</li>
+</ul>
+<p> &#x2F;**</p>
+<ul>
+<li>通过用户名查找该用户所有的角色并保存在Set集合中</li>
+<li>@param username</li>
+<li>@return Set<String><br>  *&#x2F;	<br> public Set<String> getRoles(String username);</li>
+</ul>
+<p> &#x2F;**</p>
+<ul>
+<li>通过用户名查找该用户所有的权限并保存在Set集合中</li>
+<li>@param username</li>
+<li>@return Set<String><br>  *&#x2F;	<br> public Set<String> getPermissions(String username);</li>
+</ul>
+</li>
+</ul>
+<p>}<br>&#x2F;&#x2F;UserDao接口的实现</p>
+<p>UserMapper.xml   （该文件在src&#x2F;main&#x2F;resources&#x2F;mapper文件夹下）</p>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.dao.UserDao">
+        
+<pre><code>&lt;select id=&quot;getByUserName&quot; parameterType=&quot;String&quot; resultType=&quot;User&quot;&gt;
+    select * from t_user where username=#&#123;username&#125;
+&lt;/select&gt;
+
+&lt;select id=&quot;getRoles&quot; parameterType=&quot;String&quot; resultType=&quot;String&quot;&gt;
+    select r.rolename from t_user u,t_role r where u.role_id=r.id and u.username=#&#123;username&#125;
+&lt;/select&gt;
+
+&lt;select id=&quot;getPermissions&quot; parameterType=&quot;String&quot; resultType=&quot;String&quot;&gt;
+    select p.permission_name from t_user u,t_role r,t_permission p where u.role_id=r.id and p.role_id=r.id and u.username=#&#123;username&#125;
+&lt;/select&gt;
+</code></pre>
+</mapper> 
+服务层
+
+<p>UserService.java</p>
+<p>package com.yang.service;</p>
+<p>import java.util.Set;<br>import com.yang.entity.User;</p>
+<p>&#x2F;**<br> * <br> * created by yangqing on 2018年2月19日 下午9:44:23<br> <em>&#x2F;<br>public interface UserService {<br>    &#x2F;</em>*<br>     *  通过用户名查找用户<br>     *  @param username<br>     *  @return User<br>     *&#x2F;<br>    public User getByUserName(String username);</p>
+<pre><code>/**
+ *  通过用户名查找该用户所有的角色并保存在Set集合中
+ *  @param username
+ *  @return Set&lt;String&gt;
+ */
+public Set&lt;String&gt; getRoles(String username);
+
+/**
+ *  通过用户名查找该用户所有的权限并保存在Set集合中
+ *  @param username
+ *  @return Set&lt;String&gt;
+ */	
+public Set&lt;String&gt; getPermissions(String username);
+</code></pre>
+<p>}</p>
+<p>UserServiceImpl.java</p>
+<p>package com.yang.service.impl;</p>
+<p>import java.util.Set;<br>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Service;</p>
+<p>import com.yang.dao.UserDao;<br>import com.yang.entity.User;<br>import com.yang.service.UserService;<br>&#x2F;**</p>
+<ul>
+<li><p>created by yangqing on 2018年2月19日 下午9:45:51<br> *&#x2F;<br>@Service<br>public class UserServiceImpl implements UserService{</p>
+<p> @Autowired<br> private UserDao userDao;</p>
+<p> public User getByUserName(String username) {<br> return userDao.getByUserName(username);<br> }</p>
+<p> public Set<String> getRoles(String username) {<br> return userDao.getRoles(username);<br> }</p>
+<p> public Set<String> getPermissions(String username) {<br> return userDao.getPermissions(username);<br> }</p>
+</li>
+</ul>
+<p>}<br>Controller层</p>
+<p>UserController.java</p>
+<p>package com.yang.controller;</p>
+<p>import javax.servlet.http.HttpServletRequest;</p>
+<p>import org.apache.shiro.SecurityUtils;<br>import org.apache.shiro.authc.UsernamePasswordToken;<br>import org.apache.shiro.subject.Subject;<br>import org.springframework.stereotype.Controller;<br>import org.springframework.web.bind.annotation.RequestMapping;</p>
+<p>import com.yang.entity.User;</p>
+<p>&#x2F;**<br> * <br> * created by yangqing on 2018年2月19日 下午9:48:55<br> *&#x2F;<br>@Controller<br>public class UserController {</p>
+<pre><code>@RequestMapping(&quot;/login&quot;)
+public String login(User user,HttpServletRequest request)&#123;
+    
+    //获取当前用户
+    Subject subject=SecurityUtils.getSubject();
+    UsernamePasswordToken token=new UsernamePasswordToken(user.getUsername(), user.getPassword());
+    try&#123;
+        //为当前用户进行认证，授权
+        subject.login(token);
+        request.setAttribute(&quot;user&quot;, user);
+        return &quot;success&quot;;
+        
+    &#125;catch(Exception e)&#123;
+        e.printStackTrace();
+        request.setAttribute(&quot;user&quot;, user);
+        request.setAttribute(&quot;errorMsg&quot;, &quot;用户名或密码错误！&quot;);
+        return &quot;login&quot;;
+    &#125;
+&#125;
+
+@RequestMapping(&quot;/teacher&quot;)
+public String index() &#123;
+    return &quot;index&quot;;
+&#125;
+</code></pre>
+<p>}<br>自定义realm</p>
+<p>MyRealm.java</p>
+<p>package com.yang.realm;</p>
+<p>import java.util.Set;</p>
+<p>import org.apache.shiro.authc.AuthenticationException;<br>import org.apache.shiro.authc.AuthenticationInfo;<br>import org.apache.shiro.authc.AuthenticationToken;<br>import org.apache.shiro.authc.SimpleAuthenticationInfo;<br>import org.apache.shiro.authz.AuthorizationInfo;<br>import org.apache.shiro.authz.SimpleAuthorizationInfo;<br>import org.apache.shiro.realm.AuthorizingRealm;<br>import org.apache.shiro.subject.PrincipalCollection;<br>import org.springframework.beans.factory.annotation.Autowired;</p>
+<p>import com.yang.entity.User;<br>import com.yang.service.UserService;</p>
+<p>&#x2F;**</p>
+<ul>
+<li><p>created by yangqing on 2018年2月19日 下午9:57:09<br> *&#x2F;<br>public class MyRealm extends AuthorizingRealm {</p>
+<p> @Autowired<br> private UserService userService;</p>
+<p> &#x2F;**</p>
+<ul>
+<li><p>授权方法<br>  *&#x2F;<br> @Override<br> protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {</p>
+<p> &#x2F;**</p>
+<ul>
+<li>注意principals.getPrimaryPrincipal()对应</li>
+<li>new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), getName())的第一个参数<br>  *&#x2F;<br> &#x2F;&#x2F;获取当前身份<br> String userName &#x3D; (String) principals.getPrimaryPrincipal();<br> SimpleAuthorizationInfo info &#x3D; new SimpleAuthorizationInfo();</li>
+</ul>
+<p> &#x2F;&#x2F;从数据库中查找该用户有何角色和权限<br> Set<String> roles &#x3D; userService.getRoles(userName);<br> Set<String> permissions &#x3D; userService.getPermissions(userName);</p>
+<p> &#x2F;&#x2F;为当前用户赋予对应角色和权限<br> info.setRoles(roles);<br> info.setStringPermissions(permissions);</p>
+<p> return info;</p>
+</li>
+</ul>
+<p> }</p>
+<p> &#x2F;**</p>
+<ul>
+<li><p>认证方法<br>  *&#x2F;<br> @Override<br> protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {<br> &#x2F;&#x2F;获取用户名<br> String username &#x3D; (String) token.getPrincipal();</p>
+<p> &#x2F;&#x2F;从数据库中查找用户信息<br> User user &#x3D; userService.getByUserName(username);<br> if (user &#x3D;&#x3D; null) {<br> return null;			<br> }<br> AuthenticationInfo info &#x3D; new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());<br> return info;</p>
+</li>
+</ul>
+<p> }</p>
+</li>
+</ul>
+<p>}<br>4.前端页面展示<br>login.jsp</p>
+<p>&lt;%@ page language&#x3D;”java” contentType&#x3D;”text&#x2F;html; charset&#x3D;UTF-8”<br>    pageEncoding&#x3D;”UTF-8”%&gt;<br><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"></p>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录页面</title>
+</head>
+<body>
+<form action="${pageContext.request.contextPath }/login" method="post">
+    用户名:<input type="text" name="username" value="${user.username }"/><br/>
+    密码:<input type="password" name="password" value="${user.password }"><br/>
+    <input type="submit" value="login"/><br>
+    <font color="red">${errorMsg }</font>
+</form>
+</body>
+</html>
+success.jsp
+
+<p>&lt;%@ page language&#x3D;”java” contentType&#x3D;”text&#x2F;html; charset&#x3D;UTF-8”<br>    pageEncoding&#x3D;”UTF-8”%&gt;<br>&lt;%@ taglib prefix&#x3D;”shiro” uri&#x3D;”<a target="_blank" rel="noopener" href="http://shiro.apache.org/tags&quot;">http://shiro.apache.org/tags&quot;</a> %&gt;<br><!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"></p>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>登录成功</title>
+</head>
+<body>
+ 
+<p>欢迎你,<a href="shiro:principal/">shiro:principal/</a>!<br></p>
+<p>&lt;shiro:hasRole name&#x3D;”admin”&gt;<br>    具备admin角色才能看到这句话<br><br></shiro:hasRole></p>
+<p>&lt;shiro:hasRole name&#x3D;”teacher”&gt;<br>    具备teacher角色才能看到这句话<br><br></shiro:hasRole></p>
+<p>&lt;shiro:hasPermission name&#x3D;”user:create”&gt;<br>    具备user:create权限才能看到这句话<br><br></shiro:hasPermission></p>
+<p>&lt;shiro:hasPermission name&#x3D;”student:update”&gt;<br>    具备student:update权限才能看到这句话<br><br></shiro:hasPermission><br><br></p>
+<p>&lt;shiro:hasPermission name&#x3D;”{student:update,user:*}”&gt;<br>    具备student:update,user:*权限才能看到这句话<br><br></shiro:hasPermission></p>
+<p><a href="teacher">需要user:create权限才能访问</a><br><br><a href="logout">安全退出</a></p>
+</body>
+</html>
+5.测试结果
+分别使用用户名为yangqing和jack的账号登录，测试如下：
+
+<p>tip：如果未登录（未通过认证）在地址栏输入<a target="_blank" rel="noopener" href="http://localhost:8080/shiroDemo/success.jsp%E9%BB%98%E8%AE%A4%E8%B7%B3%E5%9B%9Elogin.jsp%E9%A1%B5%E9%9D%A2%EF%BC%88%E8%A2%ABshiro%E6%8B%A6%E6%88%AA%E4%BA%86%EF%BC%8C%E5%85%B7%E4%BD%93%E8%AF%B7%E5%8F%82%E8%80%83%E4%B8%8A%E8%BF%B0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">http://localhost:8080/shiroDemo/success.jsp默认跳回login.jsp页面（被shiro拦截了，具体请参考上述配置文件</a> &#x2F;**&#x3D;authc部分）</p>
+<p>错误用户试验<br><img src="/images/integrationProject/21.png" alt="21"><br>使用yangqing登录成功之后的页面<br><img src="/images/integrationProject/22.png" alt="22"></p>
+<p>点击  需要user:create权限才能访问  链接之后的页面<br><img src="/images/integrationProject/23.png" alt="23"><br>使用jack登录成功之后的页面<br><img src="/images/integrationProject/24.png" alt="24"></p>
+<p>jack用户 点击  需要user:create权限才能访问  链接之后的页面<br><img src="/images/integrationProject/25.png" alt="25"></p>
+<p>spring集成Mybatis通用Mapper<br>一、添加通用mapper相关依赖<br><dependency><br>    <groupId>tk.mybatis</groupId><br>    <artifactId>mapper</artifactId><br>    <version>3.3.7</version><br></dependency><br><dependency><br>    <groupId>javax.persistence</groupId><br>    <artifactId>persistence-api</artifactId><br>    <version>1.0</version><br></dependency></p>
+<p>二、配置spring整合<br>applicationContext-dao.xml</p>
+<!-- 配置扫描包，加载mapper代理对象 -->
+<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+<property name="basePackage" value="Angel.mapper" />
+</bean>
+
+<p>注意：这里和spring配置扫描mapper文件是一样的，不一样的是，将org.mybatis…….换成了tk.mybatis……..</p>
+<p>三、具体应用<br>3.1，TbUserMapper接口<br>package Angel.mapper;</p>
+<p>import tk.mybatis.mapper.common.Mapper;<br>import Angel.pojo.TbUser;</p>
+<p>public interface TbUserMapper extends Mapper<TbUser>{</p>
+<p>}</p>
+<p>3.2，TbUserMapper.xml文件<br><?xml version="1.0" encoding="UTF-8" ?><br><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" ><br><mapper namespace="Angel.mapper.TbUserMapper" ><br>  <resultMap id="BaseResultMap" type="Angel.pojo.TbUser" ><br>    <id column="id" property="id" jdbcType="BIGINT" /><br>    <result column="username" property="username" jdbcType="VARCHAR" /><br>    <result column="password" property="password" jdbcType="VARCHAR" /><br>    <result column="phone" property="phone" jdbcType="VARCHAR" /><br>    <result column="email" property="email" jdbcType="VARCHAR" /><br>    <result column="created" property="created" jdbcType="TIMESTAMP" /><br>    <result column="updated" property="updated" jdbcType="TIMESTAMP" /><br>  </resultMap>  </p>
+</mapper>
+
+<p>在这个里面，没有写任何的方法实现，仅有的代码，是为了避免实体属性名和字段名 不统一而写的。</p>
+<p>3.3，userServiceImpl里面的实现（省略接口）<br>import java.util.List;</p>
+<p>import org.springframework.beans.factory.annotation.Autowired;<br>import org.springframework.stereotype.Service;</p>
+<p>import Angel.mapper.TbUserMapper;<br>import Angel.pojo.TbUser;<br>import Angel.service.UserService;</p>
+<p>@Service(value&#x3D;”userService”)<br>public class UserServiceImpl implements UserService {  </p>
+<pre><code>@Autowired  
+private TbUserMapper userMapper;  
+  
+@Override
+public List&lt;TbUser&gt; selectAll() &#123;
+    
+    return userMapper.selectAll();
+&#125; 
+</code></pre>
+<p>} </p>
+<p>附：通用接口所提供 的公共方法<br><img src="/images/integrationProject/26.png" alt="26"></p>
+<p>从上图可以看出，引入公共mapper 后，已经具有其基础的数据库操作方法。<br>3.4，UserController文件<br>@Autowired<br>    private UserService userService;</p>
+<pre><code>@RequestMapping(&quot;/user/select&quot;)
+@ResponseBody
+public List&lt;TbUser&gt; selectUser() &#123;
+
+    List&lt;TbUser&gt; list = userService.selectAll();
+
+    return list;
+&#125;
+</code></pre>
+<p>结果：<br><img src="/images/integrationProject/27.png" alt="27"></p>
+<p>jsp页面传值到后台出现乱码就在apache-tomcat-7.0.68\conf\server.xml里面找到以下内容URIEncoding&#x3D;”UTF-8” useBodyEncodingForURI&#x3D;”true”添加到一下文本中<br><Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" URIEncoding="UTF-8" useBodyEncodingForURI="true"/></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/IntegrationProject/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-study" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -176,7 +3034,8 @@
 <p>更新文章<br>hexo clean &#x2F;&#x2F;删除之前的静态文件<br>hexo g &#x2F;&#x2F;重新生成新的<br>hexo s &#x2F;&#x2F;开启服务</p>
 <p>提交代码<br>git init 初始化git<br>git add . 添加文件<br>git commit -m ‘备注’<br>git pull origin master</p>
 <p>服务部署到github<br>代码更新到git服务之后在git bush中执行hexo clean清除缓存，然后执行hexo g -d生成hexo静态网页并部署<br>– 还有更新一下Gitee Pages Services.<br>冲突解决方法<br>git pull –allow-unrelated-histories</p>
-<p>下载主题，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate<br><a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a> </p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a>，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate
+ </p>
 
       
 
@@ -219,81 +3078,10 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/05/hello-world/" class="archive-article-date">
-  	<time datetime="2022-09-05T07:10:20.724Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/05/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 

@@ -19,7 +19,7 @@ hexo s //开启服务
 git init 初始化git
 git add . 添加文件
 git commit -m '备注'
-git pull origin master
+git push origin master
 
 如果出现合并操作
 键盘输入‘i’

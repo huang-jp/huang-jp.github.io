@@ -103,7 +103,7 @@ theme: Yilia
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:huang-jp/huang-jp.myblog
+  repository: git@github.com:huang-jp/myblog.github.io
   branch: master
   
 jsonContent:

@@ -501,40 +501,7 @@ EXPLAIN<br>type列，连接类型。一个好的sql语句至少要达到range级
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>a) 冒泡</p>
-<pre><code>public static void mp(int a[]) &#123;
-    int swap = 0;
-        for (int i = 0; i &lt; a.length; i++) &#123;
-            for (int j = i; j &lt; a.length; j++) &#123;
-                if (a[j] &gt; a[i]) &#123;
-                    swap = a[i];
-                    a[i] = a[j];
-                    a[j] = swap;
-            &#125;
-        &#125;
-    &#125;
-    System.out.println(Arrays.toString(a));
-&#125;
-</code></pre>
-<p> <br>b)二分查找</p>
-<pre><code>public static int ef(int a[], int tag) &#123;
-    int first = 0;
-    int end = a.length;
-    for (int i = 0; i &lt; a.length; i++) &#123;
-        int middle = (first + end) / 2;
-        if (tag == a[middle]) &#123;
-            return middle;
-        &#125;
-        if (tag &gt; a[middle]) &#123;
-            first = middle + 1;
-        &#125;
-        if (tag &lt; a[middle]) &#123;
-            end = middle - 1;
-        &#125;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
+        <p>a) 冒泡<br>      public static void mp(int a[]) {<br>        int swap &#x3D; 0;<br>            for (int i &#x3D; 0; i &lt; a.length; i++) {<br>                for (int j &#x3D; i; j &lt; a.length; j++) {<br>                    if (a[j] &gt; a[i]) {<br>                        swap &#x3D; a[i];<br>                        a[i] &#x3D; a[j];<br>                        a[j] &#x3D; swap;<br>                }<br>            }<br>        }<br>        System.out.println(Arrays.toString(a));<br>    }<br> <br>b)二分查找<br>    public static int ef(int a[], int tag) {<br>        int first &#x3D; 0;<br>        int end &#x3D; a.length;<br>        for (int i &#x3D; 0; i &lt; a.length; i++) {<br>            int middle &#x3D; (first + end) &#x2F; 2;<br>            if (tag &#x3D;&#x3D; a[middle]) {<br>                return middle;<br>            }<br>            if (tag &gt; a[middle]) {<br>                first &#x3D; middle + 1;<br>            }<br>            if (tag &lt; a[middle]) {<br>                end &#x3D; middle - 1;<br>            }<br>        }<br>        return 0;<br>    }</p>
 
       
 

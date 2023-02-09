@@ -1,0 +1,23 @@
+---
+title:  SpringMVC工作原理
+---
+一、首先，我们先来认识一下SpringMVC的主要组件
+前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。
+处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。
+处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。
+处理器适配器（HandlerAdapter）:可以将处理器包装成适配器，这样就可以支持多种类型的处理器。
+视图解析器（ViewResovler）:进行视图解析，返回view对象（常见的有JSP,FreeMark等）。
+二、SpingMVC的工作原理
+![1](/images/SpringMVC/1.png)
+下面是文字步骤说明：
+1、用户发送请求到前端控制器（DispatcherServlet）。
+2、前端控制器请求处理器映射器（HandlerMapping）去查找处理器（Handler）。
+3、找到以后处理器映射器（HandlerMappering）向前端控制器返回执行链（HandlerExecutionChain）。
+4、前端控制器（DispatcherServlet）调用处理器适配器（HandlerAdapter）去执行处理器（Handler）。
+5、处理器适配器去执行Handler。
+6、处理器执行完给处理器适配器返回ModelAndView。
+7、处理器适配器向前端控制器返回ModelAndView。
+8、前端控制器请求视图解析器（ViewResolver）去进行视图解析。
+9、视图解析器向前端控制器返回View。
+10、前端控制器对视图进行渲染。
+11、前端控制器向用户响应结果。

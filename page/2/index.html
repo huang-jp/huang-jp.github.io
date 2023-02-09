@@ -143,6 +143,73 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-DuplicateRemoval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/09/15/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
+    </h1>
+  
+
+        
+        <a href="/2022/09/15/DuplicateRemoval/" class="archive-article-date">
+  	<time datetime="2022-09-15T15:46:57.608Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查询相同数据：	<br>select * from table1 inner join table2 on table1.codeid&#x3D;table2.codeid </p>
+<p>两张表数据数据（去掉重复数据）：		<br>select t1.codeid ,t1.cedename from  table1  union  select t2.codeid ,t2.cedename from  table1</p>
+<p>全部数据（包括重复数据）：       	<br>select codeid,cedename from table1 union all select codeid,cedename from table2  </p>
+<p>SQL查询一个表中另外一个表不存在的数据：</p>
+<p>#方法一：使用 not in ,容易理解,效率低  <del>执行时间为：1.395秒</del><br>SELECT table1.name FROM table1 WHERE table1.name NOT IN (SELECT table2.name FROM table2);<br>#方法二：使用 left join…on… , “B.ID isnull” 表示左连接之后在B.ID 字段为 null的记录  <del>执行时间：0.739秒</del><br>SELECT COUNT(1) FROM ecs_goods LEFT JOIN ecs_member_price ON ecs_goods.goods_id&#x3D;ecs_member_price.goods_id WHERE ecs_member_price.goods_id IS NULL;<br>#方法三：逻辑相对复杂,但是速度最快  <del>执行时间: 0.570秒</del><br>SELECT COUNT(1) FROM  ecs_goods c WHERE (SELECT COUNT(1) AS num FROM ecs_member_price WHERE ecs_member_price.goods_id&#x3D;ecs_goods.goods_id) &#x3D; 0;</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/09/15/DuplicateRemoval/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-LearningSuggestions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2911,78 +2978,6 @@ public List&lt;TbUser&gt; selectUser() &#123;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/09/15/IntegrationProject/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-study" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/09/07/study/">学习教程</a>
-    </h1>
-  
-
-        
-        <a href="/2022/09/07/study/" class="archive-article-date">
-  	<time datetime="2022-09-07T11:55:59.379Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/27-uflskemyknpxqkk.html">python开发windows本地服务</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BAI20010904/article/details/124481796">“婚礼邀请函”小程序开发过程</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Naiva/article/details/119538735">微信小程序 #项目笔记# | 从0到1实现婚礼邀请函小程序</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/251855ec704b/">nodejs搭建Hexo博客系统</a></p>
-<p>更新文章<br>hexo clean &#x2F;&#x2F;删除之前的静态文件<br>hexo g &#x2F;&#x2F;重新生成新的<br>hexo s &#x2F;&#x2F;开启服务</p>
-<p>提交代码<br>git init 初始化git<br>git add . 添加文件<br>git commit -m ‘备注’<br>git pull origin master</p>
-<p>如果出现合并操作<br>键盘输入‘i’<br>键盘输入‘esc’<br>键盘输入‘:wq’<br>键盘输入‘enter’，<br>提交代码成功</p>
-<p>服务部署到github<br>代码更新到git服务之后在git bush中执行hexo clean清除缓存，然后执行hexo g -d生成hexo静态网页并部署<br>– 还有更新一下Gitee Pages Services.<br>冲突解决方法<br>git pull –allow-unrelated-histories</p>
-<p>下载<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a>，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate
- </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/09/07/study/">展开全文 >></a>
         </p>
       
 

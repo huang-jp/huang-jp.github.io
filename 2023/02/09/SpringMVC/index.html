@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>SpringMVC工作原理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="一、首先，我们先来认识一下SpringMVC的主要组件前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。处理器适配器（H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC工作原理">
+<meta property="og:url" content="http://example.com/2023/02/09/SpringMVC/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、首先，我们先来认识一下SpringMVC的主要组件前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。处理器适配器（H">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/SpringMVC/1.png">
+<meta property="article:published_time" content="2023-02-09T03:34:53.249Z">
+<meta property="article:modified_time" content="2022-09-16T04:38:15.892Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/SpringMVC/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -141,295 +147,164 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SpringMVC" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringMVC工作原理
+    </h1>
+  
+
+        
+        <a href="/2023/02/09/SpringMVC/" class="archive-article-date">
+  	<time datetime="2023-02-09T03:34:53.249Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、首先，我们先来认识一下SpringMVC的主要组件<br>前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。<br>处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。<br>处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。<br>处理器适配器（HandlerAdapter）:可以将处理器包装成适配器，这样就可以支持多种类型的处理器。<br>视图解析器（ViewResovler）:进行视图解析，返回view对象（常见的有JSP,FreeMark等）。<br>二、SpingMVC的工作原理<br><img src="/images/SpringMVC/1.png" alt="1"><br>下面是文字步骤说明：<br>1、用户发送请求到前端控制器（DispatcherServlet）。<br>2、前端控制器请求处理器映射器（HandlerMapping）去查找处理器（Handler）。<br>3、找到以后处理器映射器（HandlerMappering）向前端控制器返回执行链（HandlerExecutionChain）。<br>4、前端控制器（DispatcherServlet）调用处理器适配器（HandlerAdapter）去执行处理器（Handler）。<br>5、处理器适配器去执行Handler。<br>6、处理器执行完给处理器适配器返回ModelAndView。<br>7、处理器适配器向前端控制器返回ModelAndView。<br>8、前端控制器请求视图解析器（ViewResolver）去进行视图解析。<br>9、视图解析器向前端控制器返回View。<br>10、前端控制器对视图进行渲染。<br>11、前端控制器向用户响应结果。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Interview/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.222Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Interview/">面试通用版</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/02/09/SpringMVC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/IntegrationProject/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2023/02/09/study/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          学习教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/09/Shiro/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Shiro入门教程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/IntegrationProject/">使用IntelliJ IDEA整合maven+Spring+SpringMVC+Mybatis框架详细步骤然后整合Shiro配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/hello-world/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.217Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Enum/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.214Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Enum/">Java 枚举(enum) 详解7种常见的用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DuplicateRemoval/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.211Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DesignMode/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.208Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DesignMode/">Java开发中的23种设计模式详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/CommonTechnologies/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.204Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/BigData/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.201Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/BigData/">大数据学习路线（完整详细版）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Agent/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.198Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Agent/">安装Agent</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/50Programming/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.195Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/50Programming/">50道经典的JAVA编程题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -453,8 +328,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

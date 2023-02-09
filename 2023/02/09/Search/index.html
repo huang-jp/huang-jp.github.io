@@ -6,13 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>冒泡和二分查找 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="a) 冒泡      public static void mp(int a[]) {        int swap &#x3D; 0;            for (int i &#x3D; 0; i &lt; a.length; i++) {                for (int j &#x3D; i; j &lt; a.length; j++) {">
+<meta property="og:type" content="article">
+<meta property="og:title" content="冒泡和二分查找">
+<meta property="og:url" content="http://example.com/2023/02/09/Search/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="a) 冒泡      public static void mp(int a[]) {        int swap &#x3D; 0;            for (int i &#x3D; 0; i &lt; a.length; i++) {                for (int j &#x3D; i; j &lt; a.length; j++) {">
 <meta property="og:locale" content="en_US">
+<<<<<<< HEAD:2022/09/16/Search/index.html
+<meta property="article:published_time" content="2022-09-16T04:39:50.900Z">
+<meta property="article:modified_time" content="2022-09-16T04:41:24.901Z">
+=======
+<meta property="article:published_time" content="2023-02-09T03:34:53.243Z">
+<meta property="article:modified_time" content="2022-09-16T13:10:55.614Z">
+>>>>>>> cb113ee2241a5e0f9673b788d39b9dc7c4182819:2023/02/09/Search/index.html
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -141,295 +150,164 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Search" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      冒泡和二分查找
+    </h1>
+  
+
+        
+        <a href="/2023/02/09/Search/" class="archive-article-date">
+  	<time datetime="2023-02-09T03:34:53.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>a) 冒泡<br>      public static void mp(int a[]) {<br>        int swap &#x3D; 0;<br>            for (int i &#x3D; 0; i &lt; a.length; i++) {<br>                for (int j &#x3D; i; j &lt; a.length; j++) {<br>                    if (a[j] &gt; a[i]) {<br>                        swap &#x3D; a[i];<br>                        a[i] &#x3D; a[j];<br>                        a[j] &#x3D; swap;<br>                }<br>            }<br>        }<br>        System.out.println(Arrays.toString(a));<br>    }<br> <br>b)二分查找<br>    public static int ef(int a[], int tag) {<br>        int first &#x3D; 0;<br>        int end &#x3D; a.length;<br>        for (int i &#x3D; 0; i &lt; a.length; i++) {<br>            int middle &#x3D; (first + end) &#x2F; 2;<br>            if (tag &#x3D;&#x3D; a[middle]) {<br>                return middle;<br>            }<br>            if (tag &gt; a[middle]) {<br>                first &#x3D; middle + 1;<br>            }<br>            if (tag &lt; a[middle]) {<br>                end &#x3D; middle - 1;<br>            }<br>        }<br>        return 0;<br>    }</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Interview/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.222Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Interview/">面试通用版</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/02/09/Search/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/IntegrationProject/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2023/02/09/Shiro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Shiro入门教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/09/LogSystem/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/IntegrationProject/">使用IntelliJ IDEA整合maven+Spring+SpringMVC+Mybatis框架详细步骤然后整合Shiro配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/hello-world/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.217Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Enum/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.214Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Enum/">Java 枚举(enum) 详解7种常见的用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DuplicateRemoval/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.211Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DesignMode/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.208Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DesignMode/">Java开发中的23种设计模式详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/CommonTechnologies/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.204Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/BigData/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.201Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/BigData/">大数据学习路线（完整详细版）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Agent/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.198Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Agent/">安装Agent</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/50Programming/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.195Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/50Programming/">50道经典的JAVA编程题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -453,8 +331,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

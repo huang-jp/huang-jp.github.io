@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Hexo</title>
+  <title>Shiro入门教程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/page/2/index.html">
+  <meta name="description" content="第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：第三步下面通过shiro的登录权限认证">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro入门教程">
+<meta property="og:url" content="http://example.com/2023/02/09/Shiro/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：第三步下面通过shiro的登录权限认证">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Shiro/1.png">
+<meta property="og:image" content="http://example.com/images/Shiro/2.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/3.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/4.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/5.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/6.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/7.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/8.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/9.jpg">
+<meta property="og:image" content="http://example.com/images/Shiro/10.png">
+<meta property="article:published_time" content="2023-02-09T03:34:53.246Z">
+<meta property="article:modified_time" content="2022-09-16T04:36:44.838Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Shiro/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -141,295 +156,168 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Shiro" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Shiro入门教程
+    </h1>
+  
+
+        
+        <a href="/2023/02/09/Shiro/" class="archive-article-date">
+  	<time datetime="2023-02-09T03:34:53.246Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
+<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
+<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
+<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
+<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Interview/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.222Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Interview/">面试通用版</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/02/09/Shiro/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/IntegrationProject/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.219Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2023/02/09/SpringMVC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          SpringMVC工作原理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/09/Search/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">冒泡和二分查找</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/IntegrationProject/">使用IntelliJ IDEA整合maven+Spring+SpringMVC+Mybatis框架详细步骤然后整合Shiro配置</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/hello-world/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.217Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Enum/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.214Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Enum/">Java 枚举(enum) 详解7种常见的用法</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DuplicateRemoval/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.211Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/DesignMode/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.208Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/DesignMode/">Java开发中的23种设计模式详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/CommonTechnologies/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.204Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/BigData/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.201Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/BigData/">大数据学习路线（完整详细版）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/Agent/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.198Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/Agent/">安装Agent</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/02/09/50Programming/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.195Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/02/09/50Programming/">50道经典的JAVA编程题</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -453,8 +341,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

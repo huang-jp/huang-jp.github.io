@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hexo</title>
+  <title>SpringMVC工作原理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="一、首先，我们先来认识一下SpringMVC的主要组件前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。处理器适配器（H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC工作原理">
+<meta property="og:url" content="http://example.com/2023/02/09/SpringMVC/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一、首先，我们先来认识一下SpringMVC的主要组件前端控制器（DisatcherServlet）:接收请求，响应结果，返回可以是json,String等数据类型，也可以是页面（Model）。处理器映射器（HandlerMapping）:根据URL去查找处理器，一般通过xml配置或者注解进行查找。处理器（Handler）：就是我们常说的controller控制器啦，由程序员编写。处理器适配器（H">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/SpringMVC/1.png">
+<meta property="article:published_time" content="2023-02-09T03:34:53.249Z">
+<meta property="article:modified_time" content="2022-09-16T04:38:15.892Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/SpringMVC/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -141,153 +147,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-ThreeCharacteristics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-SpringMVC" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/ThreeCharacteristics/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.254Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.封装<br>封装的概念：把对象的属性和方法结合成一个独立的整体，隐藏实现细节，并提供对外访问的接口。<br>封装的好处：<br>（1）：隐藏实现细节。好比你买了台电视机，你只需要怎么使用，并不用了解其实现原理。<br>（2）：安全性。比如你在程序中私有化了age属性，并提供了对外的get和set方法，当外界 使用set<br>方法为属性设值的时候 你可以在set方法里面做个if判断，把值设值在0-80岁，那样他就不能随意赋值了。<br>（3）：增加代码的复用性。好比在工具类中封装的各种方法，你可以在任意地方重复调用，<br>而不用再每处都去实现其细节。<br>（4）：模块化。封装分为属性封装，方法封装，类封装，插件封装，模块封装，系统封装等等。有<br>利于程序的协助分工，互不干扰，方便了模块之间的相互组合与分解，也有利于代码的调试和维护。比如人体由各个器官所组成，如果有个器官出现问题，你只要去对这个器官进行医治就行了。<br>2.继承<br>继承的概念：从已知的一个类中派生出新的一个类，叫子类。子类实现了父类所有非私有化属性和方<br>法，并能根据自己的实际需求扩展出新的行为。<br>继承的好处：<br>（1）：继承是传递的，容易在其基础上构造，建立和扩充出新的类。<br>（2）：简化了人们对事物的认识和描述，能清晰体现相关类之间的层次结构关系。<br>（3）：能减少数据和代码的冗余度。<br>（4）：大大增加了代码的维护性。<br>3.多态<br>多态的概念：多个不同的对象对同一消息作出响应，同一消息根据不同的对象而采用各种不同的行为方法。<br>多态的好处：主要是利于扩展。直接上代码自己来体会。<br>&#x2F;&#x2F;比如我在马剑威磨砺营毕业后，找到一份工作，前期买了一辆大众车，实现代码如下：  <br>public class test{  <br>    public static void main(String[] args){  <br>        DZ dz &#x3D;new DZ(“大众”);  <br>        people p &#x3D;new people();  <br>        p.drive(dz);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(“上海大众在已120迈的速度在跑”);  <br>    }  <br>}  </p>
-<p>&#x2F;&#x2F;后期如果我有钱以后又买了一辆奔驰，我要换奔驰 ，不用多态的情况下代码如下：  <br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>    }  <br>}  <br>    }  <br>      <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public Benz benz;  <br>      <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>      <br>    public void drive(Benz benz){  <br>        this.benz&#x3D;benz;  <br>        benz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>  <br>class Benz{  <br>    public String name;  <br>    public Benz(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>      <br>}  </p>
-<p>&#x2F;&#x2F;这样是不是程序粘连性太强，不利于扩展，而且Java特性是对扩展开放，对修改关闭 我每换一辆车就需要改代码。  <br>&#x2F;&#x2F;那样代码修改太多，也不安全，用了多态以后，效果就很不一样了，妈妈在也不用担心我换车了<br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        DZ dz&#x3D;new DZ(“大众车”);  <br>        BMW bmw&#x3D;new BMW(“宝马车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>        p.drive(dz);  <br>        p.drive(bmw);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public Car car;  <br>      <br>      <br>        this.car&#x3D;car;  <br>        car.run();  <br>    public void drive(Car car){  <br>}  <br>  <br>class Car{  <br>    public String name;  <br>      <br>    public Car(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>      <br>    public void run(){  <br>        System.out.println(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>class DZ extends Car{  <br>   public DZ(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class Benz extends Car{  <br>    public Benz(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class BMW extends Car{  <br>    public BMW(String name){  <br>        super(name);  <br>    }  <br>   <br>}  <br>4.抽象<br>抽象的概念：通过特定的实例抽取出共同的特征以后形成的概念的过程，它强调主要特征和忽略次要<br>特征。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/ThreeCharacteristics/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-study" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/study/">学习教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/study/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/27-uflskemyknpxqkk.html">python开发windows本地服务</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BAI20010904/article/details/124481796">“婚礼邀请函”小程序开发过程</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Naiva/article/details/119538735">微信小程序 #项目笔记# | 从0到1实现婚礼邀请函小程序</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/251855ec704b/">nodejs搭建Hexo博客系统</a></p>
-<p>更新文章<br>hexo clean &#x2F;&#x2F;删除之前的静态文件<br>hexo g &#x2F;&#x2F;重新生成新的<br>hexo s &#x2F;&#x2F;开启服务</p>
-<p>提交代码<br>git init 初始化git<br>git add . 添加文件<br>git commit -m ‘备注’<br>git push origin master</p>
-<p>如果出现合并操作<br>键盘输入‘i’<br>键盘输入‘esc’<br>键盘输入‘:wq’<br>键盘输入‘enter’，<br>提交代码成功</p>
-<p>服务部署到github<br>代码更新到git服务之后在git bush中执行hexo clean清除缓存，然后执行hexo g -d生成hexo静态网页并部署<br>– 还有更新一下Gitee Pages Services.<br>冲突解决方法<br>git pull –allow-unrelated-histories</p>
-<p>下载<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a>，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate
- </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/study/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SpringMVC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/SpringMVC/">SpringMVC工作原理</a>
+    <h1 class="article-title" itemprop="name">
+      SpringMVC工作原理
     </h1>
   
 
@@ -305,6 +172,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -312,16 +200,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/SpringMVC/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/02/09/SpringMVC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2023/02/09/study/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          学习教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/09/Shiro/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Shiro入门教程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -341,559 +297,14 @@
 
 
 
-
-  
-    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/Shiro/">Shiro入门教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/Shiro/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.246Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
-<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
-<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
-<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
-<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/Shiro/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/Search/">冒泡和二分查找</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/Search/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>a) 冒泡</p>
-<pre><code>public static void mp(int a[]) &#123;
-    int swap = 0;
-        for (int i = 0; i &lt; a.length; i++) &#123;
-            for (int j = i; j &lt; a.length; j++) &#123;
-                if (a[j] &gt; a[i]) &#123;
-                    swap = a[i];
-                    a[i] = a[j];
-                    a[j] = swap;
-            &#125;
-        &#125;
-    &#125;
-    System.out.println(Arrays.toString(a));
-&#125;
-</code></pre>
-<p> <br>b)二分查找</p>
-<pre><code>public static int ef(int a[], int tag) &#123;
-    int first = 0;
-    int end = a.length;
-    for (int i = 0; i &lt; a.length; i++) &#123;
-        int middle = (first + end) / 2;
-        if (tag == a[middle]) &#123;
-            return middle;
-        &#125;
-        if (tag &gt; a[middle]) &#123;
-            first = middle + 1;
-        &#125;
-        if (tag &lt; a[middle]) &#123;
-            end = middle - 1;
-        &#125;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/Search/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LogSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/LogSystem/">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/LogSystem/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>       Logstash是一个完全开源的工具，他可以对你的日志进行收集、分析，并将其存储供以后使用（如，搜索），您可以使用它。说到搜索，logstash带有一个web界面，搜索和展示所有日志。<br>        kibana 也是一个开源和免费的工具，他可以帮助您汇总、分析和搜索重要数据日志并提供友好的web界面。他可以为 Logstash 和 ElasticSearch 提供的日志分析的 Web 界面</p>
-<p> 简单来讲他具体的工作流程就是 logstash agent 监控并过滤日志，将过滤后的日志内容发给redis(这里的redis只处理队列不做存储)，logstash index将日志收集在一起交给<br>全文搜索服务ElasticSearch 可以用ElasticSearch进行自定义搜索 通过Kibana 来结合 自定义搜索进行页面展示，下图是 Kibana官网上的流程图<br><img src="/images/LogSystem/1.png" alt="1"><br>具体的网址：<a target="_blank" rel="noopener" href="http://blog.51cto.com/storysky/1158707">http://blog.51cto.com/storysky/1158707</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/LogSystem/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LogPlatform" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/LogPlatform/">使用logstash+elasticsearch+kibana快速搭建日志平台</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/LogPlatform/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.238Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:<br>根据关键字查询日志详情<br>监控系统的运行状况<br>统计分析，比如接口的调用次数、执行时间、成功率等<br>异常数据自动触发消息通知<br>基于日志的数据挖掘<br>很多团队在日志方面可能遇到的一些问题有:<br>开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力<br>日志数据分散在多个系统，难以查找<br>日志数据量大，查询速度慢<br>一个调用会涉及多个系统，难以在这些系统的日志中快速定位数据<br>数据不够实时<br>常见的一些重量级的开源Trace系统有<br>facebook scribe<br>cloudera flume<br>twitter zipkin<br>storm<br>这些项目功能强大，但对于很多团队来说过于复杂，配置和部署比较麻烦，在系统规模大到一定程度前推荐轻量级下载即用的方案，比如logstash+elasticsearch+kibana(LEK)组合。<br>对于日志来说，最常见的需求就是收集、查询、显示，正对应logstash、elasticsearch、kibana的功能。<br>logstash<br>logstash主页<br>logstash部署简单，下载一个jar就可以用了，对日志的处理逻辑也很简单，就是一个pipeline的过程<br>inputs &gt;&gt; codecs &gt;&gt; filters &gt;&gt; outputs</p>
-<p>对应的插件有<br>从上面可以看到logstash支持常见的日志类型，与其他监控系统的整合也很方便，可以将数据输出到zabbix、nagios、email等。<br>推荐用redis作为输入缓冲队列。<br>你还可以把数据统计后输出到graphite，实现统计数据的可视化显示。<br>elasticsearch<br>elasticsearch主页<br>elasticsearch是基于lucene的开源搜索引擎<br>kibana<br>kibana主页<br>kibana是一个功能强大的elasticsearch数据显示客户端，logstash已经内置了kibana，你也可以单独部署kibana，最新版的kibana3是纯html+js客户端，可以很方便的部署到Apache、Nginx等Http服务器。<br>安装部署<br>下面列一下一个简易LEK体验环境的搭建步骤<br>安装jdk 1.7<br>oracle java主页<br>省略安装过程，推荐1.7+版本<br>java -version</p>
-<p>设置java的环境变量，比如<br>sudo vim ~&#x2F;.bashrc</p>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>export JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-7-oracle<br>export JRE_HOME&#x3D;${JAVA_HOME}&#x2F;jre<br>export CLASSPATH&#x3D;.:${JAVA_HOME}&#x2F;lib:${JRE_HOME}&#x2F;lib<br>export PATH&#x3D;${JAVA_HOME}&#x2F;bin:$PATH  </p>
-<blockquote>
-</blockquote>
-</blockquote>
-<p>source ~&#x2F;.bashrc</p>
-<p>安装redis<br>redis主页<br>cd ~&#x2F;src<br>wget <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-2.6.16.tar.gz">http://download.redis.io/releases/redis-2.6.16.tar.gz</a><br>tar -zxf redis-2.6.16.tar.gz<br>cd redis-2.6.16<br>make<br>sudo make install</p>
-<p>可以通过redis源代码里utils&#x2F;install_server下的脚本简化配置工作<br>cd utils<br>sudo .&#x2F;install_server.sh </p>
-<p>install_server.sh在问你几个问题后会把redis安装为开机启动的服务，可以通过下面的命令行来启动&#x2F;停止服务<br>sudo &#x2F;etc&#x2F;init.d&#x2F;redis_ start&#x2F;end </p>
-<p>启动redis客户端来验证安装<br>redis-cli</p>
-<blockquote>
-<p>keys *</p>
-</blockquote>
-<p>安装Elasticsearch<br>Elasticsearch主页<br>cd &#x2F;search<br>sudo mkdir elasticsearch<br>cd elasticsearch<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip">http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip</a><br>sudo unzip elasticsearch-0.90.5.zip</p>
-<p>elasticsearch解压即可使用非常方便，接下来我们看一下效果，首先启动ES服务，切换到elasticsearch目录，运行bin下的elasticsearch<br>cd &#x2F;search&#x2F;elasticsearch&#x2F;elasticsearch-0.90.5<br>bin&#x2F;elasticsearch -f</p>
-<p>访问默认的9200端口<br>curl -X GET <a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200</a></p>
-<p>安装logstash<br>logstash主页<br>cd &#x2F;search<br>sudo mkdir logstash<br>cd logstash<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar">http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar</a></p>
-<p>logstash下载即可使用，命令行参数可以参考logstash flags，主要有<br>agent   #运行Agent模式<br>-f CONFIGFILE #指定配置文件</p>
-<p>web     #自动Web服务<br>-p PORT #指定端口，默认9292</p>
-<p>安装kibana<br>logstash的最新版已经内置kibana，你也可以单独部署kibana。kibana3是纯粹JavaScript+html的客户端，所以可以部署到任意http服务器上。<br>cd &#x2F;search<br>sudo mkdir kibana<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip">http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip</a><br>sudo unzip kibana-latest.zip<br>sudo cp -r  kibana-latest &#x2F;var&#x2F;www&#x2F;html</p>
-<p>可以修改config.js来配置elasticsearch的地址和索引。<br>用浏览器访问试试看 <a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html">http://127.0.0.1/html/kibana-latest/index.html</a><br>集成<br>把上面的系统集成起来<br>首先把redis和elasticsearch都启动起来<br>为logstash新建一个配置文件<br>cd &#x2F;search&#x2F;logstash<br>sudo vi redis.conf</p>
-<p>配置文件内容如下<br>input {<br>  redis {<br>    host &#x3D;&gt; “127.0.0.1”<br>    port &#x3D;&gt; “6379”<br>    key &#x3D;&gt; “logstash:demo”<br>    data_type &#x3D;&gt; “list”<br>    codec  &#x3D;&gt; “json”<br>    type &#x3D;&gt; “logstash-redis-demo”<br>    tags &#x3D;&gt; [“logstashdemo”]<br>  }<br>}</p>
-<p>output {<br>  elasticsearch {<br>    host &#x3D;&gt; “127.0.0.1”<br>  }</p>
-<p>}</p>
-<p>用这个配置文件启动logstash agent<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar agent -f &#x2F;search&#x2F;logstash&#x2F;redis.conf &amp;</p>
-<p>启动logstash内置的web<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar web &amp;</p>
-<p>查看web，应该还没有数据<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>在redis 加一条数据<br>RPUSH logstash:demo “{&quot;time&quot;: &quot;2013-01-01T01:23:55&quot;, &quot;message&quot;: &quot;logstash demo message&quot;}”</p>
-<p>看看elasticsearch中的索引现状<br>curl 127.0.0.1:9200&#x2F;_search?pretty&#x3D;true </p>
-<p>curl -s <a target="_blank" rel="noopener" href="http://127.0.0.1:9200/_status?pretty=true">http://127.0.0.1:9200/_status?pretty=true</a> | grep logstash</p>
-<p>再通过logstash web查询一下看看<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>通过单独的kibana界面查看<br><a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json">http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json</a></p>
-<p>数据清理<br>logstash默认按天创建ES索引，这样的好处是删除历史数据时直接删掉整个索引就可以了，方便快速。<br>elasticsearch也可以设置每个文档的ttl(time to live)，相当于设置文档的过期时间，但相比删除整个索引要耗费更多的IO操作。<br>索引<br>elasticsearch默认会按照分隔符对字段拆分，日志有些字段不要分词，比如url，可以为这类字段设置not_analyzed属性。<br>设置multi-field-type属性可以将字段映射到其他类型。multi-field-type。<br>大量日志导入时用bulk方式。<br>对于日志查询来说，filter比query更快 过滤器里不会执行评分而且可以被自动缓存。query-dsl。<br>elasticsearch默认一个索引操作会在所有分片都完成对文档的索引后才返回，你可以把复制设置为异步来加快批量日志的导入。<br>elasticsearch 优化<br>优化JVM <br>优化系统可以打开最大文件描述符的数量 <br>适当增加索引刷新的间隔<br>最佳实践<br>首先你的程序要写日志<br>记录的日志要能帮助你分析问题，只记录”参数错误”这样的日志对解决问题毫无帮助<br>不要依赖异常，异常只处理你没考虑到的地方<br>要记录一些关键的参数，比如发生时间、执行时间、日志来源、输入参数、输出参数、错误码、异常堆栈信息等<br>要记录sessionid、transitionid、userid等帮你快速定位以及能把各个系统的日志串联起来的关键参数<br>推荐纯文本+json格式<br>使用队列<br>具体网址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html">https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html</a><br>或<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ityouknow/p/4933103.html">https://www.cnblogs.com/ityouknow/p/4933103.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/LogPlatform/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-List" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/List/">ArrayList、Vector、LinkedList三者的异同点</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/List/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.235Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、ArrayList<br>ArrayList是一个可以处理变长数组的类型，这里不局限于“数”组，ArrayList是一个泛型类，可以存放任意类型的对象。顾名思义，ArrayList是一个数组列表，因此其内部是使用一个数组来存放对象的，因为Object是一切类型的父类，因而ArrayList内部是有一个Object类型的数组类存放对象。ArrayList类常用的方法有add()、clear()、get()、indexOf()、remove()、sort()、toArray()、toString()等等，同时ArrayList内部有一个私有类实现Iterator接口，因此可以使用iterator()方法得到ArrayList的迭代器，同时，还有一个私有类实现了ListIterator接口，因此ArrayList也可以调用listIterator()方法得到ListIterator迭代器。<br>由于ArrayList是依靠数组来存放对象的，只不过封装起来了而已，因此其一些查找方法的效率都是O(n)，跟普通的数组效率差不多，只不过这个ArrayList是一个可变”数组“，并且可以存放一切指定的对象。<br>另外，由于ArrayList的所有方法都是默认在单一线程下进行的，因此ArrayList不具有线程安全性。若想在多线程下使用，应该使用Colletions类中的静态方法synchronizedList()对ArrayList进行调用即可。<br>二、LinkedList<br>LinkedList可以看做为一个双向链表，所有的操作都可以认为是一个双向链表的操作，因为它实现了Deque接口和List接口。同样，LinkedList也是线程不安全的，如果在并发环境下使用它，同样用Colletions类中的静态方法synchronizedList()对LinkedList进行调用即可。<br>在LinkedList的内部实现中，并不是用普通的数组来存放数据的，而是使用结点<Node>来存放数据的，有一个指向链表头的结点first和一个指向链表尾的结点last。不同于ArrayList只能在数组末尾添加数据，LinkList可以很方便在链表头或者链表尾插入数据，或者在指定结点前后插入数据，还提供了取走链表头或链表尾的结点，或取走中间某个结点，还可以查询某个结点是否存在。add()方法默认在链表尾部插入数据。总之，LinkedList提供了大量方便的操作方法，并且它的插入或增加等方法的效率明显高于ArrayList类型，但是查询的效率要低一点，因为它是一个双向链表。<br>因此，LinkedList与ArrayList最大的区别是LinkedList更加灵活，并且部分方法的效率比ArrayList对应方法的效率要高很多，对于数据频繁出入的情况下，并且要求操作要足够灵活，建议使用LinkedList；对于数组变动不大，主要是用来查询的情况下，可以使用ArrayList。<br>三、Vector<br>Vector也是一个类似于ArrayList的可变长度的数组类型，它的内部也是使用数组来存放数据对象的。值得注意的是Vector与ArrayList唯一的区别是，Vector是线程安全的，即它的大部分方法都包含有关键字synchronized，因此，若对于单一线程的应用来说，最好使用ArrayList代替Vector，因为这样效率会快很多（类似的情况有StringBuffer与StringBuilder）；而在多线程程序中，为了保证数据的同步和一致性，可以使用Vector代替ArrayList实现同样的功能。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/List/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/Linux/">Linux常用命令大全</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/Linux/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.230Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>系统信息 <br>arch 显示机器的处理器架构(1) <br>uname -m 显示机器的处理器架构(2) <br>uname -r 显示正在使用的内核版本 <br>dmidecode -q 显示硬件系统部件 - (SMBIOS &#x2F; DMI) <br>hdparm -i &#x2F;dev&#x2F;hda 罗列一个磁盘的架构特性 <br>hdparm -tT &#x2F;dev&#x2F;sda 在磁盘上执行测试性读取操作 <br>cat &#x2F;proc&#x2F;cpuinfo 显示CPU info的信息 <br>cat &#x2F;proc&#x2F;interrupts 显示中断 <br>cat &#x2F;proc&#x2F;meminfo 校验内存使用 <br>cat &#x2F;proc&#x2F;swaps 显示哪些swap被使用 <br>cat &#x2F;proc&#x2F;version 显示内核的版本 <br>cat &#x2F;proc&#x2F;net&#x2F;dev 显示网络适配器及统计 <br>cat &#x2F;proc&#x2F;mounts 显示已加载的文件系统 <br>lspci -tv 罗列 PCI 设备 <br>lsusb -tv 显示 USB 设备 <br>date 显示系统日期 <br>cal 2007 显示2007年的日历表 <br>date 041217002007.00 设置日期和时间 - 月日时分年.秒 <br>clock -w 将时间修改保存到 BIOS </p>
-<p>关机 (系统的关机、重启以及登出 ) <br>shutdown -h now 关闭系统(1) <br>init 0 关闭系统(2) <br>telinit 0 关闭系统(3) <br>shutdown -h hours:minutes &amp; 按预定时间关闭系统 <br>shutdown -c 取消按预定时间关闭系统 <br>shutdown -r now 重启(1) <br>reboot 重启(2) <br>logout 注销 </p>
-<p>文件和目录 <br>cd &#x2F;home 进入 ‘&#x2F; home’ 目录’ <br>cd .. 返回上一级目录 <br>cd ..&#x2F;.. 返回上两级目录 <br>cd 进入个人的主目录 <br>cd ~user1 进入个人的主目录 <br>cd - 返回上次所在的目录 <br>ls 查看目录中的文件 <br>ls -F 查看目录中的文件 <br>ls -l 显示文件和目录的详细资料 <br>ls -a 显示隐藏文件 <br>ls <em>[0-9]</em> 显示包含数字的文件名和目录名 <br>tree 显示文件和目录由根目录开始的树形结构(1) <br>lstree 显示文件和目录由根目录开始的树形结构(2) <br>mkdir dir1 创建一个叫做 ‘dir1’ 的目录’ <br>mkdir dir1 dir2 同时创建两个目录 <br>mkdir -p &#x2F;tmp&#x2F;dir1&#x2F;dir2 创建一个目录树 <br>rm -f file1 删除一个叫做 ‘file1’ 的文件’ <br>rmdir dir1 删除一个叫做 ‘dir1’ 的目录’ <br>rm -rf dir1 删除一个叫做 ‘dir1’ 的目录并同时删除其内容 <br>rm -rf dir1 dir2 同时删除两个目录及它们的内容 <br>mv dir1 new_dir 重命名&#x2F;移动 一个目录 <br>cp file1 file2 复制一个文件 <br>cp dir&#x2F;* . 复制一个目录下的所有文件到当前工作目录 <br>cp -a &#x2F;tmp&#x2F;dir1 . 复制一个目录到当前工作目录 <br>cp -a dir1 dir2 复制一个目录 <br>ln -s file1 lnk1 创建一个指向文件或目录的软链接 <br>ln file1 lnk1 创建一个指向文件或目录的物理链接 <br>touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm) <br>file file1 outputs the mime type of the file as text <br>iconv -l 列出已知的编码 <br>iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding. <br>find . -maxdepth 1 -name *.jpg -print -exec convert “{}” -resize 80x60 “thumbs&#x2F;{}” ; batch resize files in the current directory and send them to a thumbnails directory (requires convert from Imagemagick) </p>
-<p>文件搜索 <br>find &#x2F; -name file1 从 ‘&#x2F;‘ 开始进入根文件系统搜索文件和目录 <br>find &#x2F; -user user1 搜索属于用户 ‘user1’ 的文件和目录 <br>find &#x2F;home&#x2F;user1 -name *.bin 在目录 ‘&#x2F; home&#x2F;user1’ 中搜索带有’.bin’ 结尾的文件 <br>find &#x2F;usr&#x2F;bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 <br>find &#x2F;usr&#x2F;bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 <br>find &#x2F; -name *.rpm -exec chmod 755 ‘{}’ ; 搜索以 ‘.rpm’ 结尾的文件并定义其权限 <br>find &#x2F; -xdev -name *.rpm 搜索以 ‘.rpm’ 结尾的文件，忽略光驱、捷盘等可移动设备 <br>locate *.ps 寻找以 ‘.ps’ 结尾的文件 - 先运行 ‘updatedb’ 命令 <br>whereis halt 显示一个二进制文件、源码或man的位置 <br>which halt 显示一个二进制文件或可执行文件的完整路径 </p>
-<p>挂载一个文件系统 <br>mount &#x2F;dev&#x2F;hda2 &#x2F;mnt&#x2F;hda2 挂载一个叫做hda2的盘 - 确定目录 ‘&#x2F; mnt&#x2F;hda2’ 已经存在 <br>umount &#x2F;dev&#x2F;hda2 卸载一个叫做hda2的盘 - 先从挂载点 ‘&#x2F; mnt&#x2F;hda2’ 退出 <br>fuser -km &#x2F;mnt&#x2F;hda2 当设备繁忙时强制卸载 <br>umount -n &#x2F;mnt&#x2F;hda2 运行卸载操作而不写入 &#x2F;etc&#x2F;mtab 文件- 当文件为只读或当磁盘写满时非常有用 <br>mount &#x2F;dev&#x2F;fd0 &#x2F;mnt&#x2F;floppy 挂载一个软盘 <br>mount &#x2F;dev&#x2F;cdrom &#x2F;mnt&#x2F;cdrom 挂载一个cdrom或dvdrom <br>mount &#x2F;dev&#x2F;hdc &#x2F;mnt&#x2F;cdrecorder 挂载一个cdrw或dvdrom <br>mount &#x2F;dev&#x2F;hdb &#x2F;mnt&#x2F;cdrecorder 挂载一个cdrw或dvdrom <br>mount -o loop file.iso &#x2F;mnt&#x2F;cdrom 挂载一个文件或ISO镜像文件 <br>mount -t vfat &#x2F;dev&#x2F;hda5 &#x2F;mnt&#x2F;hda5 挂载一个Windows FAT32文件系统 <br>mount &#x2F;dev&#x2F;sda1 &#x2F;mnt&#x2F;usbdisk 挂载一个usb 捷盘或闪存设备 <br>mount -t smbfs -o username&#x3D;user,password&#x3D;pass &#x2F;&#x2F;WinClient&#x2F;share &#x2F;mnt&#x2F;share 挂载一个windows网络共享 </p>
-<p>磁盘空间 <br>df -h 显示已经挂载的分区列表 <br>ls -lSr |more 以尺寸大小排列文件和目录 <br>du -sh dir1 估算目录 ‘dir1’ 已经使用的磁盘空间’ <br>du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 <br>rpm -q -a –qf ‘%10{SIZE}t%{NAME}n’ | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) <br>dpkg-query -W -f&#x3D;’${Installed-Size;10}t${Package}n’ | sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统) </p>
-<p>用户和群组 <br>groupadd group_name 创建一个新用户组 <br>groupdel group_name 删除一个用户组 <br>groupmod -n new_group_name old_group_name 重命名一个用户组 <br>useradd -c “Name Surname “ -g admin -d &#x2F;home&#x2F;user1 -s &#x2F;bin&#x2F;bash user1 创建一个属于 “admin” 用户组的用户 <br>useradd user1 创建一个新用户 <br>userdel -r user1 删除一个用户 ( ‘-r’ 排除主目录) <br>usermod -c “User FTP” -g system -d &#x2F;ftp&#x2F;user1 -s &#x2F;bin&#x2F;nologin user1 修改用户属性 <br>passwd 修改口令 <br>passwd user1 修改一个用户的口令 (只允许root执行) <br>chage -E 2005-12-31 user1 设置用户口令的失效期限 <br>pwck 检查 ‘&#x2F;etc&#x2F;passwd’ 的文件格式和语法修正以及存在的用户 <br>grpck 检查 ‘&#x2F;etc&#x2F;passwd’ 的文件格式和语法修正以及存在的群组 <br>newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 </p>
-<p>文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消 <br>ls -lh 显示权限 <br>ls &#x2F;tmp | pr -T5 -W$COLUMNS 将终端划分成5栏显示 <br>chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r ）、写(w)和执行(x)的权限 <br>chmod go-rwx directory1 删除群组(g)与其他人(o)对目录的读写执行权限 <br>chown user1 file1 改变一个文件的所有人属性 <br>chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 <br>chgrp group1 file1 改变文件的群组 <br>chown user1:group1 file1 改变一个文件的所有人和群组属性 <br>find &#x2F; -perm -u+s 罗列一个系统中所有使用了SUID控制的文件 <br>chmod u+s &#x2F;bin&#x2F;file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限 <br>chmod u-s &#x2F;bin&#x2F;file1 禁用一个二进制文件的 SUID位 <br>chmod g+s &#x2F;home&#x2F;public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的 <br>chmod g-s &#x2F;home&#x2F;public 禁用一个目录的 SGID 位 <br>chmod o+t &#x2F;home&#x2F;public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件 <br>chmod o-t &#x2F;home&#x2F;public 禁用一个目录的 STIKY 位 </p>
-<p>文件的特殊属性 - 使用 “+” 设置权限，使用 “-“ 用于取消 <br>chattr +a file1 只允许以追加方式读写文件 <br>chattr +c file1 允许这个文件能被内核自动压缩&#x2F;解压 <br>chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件 <br>chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接 <br>chattr +s file1 允许一个文件被安全地删除 <br>chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘 <br>chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件 <br>lsattr 显示特殊的属性 </p>
-<p>打包和压缩文件 <br>bunzip2 file1.bz2 解压一个叫做 ‘file1.bz2’的文件 <br>bzip2 file1 压缩一个叫做 ‘file1’ 的文件 <br>gunzip file1.gz 解压一个叫做 ‘file1.gz’的文件 <br>gzip file1 压缩一个叫做 ‘file1’的文件 <br>gzip -9 file1 最大程度压缩 <br>rar a file1.rar file1 file2 dir1 同时压缩 ‘file1’, ‘file2’ 以及目录 ‘dir1’ <br>rar x file1.rar 解压rar包 <br>unrar x file1.rar 解压rar包 <br>tar -cvf archive.tar file1 创建一个非压缩的 tarball <br>tar -cvf archive.tar file1 file2 dir1 创建一个包含了 ‘file1’, ‘file2’ 以及 ‘dir1’的档案文件 <br>tar -tf archive.tar 显示一个包中的内容 <br>tar -xvf archive.tar 释放一个包 <br>tar -xvf archive.tar -C &#x2F;tmp 将压缩包释放到 &#x2F;tmp目录下 <br>tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包 <br>tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包 <br>tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包 <br>tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包 <br>zip file1.zip file1 创建一个zip格式的压缩包 <br>zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包 <br>unzip file1.zip 解压一个zip格式压缩包 </p>
-<p>RPM 包 - （Fedora, Redhat及类似系统） <br>rpm -ivh package.rpm 安装一个rpm包 <br>rpm -ivh –nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 <br>rpm -U package.rpm 更新一个rpm包但不改变其配置文件 <br>rpm -F package.rpm 更新一个确定已经安装的rpm包 <br>rpm -e package_name.rpm 删除一个rpm包 <br>rpm -qa 显示系统中所有已经安装的rpm包 <br>rpm -qa | grep httpd 显示所有名称中包含 “httpd” 字样的rpm包 <br>rpm -qi package_name 获取一个已安装包的特殊信息 <br>rpm -qg “System Environment&#x2F;Daemons” 显示一个组件的rpm包 <br>rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 <br>rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 <br>rpm -q package_name –whatrequires 显示与一个rpm包存在依赖关系的列表 <br>rpm -q package_name –whatprovides 显示一个rpm包所占的体积 <br>rpm -q package_name –scripts 显示在安装&#x2F;删除期间所执行的脚本l <br>rpm -q package_name –changelog 显示一个rpm包的修改历史 <br>rpm -qf &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf 确认所给的文件由哪个rpm包所提供 <br>rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 <br>rpm –import &#x2F;media&#x2F;cdrom&#x2F;RPM-GPG-KEY 导入公钥数字证书 <br>rpm –checksig package.rpm 确认一个rpm包的完整性 <br>rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 <br>rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 <br>rpm -Va 检查系统中所有已安装的rpm包- 小心使用 <br>rpm -Vp package.rpm 确认一个rpm包还未安装 <br>rpm2cpio package.rpm | cpio –extract –make-directories <em>bin</em> 从一个rpm包运行可执行文件 <br>rpm -ivh &#x2F;usr&#x2F;src&#x2F;redhat&#x2F;RPMS&#x2F;<code>arch</code>&#x2F;package.rpm 从一个rpm源码安装一个构建好的包 <br>rpmbuild –rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 </p>
-<p>YUM 软件包升级器 - （Fedora, RedHat及类似系统） <br>yum install package_name 下载并安装一个rpm包 <br>yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系 <br>yum update package_name.rpm 更新当前系统中所有安装的rpm包 <br>yum update package_name 更新一个rpm包 <br>yum remove package_name 删除一个rpm包 <br>yum list 列出当前系统中安装的所有包 <br>yum search package_name 在rpm仓库中搜寻软件包 <br>yum clean packages 清理rpm缓存删除下载的包 <br>yum clean headers 删除所有头文件 <br>yum clean all 删除所有缓存的包和头文件 </p>
-<p>DEB 包 (Debian, Ubuntu 以及类似系统) <br>dpkg -i package.deb 安装&#x2F;更新一个 deb 包 <br>dpkg -r package_name 从系统删除一个 deb 包 <br>dpkg -l 显示系统中所有已经安装的 deb 包 <br>dpkg -l | grep httpd 显示所有名称中包含 “httpd” 字样的deb包 <br>dpkg -s package_name 获得已经安装在系统中一个特殊包的信息 <br>dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表 <br>dpkg –contents package.deb 显示尚未安装的一个包所提供的文件列表 <br>dpkg -S &#x2F;bin&#x2F;ping 确认所给的文件由哪个deb包提供 </p>
-<p>APT 软件工具 (Debian, Ubuntu 以及类似系统) <br>apt-get install package_name 安装&#x2F;更新一个 deb 包 <br>apt-cdrom install package_name 从光盘安装&#x2F;更新一个 deb 包 <br>apt-get update 升级列表中的软件包 <br>apt-get upgrade 升级所有已安装的软件 <br>apt-get remove package_name 从系统删除一个deb包 <br>apt-get check 确认依赖的软件仓库正确 <br>apt-get clean 从下载的软件包中清理缓存 <br>apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 </p>
-<p>查看文件内容 <br>cat file1 从第一个字节开始正向查看文件的内容 <br>tac file1 从最后一行开始反向查看一个文件的内容 <br>more file1 查看一个长文件的内容 <br>less file1 类似于 ‘more’ 命令，但是它允许在文件中和正向操作一样的反向操作 <br>head -2 file1 查看一个文件的前两行 <br>tail -2 file1 查看一个文件的最后两行 <br>tail -f &#x2F;var&#x2F;log&#x2F;messages 实时查看被添加到一个文件中的内容 </p>
-<p>文本处理 <br>cat file1 file2 … | command &lt;&gt; file1_in.txt_or_file1_out.txt general syntax for text manipulation using PIPE, STDIN and STDOUT <br>cat file1 | command( sed, grep, awk, grep, etc…) &gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个新文件中 <br>cat file1 | command( sed, grep, awk, grep, etc…) &gt;&gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个已有的文件中 <br>grep Aug &#x2F;var&#x2F;log&#x2F;messages 在文件 ‘&#x2F;var&#x2F;log&#x2F;messages’中查找关键词”Aug” <br>grep ^Aug &#x2F;var&#x2F;log&#x2F;messages 在文件 ‘&#x2F;var&#x2F;log&#x2F;messages’中查找以”Aug”开始的词汇 <br>grep [0-9] &#x2F;var&#x2F;log&#x2F;messages 选择 ‘&#x2F;var&#x2F;log&#x2F;messages’ 文件中所有包含数字的行 <br>grep Aug -R &#x2F;var&#x2F;log&#x2F;* 在目录 ‘&#x2F;var&#x2F;log’ 及随后的目录中搜索字符串”Aug” <br>sed ‘s&#x2F;stringa1&#x2F;stringa2&#x2F;g’ example.txt 将example.txt文件中的 “string1” 替换成 “string2” <br>sed ‘&#x2F;^$&#x2F;d’ example.txt 从example.txt文件中删除所有空白行 <br>sed ‘&#x2F; *#&#x2F;d; &#x2F;^$&#x2F;d’ example.txt 从example.txt文件中删除所有注释和空白行 <br>echo ‘esempio’ | tr ‘[:lower:]’ ‘[:upper:]’ 合并上下单元格内容 <br>sed -e ‘1d’ result.txt 从文件example.txt 中排除第一行 <br>sed -n ‘&#x2F;stringa1&#x2F;p’ 查看只包含词汇 “string1”的行 <br>sed -e ‘s&#x2F; <em>$&#x2F;&#x2F;‘ example.txt 删除每一行最后的空白字符 <br>sed -e ‘s&#x2F;stringa1&#x2F;&#x2F;g’ example.txt 从文档中只删除词汇 “string1” 并保留剩余全部 <br>sed -n ‘1,5p;5q’ example.txt 查看从第一行到第5行内容 <br>sed -n ‘5p;5q’ example.txt 查看第5行 <br>sed -e ‘s&#x2F;00</em>&#x2F;0&#x2F;g’ example.txt 用单个零替换多个零 <br>cat -n file1 标示文件的行数 <br>cat example.txt | awk ‘NR%2&#x3D;&#x3D;1’ 删除example.txt文件中的所有偶数行 <br>echo a b c | awk ‘{print $1}’ 查看一行第一栏 <br>echo a b c | awk ‘{print $1,$3}’ 查看一行的第一和第三栏 <br>paste file1 file2 合并两个文件或两栏的内容 <br>paste -d ‘+’ file1 file2 合并两个文件或两栏的内容，中间用”+”区分 <br>sort file1 file2 排序两个文件的内容 <br>sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份) <br>sort file1 file2 | uniq -u 删除交集，留下其他的行 <br>sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件) <br>comm -1 file1 file2 比较两个文件的内容只删除 ‘file1’ 所包含的内容 <br>comm -2 file1 file2 比较两个文件的内容只删除 ‘file2’ 所包含的内容 <br>comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分 </p>
-<p>字符设置和文件格式转换 <br>dos2unix filedos.txt fileunix.txt 将一个文本文件的格式从MSDOS转换成UNIX <br>unix2dos fileunix.txt filedos.txt 将一个文本文件的格式从UNIX转换成MSDOS <br>recode ..HTML &lt; page.txt &gt; page.html 将一个文本文件转换成html <br>recode -l | more 显示所有允许的转换格式 </p>
-<p>文件系统分析 <br>badblocks -v &#x2F;dev&#x2F;hda1 检查磁盘hda1上的坏磁块 <br>fsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上linux文件系统的完整性 <br>fsck.ext2 &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext2文件系统的完整性 <br>e2fsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext2文件系统的完整性 <br>e2fsck -j &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext3文件系统的完整性 <br>fsck.ext3 &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext3文件系统的完整性 <br>fsck.vfat &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上fat文件系统的完整性 <br>fsck.msdos &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上dos文件系统的完整性 <br>dosfsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上dos文件系统的完整性 </p>
-<p>初始化一个文件系统 <br>mkfs &#x2F;dev&#x2F;hda1 在hda1分区创建一个文件系统 <br>mke2fs &#x2F;dev&#x2F;hda1 在hda1分区创建一个linux ext2的文件系统 <br>mke2fs -j &#x2F;dev&#x2F;hda1 在hda1分区创建一个linux ext3(日志型)的文件系统 <br>mkfs -t vfat 32 -F &#x2F;dev&#x2F;hda1 创建一个 FAT32 文件系统 <br>fdformat -n &#x2F;dev&#x2F;fd0 格式化一个软盘 <br>mkswap &#x2F;dev&#x2F;hda3 创建一个swap文件系统 </p>
-<p>SWAP文件系统 <br>mkswap &#x2F;dev&#x2F;hda3 创建一个swap文件系统 <br>swapon &#x2F;dev&#x2F;hda3 启用一个新的swap文件系统 <br>swapon &#x2F;dev&#x2F;hda2 &#x2F;dev&#x2F;hdb3 启用两个swap分区 </p>
-<p>备份 <br>dump -0aj -f &#x2F;tmp&#x2F;home0.bak &#x2F;home 制作一个 ‘&#x2F;home’ 目录的完整备份 <br>dump -1aj -f &#x2F;tmp&#x2F;home0.bak &#x2F;home 制作一个 ‘&#x2F;home’ 目录的交互式备份 <br>restore -if &#x2F;tmp&#x2F;home0.bak 还原一个交互式备份 <br>rsync -rogpav –delete &#x2F;home &#x2F;tmp 同步两边的目录 <br>rsync -rogpav -e ssh –delete &#x2F;home ip_address:&#x2F;tmp 通过SSH通道rsync <br>rsync -az -e ssh –delete ip_addr:&#x2F;home&#x2F;public &#x2F;home&#x2F;local 通过ssh和压缩将一个远程目录同步到本地目录 <br>rsync -az -e ssh –delete &#x2F;home&#x2F;local ip_addr:&#x2F;home&#x2F;public 通过ssh和压缩将本地目录同步到远程目录 <br>dd bs&#x3D;1M if&#x3D;&#x2F;dev&#x2F;hda | gzip | ssh user@ip_addr ‘dd of&#x3D;hda.gz’ 通过ssh在远程主机上执行一次备份本地磁盘的操作 <br>dd if&#x3D;&#x2F;dev&#x2F;sda of&#x3D;&#x2F;tmp&#x2F;file1 备份磁盘内容到一个文件 <br>tar -Puf backup.tar &#x2F;home&#x2F;user 执行一次对 ‘&#x2F;home&#x2F;user’ 目录的交互式备份操作 <br>( cd &#x2F;tmp&#x2F;local&#x2F; &amp;&amp; tar c . ) | ssh -C user@ip_addr ‘cd &#x2F;home&#x2F;share&#x2F; &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个目录内容 <br>( tar c &#x2F;home ) | ssh -C user@ip_addr ‘cd &#x2F;home&#x2F;backup-home &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个本地目录 <br>tar cf - . | (cd &#x2F;tmp&#x2F;backup ; tar xf - ) 本地将一个目录复制到另一个地方，保留原有权限及链接 <br>find &#x2F;home&#x2F;user1 -name ‘<em>.txt’ | xargs cp -av –target-directory&#x3D;&#x2F;home&#x2F;backup&#x2F; –parents 从一个目录查找并复制所有以 ‘.txt’ 结尾的文件到另一个目录 <br>find &#x2F;var&#x2F;log -name ‘</em>.log’ | tar cv –files-from&#x3D;- | bzip2 &gt; log.tar.bz2 查找所有以 ‘.log’ 结尾的文件并做成一个bzip包 <br>dd if&#x3D;&#x2F;dev&#x2F;hda of&#x3D;&#x2F;dev&#x2F;fd0 bs&#x3D;512 count&#x3D;1 做一个将 MBR (Master Boot Record)内容复制到软盘的动作 <br>dd if&#x3D;&#x2F;dev&#x2F;fd0 of&#x3D;&#x2F;dev&#x2F;hda bs&#x3D;512 count&#x3D;1 从已经保存到软盘的备份中恢复MBR内容 </p>
-<p>光盘 <br>cdrecord -v gracetime&#x3D;2 dev&#x3D;&#x2F;dev&#x2F;cdrom -eject blank&#x3D;fast -force 清空一个可复写的光盘内容 <br>mkisofs &#x2F;dev&#x2F;cdrom &gt; cd.iso 在磁盘上创建一个光盘的iso镜像文件 <br>mkisofs &#x2F;dev&#x2F;cdrom | gzip &gt; cd_iso.gz 在磁盘上创建一个压缩了的光盘iso镜像文件 <br>mkisofs -J -allow-leading-dots -R -V “Label CD” -iso-level 4 -o .&#x2F;cd.iso data_cd 创建一个目录的iso镜像文件 <br>cdrecord -v dev&#x3D;&#x2F;dev&#x2F;cdrom cd.iso 刻录一个ISO镜像文件 <br>gzip -dc cd_iso.gz | cdrecord dev&#x3D;&#x2F;dev&#x2F;cdrom - 刻录一个压缩了的ISO镜像文件 <br>mount -o loop cd.iso &#x2F;mnt&#x2F;iso 挂载一个ISO镜像文件 <br>cd-paranoia -B 从一个CD光盘转录音轨到 wav 文件中 <br>cd-paranoia – “-3” 从一个CD光盘转录音轨到 wav 文件中（参数-3） <br>cdrecord –scanbus 扫描总线以识别scsi通道 <br>dd if&#x3D;&#x2F;dev&#x2F;hdc | md5sum 校验一个设备的md5sum编码，例如一张 CD </p>
-<p>网络 - （以太网和WIFI无线） <br>ifconfig eth0 显示一个以太网卡的配置 <br>ifup eth0 启用一个 ‘eth0’ 网络设备 <br>ifdown eth0 禁用一个 ‘eth0’ 网络设备 <br>ifconfig eth0 192.168.1.1 netmask 255.255.255.0 控制IP地址 <br>ifconfig eth0 promisc 设置 ‘eth0’ 成混杂模式以嗅探数据包 (sniffing) <br>dhclient eth0 以dhcp模式启用 ‘eth0’ <br>route -n show routing table <br>route add -net 0&#x2F;0 gw IP_Gateway configura default gateway <br>route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1 configure static route to reach network ‘192.168.0.0&#x2F;16’ <br>route del 0&#x2F;0 gw IP_gateway remove static route <br>echo “1” &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward activate ip routing <br>hostname show hostname of system <br>host <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(1) <br>nslookup <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(2) <br>ip link show show link status of all interfaces <br>mii-tool eth0 show link status of ‘eth0’ <br>ethtool eth0 show statistics of network card ‘eth0’ <br>netstat -tup show all active network connections and their PID <br>netstat -tupl show all network services listening on the system and their PID <br>tcpdump tcp port 80 show all HTTP traffic <br>iwlist scan show wireless networks <br>iwconfig eth1 show configuration of a wireless network card <br>hostname show hostname <br>host <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa <br>nslookup <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa <br>whois <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup on Whois database </p>
-<p>GO TOP INDEX ^ <br>Microsoft Windows networks (SAMBA) <br>nbtscan ip_addr netbios name resolution <br>nmblookup -A ip_addr netbios name resolution <br>smbclient -L ip_addr&#x2F;hostname show remote shares of a windows host <br>smbget -Rr smb:&#x2F;&#x2F;ip_addr&#x2F;share like wget can download files from a host windows via smb <br>mount -t smbfs -o username&#x3D;user,password&#x3D;pass &#x2F;&#x2F;WinClient&#x2F;share &#x2F;mnt&#x2F;share mount a windows network share</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/Linux/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LearningSuggestions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/LearningSuggestions/">Java初学者的学习建议</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/LearningSuggestions/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.225Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这一部分其实也算是今天的重点，这一部分用来回答很多群里的朋友所问过的问题，那就是我你是如何学习Java的，能不能给点建议？ <br>今天我是打算来点干货，因此咱们就不说一些学习方法和技巧了，直接来谈每个阶段要学习的内容甚至是一些书籍。这一部分的内容，<br>同样适用于一些希望转行到Java的同学。<br>一位资深程序员大牛给予Java初学者的学习建议<br>在大家看之前，我要先声明两点。<br>1、由于我本人是Java后端开发出身，因此所推荐的学习内容是Java Web和Java后端开发的路线，<br>非Java Web和Java后端开发的同学请适当参考其学习思想即可，切勿照搬。<br>2、下面对于【第一部分】的推荐内容，目的是让你尽快<br>成为一个可以参加工作的Java开发者，更适用于处于待业状态，准备转行Java的同学。如果你是在校学生，务必要在学好基础（比如<br>计算机系统、算法、编译原理等等）的前提下，再考虑去进行下面的学习。第一部分：对于尚未做过Java工作的同学，包括一些在校<br>生以及刚准备转行Java的同学。<br><img src="/images/LearningSuggestions/1.jpeg" alt="1"></p>
-<p>一、Java基础 首先去找一个Java的基础教程学一下，这里可以推荐一个地址，或者你也可以参照这个地址上去找相应的视频。 学习<br>Java基础的时候，应该尽量多动手，很多时候，你想当然的事情，等你写出来运行一下，你就会发现不是这么回事儿，不信你就试试。 <br>学完以上内容以后，你应该对Java有一个基本的了解了，你可以用Java语言写出一些简单的程序，并且你用的是最简单的编辑器，比<br>如记事本。 这个时候，不要急于进入下一部分，留下几天好好写一些程序，尽可能熟悉这些基础内容。</p>
-<p>二、Web开发 等你写上几天程序以后，你往往会比较迷茫，因为你写的东西似乎看起来毫无用处，比如实现一个简单的计算器，读取<br>一个文件等。这个时候你就应该去学着写一些让你觉得有意思的东西了，所以你应该学习更多的知识。 这些内容主要是Web开发相关<br>的内容，包括HTML&#x2F;CSS&#x2F;JS（前端页面）、Servlet&#x2F;JSP（J2EE）以及Mysql（数据库）相关的知识。 它们的学习顺序应该是从前到<br>后，因此最先学习的应该是HTML&#x2F;CSS&#x2F;JS（前端页面），这部分内容你可以去上面的那个runoob网站上找。你可以试着自己写一些页<br>面，当然，你可以尽你最大的努力让它变得最漂亮。这部分内容对于后端Java来说，理论上不是特别重要，但至少要达到可以自己写出<br>一些简单页面的水平。 接下来，你需要学习的是Servlet&#x2F;JSP（J2EE）部分，这部分是Java后端开发必须非常精通的部分，因此这部分<br>是这三部分中最需要花精力的，而且这个时候，你要学会使用开发工具，而不能再使用记事本了，可以选择eclipse。 当 你下载安装好<br>eclipse以后，请视频中的教程一步一步去学习，一定要多动手。关于Servlet&#x2F;Jsp部分视频的选择，业界比较认可马士兵的视频， 因此<br>推荐给大家。当然了，我本人并没有看过他的视频，所以不好说的太绝对，如果大家自己有更好的选择，可以坚持自己的，不要被我干<br>扰。 原本我也是打算出教学视频的，但是由于时间问题，还是决定放弃了。 最后一步，你需要学会使用数据库，mysql是<br>个不错的入门选择，而且Java领域里主流的关系型数据库就是mysql。这部分一般在你学习Servlet&#x2F;Jsp的时候，就会接触到的，其中的<br>JDBC部分就是数据库相关的部分。你不仅要学会使用JDBC操作数据库，还要学会使用数据库客户端工具，比如navicat，sqlyog，<br>二选一即可。</p>
-<p>三、开发框架当你学会以上内容以后，这个时候你还不足以参加工作，你还需要继续深造。公司里为了提高开发的效率，会使用一些Java <br>Web框架，因此你还需要学习一些开发框架。目前比较主流的是SSM框架，即spring、springmvc、 mybatis。你需要学会这三个框架的搭<br>建，并用它们做出一个简单的增删改查的Web项目。你可以不理解那些配置都是什么含义，以及为什么要这么做，这 些留着后面你去了解。<br>但你一定要可以快速的利用它们三个搭建出一个Web框架，你可以记录下你第一次搭建的过程，相信我，你一定会用到的。还 要提一句的是，<br>你在搭建SSM的过程中，可能会经常接触到一个叫maven的工具。这个工具也是你以后工作当中几乎是必须要使用的工具，所以你在搭建 <br>SSM的过程中，也可以顺便了解一下maven的知识。在你目前这个阶段，你只需要在网络上了解一下maven基本的使用方法即可，一些高端的<br>用法随着你 工作经验的增加，会逐渐接触到的。关于学习SSM框架的地址给大家推荐一个，这里面有视频，大家可以去观看。<br>四、找工作当你<br>完成开发框架的学习以后，你就该找工作了，在校的找实习，毕业的找全职。与此同时，在找工作的同时，你不应该停下你的学习，准确的说，<br>是你在以后都不能停下学习。上面这些内容你只是囫囵吞枣的学会了使用，你可以逐步尝试着去了解更多的东西，网络是你最重要的老师。<br>第二部分：对于参加工作一年以内的同学。恭喜你，这个时候，你已经拥有了一份Java的工作。这个阶段是你成长极快的阶段，而且你可能会<br>经常加班。但是加班不代表你就可以松懈了，永远记得我说的那句话，从你入行那一刻起，你就要不停的学习。在这一年里，你至少需要看完<br>《Java编程思想》这本书。这本书的内容是帮助你对于Java有一个更加深入的了解，是Java基础的升级版。这本书很厚，当初看这本书，我花<br>了整整三个月。正常速度的话，应该可以在半年左右看完。我这里不要求过高，只要你在一年以内把这本书看完即可。当然了，我所说的看完，<br>是充分吸收，而不是读一遍就完事了，因此有些内容你可能会看不止一遍。总而言之，这个阶段的核心学习思想就是，在工作中实践，并且更<br>加深入的了解Java基础</p>
-<p>第二部分：对于参加工作1年到2年的同学。 这部分时间段的同学，已经对Java有了一个更加深入的了解。但是对于面向对象的体会可能还不够<br>深刻，编程的时候还停留在完成功能的层次，很少会去考虑设计的问题。 于是这个时候，设计模式就来了。我当时看的是《大话设计模式》这<br>本书，并且写了完整版的设计模式博客。因此，我要求大家，最多在你工作一年的时候，必须开始写博客，而设计模式就是你博客的开端。 请记<br>住，我所提的基本都是最低要求，因此不要有任何松懈的心理，否则五年后，你不要去羡慕别人高于你的工资，也不要去羡慕别人进入了某公司。<br> 这一年，你必须对于设计模式了如指掌，《大话设计模式》可以作为你的开端。 此外，设计模式并不是你这一年唯一的任务，你还需要看一些关<br>于代码编写优化的书。比如《重构 改善既有代码的设计》，《effective java》。 总而言之，这个阶段，你的核心任务就是提高你的代码能力，要<br>能写出一手优雅的代码。<br> 第三部分：对于参加工作2年到3年的同学 有的同学在这个时候觉得自己已经很牛逼了，于是忍不住开始慢慢松懈。请记住，你还嫩的多。 这个<br>阶段，有一本书是你必须看的，它叫做《深入理解Java虚拟机》。这本书绝对是Java开发者最重要的书，没有之一。在我眼里，这本书的重要性<br>还要高于《Java编程思想》。 这本书的内容是帮助你全面的了解Java虚拟机，在这个阶段，你一定已经知道Java是运行在JVM之上的。所以，<br>对于JVM，你没有任何理由不了解它。 另外，在过去2年的工作当中，你肯定或多或少接触过并发。这个时候，你应该去更加深入的了解并发相关<br>的知识，而这部分内容，我比较推荐《Java并发编程实战》这本书。只要你把这本书啃下来了，并发的部分基本已经了解了十之六七。 与此同时，<br>这个阶段你要做的事情还远不止如此。这个时候，你应该对于你所使用的框架应该有了更深入的了解，对于Java的类库也有了更深入的了解。因此，<br>你需要去看一些JDK中的类的源码，也包括你所使用的框架的源码。 这些源码能看懂的前提是，你必须对设计模式非常了解。否则的话，你看源码<br>的过程中，永远会有这样那样的疑问，这段代码为什么要这么写？为什么要定义这个接口，它看起来好像很多余？</p>
-<p>由 此也可以看出，这些学习的过程是环环相扣的，如果你任何一个阶段拉下来了，那么你就真的跟不上了，或者说是一步慢步步慢。而且我很负责<br>的告诉你，我在这个 阶段的时候，所学习的东西远多于这里所罗列出来的。因此千万不要觉得你已经学的很多了，我所说的这些都只是最低要求，<br>不光是我，很多人在这个时间段所学习 的内容都远超本文的范围。 如果你不能跟上节奏的话，若干年后，如果不是程序猿市场还不错的话，你很可能<br>不仅仅是工资比别人低，公司没别人好，而是根本就找不到工作。 总而言之，这个阶段，你需要做的是深入了解Java底层和Java类库（比如并发那本<br>书就是Java并发包java.concurrent的内容），也就是JVM和JDK的相关内容。而且还要更深入的去了解你所使用的框架，方式比较推荐看源码或者看<br>官方文档。 另外，还有一种学习的方式，在2年这个阶段，也应该启用了，那就是造轮子。 不要听信那套“不要重复造轮子”的论调，那是公司为了节省<br>时间成本编造出来的。重复造轮子或许对别人没有价值，因为你造的轮子可能早就有了，而且一般情况下你造出来的轮子还没有现存的好。但是对别人<br>没有价值，不代表对你自己没有价值。 一个造轮子的过程，是一个从无到有的过程。这个过程可以对你进行系统的锻炼，它不仅考察你的编码能力，还<br>考察你的框架设计能力，你需要让你的轮子拥有足够好的扩展性、健壮性。 而且在造轮子的过程中，你会遇到各种各样的难题，这些难题往往又是你学<br>习的契机。当你把轮子造好的时候，你一定会发现，其实你自己收获了很多。 所以，这个阶段，除了上面提到的了解JVM、JDK和框架源码以外，也请<br>你根据别人优秀的源码，去造一个任何你能够想象出来的轮子。</p>
-<p>第四部分：参加工作3年到4年的同学 这个阶段的同学，提升已经是很难了，而且这个阶段的学习往往会比较多样化。 因为在前3年的过程中，你肯定<br>或多或少接触过一些其它的技术，比如大数据、分布式缓存、分布式消息服务、分布式计算、软负载均衡等等。这些技术，你能精通任何一项，都将<br>是你未来面试时巨大的优势，因此如果你对某一项技术感兴趣的话，这个时候可以深入去研究一下。这项技术不一定是你工作所用到的，但一定是相<br>关的。 而且在研究一门新技术时，切忌朝三暮四。有的同学今天去整整大数据，搞搞Hadoop、hbase一类的东西。过不了一段时间，就觉得没意思，<br>又去研究分布式缓存，比如redis。然后又过不了一段时间，又去研究分布式计算，比如整整Mapreduce或者storm。 结果到最后，搞得自己好像什么都<br>会一样，在简历上大言不惭的写上大数据、分布式缓存、分布式计算都了解，其实任何一个都只是浮于表面。到时候面试官随便一问，就把你给识破了。<br> 一定要记住，作为一个程序猿，平日里所接触的技术可能会很多，但是想要让一门技术成为你的优势，那么一定是你对这门技术的了解强过绝大多数人<br>才行。 因此在这个阶段，你就不能再简单的去学习前3年的内容了，虽然前面的学习如果还不够深入的话依旧要继续，但这个时候你应该更多的考虑建立<br>你的优势，也可以称为差异性。 差异性相信不难理解，就是让你自己变得与众不同。你前面三年的学习足够你成为一名基本合格的Java开发者，但你离成<br>为一名优秀的Java开发者还有很大的距离。 所 谓优秀，即能别人所不能。而你前三年所学习的内容，是很多做过几年的Java开发都能够掌握的。那么为了<br>让自己有差异性，你就需要另辟蹊径，找一个方向深 入研究下去，以期在将来，你能够成为这个领域的专家，比如分布式计算领域的专家，大数据领域的<br>专家，并发领域的专家等等。 此 外，你除了建立你的差异性之外，还要去弥补你基础上的不足，直到现在，我都没有提及基础知识。原因是基础是很枯燥<br>无味的，学的太早不仅容易懵逼，而且懵逼 的同时还容易产生心理阴影，以至于以后再不想去研究这些基础。但基础又是你深入研究一些领域时所必须掌<br>握的，比如你去研究分布式计算，你不懂算法你玩个毛 毛？比如你去做分布式缓存，你对计算机系统的内存不了解，你如何去做缓存？ 如果你的基础本来<br>就非常强，那么恭喜你，相信你在之前的工作中已经充分体会到了这些基础对你的帮助。但我相信大部分人的基础都很薄弱，哪怕是科班毕业的人，很多人<br>也不敢说自己当初的基础学的多么强大，比如算法、计算机系统原理、编译原理这些。 但是每个人时间都是有限的，而且这些基础的书籍每一本读下来，没<br>个一年半载的，还真拿不下来，因此还是要有所抉择的。虽然艺多不压身，但问题是艺多是有代价的，是需要你付出时间和精力的，而我个人更赞成在同等<br>代价的情况下获取最大的收获。 首先，我比较推崇的基础书籍有三本，分别是《深入理解计算机系统》，《tcp&#x2F;ip详解 卷一、二、三》，《数据结构与算法》。<br>其中TCP&#x2F;IP有三本书，但我们这里把这三本看成是一本大书。 这三本分别适合三种人，《深入理解计算机系统》比较适合一直从事Java Web开发和APP后端<br>开发工作的人群。《tcp&#x2F;ip详解 卷一、二、三》比较适合做网络编程的人群，比如你使用netty去开发的话，那么就要对TCP&#x2F;IP有更深入的了解。而《数据结构<br>与算法》这本书，则比较适合做计算研究工作的人，比如刚才提到的分布式计算。 另外，我要强调的是，这里所说的适合，并不是其它两本对你就没有用。<br>比如你做Java Web和APP后端开发，《tcp&#x2F;ip详解 卷一、二、三》这本书对你的作用也是很大的。这里只是分出个主次关系而已，你要是时间足够的话，<br>能把三本都精读那当然最好不过了。但如果时间有限的话，那么就先挑对你帮助最大的书去读。 理论上来讲，这一年你能把这三本其中一本精读下来，<br>就已经非常厉害了。有了基础，有了前面的工作经验，你就可以去开拓属于你的领域了。 在这一年里，一定要规划好自己的领域，建立好自己的优势，<br>制造出差异性。如果你对自己的领域不够清晰的话，随着你工作的时间日益增多，你接触的技术会越来越多，这个时候，你很容易被淹死在技术的海洋<br>里，看似接触的技术越来越多，会用的也越来越多，但你毫无优势。 有的同学可能会问，“我，我也不知道我的领域是什么啊？怎么办呢？” 对于这种人，<br>我只想说，“卧槽，这还问我？要不干脆我替你学习得了，好不好？”</p>
-<p>第五部分：参加工作4年到5年的同学 经过前面一年的历练，相信你在自己所钻研的领域已经有了自己一定的见解，这个时候，技术上你应该已经遇到瓶颈了。<br> 这个时候不要着急提高自己的技术，已经是时候提高你的影响力了，你可以尝试去一些知名的公司去提高你的背景，你可以发表一些文章去影响更多的人。<br>当然，你也可以去Github创建一个属于你的开源项目，去打造自己的产品。这次的开源项目不同于之前的造轮子，你这个时候是真的要去尽量尝试造出来真<br>正对别人有价值的轮子。 技术学到这个阶段，很容易遇到瓶颈，而且往往达到一定程度后，你再深入下去的收效就真的微乎其微了，除非你是专门搞学术研<br>究的。然而很可惜，大部分程序猿做不到这一步，那是科学家做的事情。 这个时候提高影响力不仅仅是因为技术上容易遇到瓶颈，更多的是影响力可以给你<br>创造更多的机会。程序猿在某种程度上和明星很像，一个好的电视剧和电影就可以成就一批明星，程序猿有的时候也是，一个好的项目就可以成就一群程序猿<br>。 比如国内几个脍炙人口的项目，像淘宝、支付宝、QQ、百度、微信等等。这每一个项目，都成就了一批程序猿。我敢说，这里面任何一个项目，如果你是<br>它的核心开发，光是这样一个Title，就已经是你非常大的优势。更何况还不止如此，Title说到底也是个名头，更重要的是，这种项目在做的时候，对你的历练<br>一定也是非常给力的。 而你如果想要参与这样的项目，除了靠运气之外，影响力也是很重要的一个手段。比如你在分布式计算领域有一定的影响力，那么如果<br>有什么好的关于分布式计算的项目，对方就很可能会邀请你。就算人家不邀请你，你自己主动去面试的时候，对方如果知道你在这个领域的影响力，也肯定会<br>起到很大的作用，而这个作用，甚至可能会超过你现在的技术能力。 所以，在这个阶段，你最大的任务是提高自己的影响力，为自己未来的十年工作生涯那一天<br>做准备。如果你能够靠你的影响力和以前积累的技术，参与到一个伟大的项目当中，那么你后面的五年也就有着落了。 当然了，我现在满打满算，做程序猿也就<br>4年半不到，因此关于4年到5年这一部分，我的见解不一定是对的，就算是对的，也不一定是适合任何人的。所以，希望大家自己有的判断力，去决定到底该如何<br>度过这一年。</p>
-<p>结语本文到此就基本结束了，整篇文章很长，但其实主要就说的内容就是Java生涯的学习。关于这部分，我已经给出了自己的见解，但是还是<br>那句话，每个人吸收知识的时候，都要有抽取精华，去除糟粕的能力。我所说的，可能有些是对的，有些是错的，有些是适合你的，有些是不太<br>适合你的，你要自己能够判断。其实你在生活和工作当中也是一样的，你身边的人形形色色，有的人你喜欢，有的人你很讨厌。但其实你喜欢的<br>人也有缺点，你讨厌的人也有优点。你要学会从你讨厌的人身上学会他的优点，千万不要一棒子打死，这只会让你失去很多学习成长的机会。 好<br>了，说了这么多了，就到此为止吧，希望本文可以帮助到作为程序猿或即将成为程序猿的你。给自己一次蜕变IT高薪的机会。我们学的不仅是技术<br>更是梦想。<br><img src="/images/LearningSuggestions/2.jpg" alt="2"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/LearningSuggestions/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -916,8 +327,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

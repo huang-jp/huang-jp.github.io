@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/12.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/13.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/14.PNG">
-<meta property="og:image" content="http://example.com/images/DockerAndJenkins/15.png">
+<meta property="og:image" content="http://example.com/images/DockerAndJenkins/15.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/16.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/17.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/18.PNG">
@@ -83,7 +83,7 @@
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/65.PNG">
 <meta property="og:image" content="http://example.com/images/DockerAndJenkins/66.PNG">
 <meta property="article:published_time" content="2023-08-31T03:56:14.601Z">
-<meta property="article:modified_time" content="2023-09-04T04:25:59.740Z">
+<meta property="article:modified_time" content="2023-09-04T16:01:38.672Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/DockerAndJenkins/top1.PNG">
@@ -260,7 +260,7 @@
 <p> ssh-keygen -t rsa -C “root”  #输入完一直回车就结束了<br> cat &#x2F;root&#x2F;.ssh&#x2F;id_rsa.pub #查看公钥<br><img src="/images/DockerAndJenkins/11.PNG" alt="11"><br>如果没有的话，就先输入 下面命令进入 Jenkins 容器终端</p>
 <p> docker exec -it -uroot jenkins bash # jenkins 是我启动的容器名 换成容器id 也可以的<br>复制<br>拿到 Jenkins 公钥后，就放到 Github、Gitee 或者是 GitLab 上去，我放的 Github，如下：<br><img src="/images/DockerAndJenkins/12.PNG" alt="12"><br><img src="/images/DockerAndJenkins/13.PNG" alt="13"><br>这样就算是添加完成了。</p>
 <p>到这一步，可以进行测试一下，是否已经可以从 Github 上拉取项目<br><img src="/images/DockerAndJenkins/14.PNG" alt="14"><br>三、 Jenkins 插件安装、添加凭据、系统配置、全局工具配置<br>实际上 Jenkins 的功能基本上都是依靠插件来完成，所以不同项目也会要安装不同的插件。</p>
-<p>3.1、插件安装<br>我演示的是一个 SpringBoot 后端项目的部署，中间也没有穿插复杂的操作，所以装的插件也不多哈。<br><img src="/images/DockerAndJenkins/15.png" alt="15"><br>安装的插件的名称：</p>
+<p>3.1、插件安装<br>我演示的是一个 SpringBoot 后端项目的部署，中间也没有穿插复杂的操作，所以装的插件也不多哈。<br><img src="/images/DockerAndJenkins/15.PNG" alt="15"><br>安装的插件的名称：</p>
 <p>Maven Integration ：Maven 项目打包工具<br>SSH ： SSH 连接工具<br>Publish Over SSH ：SSH 发布工具<br>如果要运行前端 Vue 项目，记得下载一个 NodeJS 的插件（我会的前端就只有 Vue 哈）<br><img src="/images/DockerAndJenkins/16.PNG" alt="16"><br><img src="/images/DockerAndJenkins/17.PNG" alt="17"><br>等待下载完即可</p>
 <p>3.2、添加凭据<br>凭据其实就是账号密码，你访问 Github、远程服务器都需要账号密码才行，这里的凭据就是相应的账号密码。<br><img src="/images/DockerAndJenkins/18.PNG" alt="18"><br><img src="/images/DockerAndJenkins/19.PNG" alt="19"><br>添加 github 的账号密码<br><img src="/images/DockerAndJenkins/20.PNG" alt="20"><br>添加服务器的登录账号和密码<br><img src="/images/DockerAndJenkins/21.PNG" alt="21"><br>补充：这些都是可以填加多个的。</p>
 <p>最后就是这样的：<br><img src="/images/DockerAndJenkins/22.PNG" alt="22"><br>稍后在项目中都是需要用到的。</p>
@@ -315,15 +315,13 @@
  &lt;/build&gt;
 </code></pre>
 <p>复制<br>Dockerfile 文件</p>
-<p> FROM adoptopenjdk&#x2F;openjdk8</p>
-<p> WORKDIR app  #切换到镜像中的指定路径，设置工作目录</p>
-<p> COPY target&#x2F;<em>.jar app.jar  #会将宿主机的target&#x2F;</em>.jar文件复制到 镜像的工作目录 &#x2F;app&#x2F; 下 </p>
-<p> CMD [“java”, “-jar”, “app.jar”]  #执行java -jar 命令<br>复制<br>因为不是本文关注的重点，更多详情可能还需朋友们去查询。</p>
+<p>FROM adoptopenjdk&#x2F;openjdk8<br>#切换到镜像中的指定路径，设置工作目录<br>WORKDIR app<br>#会将宿主机的target&#x2F;.jar文件复制到 镜像的工作目录 &#x2F;app&#x2F; 下<br>COPY target&#x2F;.jar app.jar<br>#执行java -jar 命令<br>CMD [“java”, “-jar”, “app.jar”]</p>
+<p>复制<br>因为不是本文关注的重点，更多详情可能还需朋友们去查询。</p>
 <p>4.2、推送到远程仓库 github 上<br>首先在 Github 上创建一个仓库<br>然后点击 idea 中下方菜单栏 Terminal 命令行终端中输入<br>   git init<br>   git add .  #这里 . 默认提交所有修改文件<br>   git commit -m “init”<br>   git branch -m main # 因为gitgub 仓库默认主分支为main ，而我们本地初始化时 主分支为 master<br>   git remote add  远程仓库地址 # 添加远程仓库<br>   git push origin main  # push 上去<br>复制<br>然后刷新 github 界面，就可以看到已经 push 成功了<br>4.3、Jenkins 项目配置<br>新建任务<br><img src="/images/DockerAndJenkins/34.PNG" alt="34"><br>选择构建一个 Maven 项目<br><img src="/images/DockerAndJenkins/35.PNG" alt="35"><br>项目配置<br><img src="/images/DockerAndJenkins/36.PNG" alt="36"><br>源码管理<br><img src="/images/DockerAndJenkins/37.PNG" alt="37"><br><img src="/images/DockerAndJenkins/38.PNG" alt="38"><br>构建环境没啥说的<br><img src="/images/DockerAndJenkins/39.PNG" alt="39"><br>Build 那不用改啥，用默认的就可以。</p>
 <p>然后来到 Post Steps<br><img src="/images/DockerAndJenkins/40.PNG" alt="40"><br>选择这个 send files or execute commands over SSH 就是通过SSH发送文件或执行命令</p>
 <p>我们要将构建好的 jar&#x2F;war 发送至相应的服务器，然后执行相关的命令，进行部署。<br><img src="/images/DockerAndJenkins/41.PNG" alt="41"><br><img src="/images/DockerAndJenkins/42.PNG" alt="42"><br>（图片说明：那个映射的端口应为 8080，我写漏了）</p>
-<p>#&#x2F;bin&#x2F;bash</p>
-<h1 id="注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"><a href="#注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下" class="headerlink" title="注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"></a>注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下</h1><p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cd 到宿主机映射 Jenkins 的项目路径下&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<h1 id="注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"><a href="#注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下" class="headerlink" title="注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"></a>注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下</h1><p>#&#x2F;bin&#x2F;bash</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cd 到宿主机映射 Jenkins 的项目路径下&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
 <p>cd &#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;hello-springboot</p>
 <p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;停止容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
 <p>docker stop hellospringboot</p>

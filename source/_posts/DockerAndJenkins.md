@@ -116,7 +116,7 @@ deprecated 是弃用的意思，第一条搜索记录就是告诉我们 jenkins 
 
 3.1、插件安装
 我演示的是一个 SpringBoot 后端项目的部署，中间也没有穿插复杂的操作，所以装的插件也不多哈。
-![15](/images/DockerAndJenkins/15.png)
+![15](/images/DockerAndJenkins/15.PNG)
 安装的插件的名称：
 
 Maven Integration ：Maven 项目打包工具
@@ -249,13 +249,14 @@ pom.xml
 复制
 Dockerfile 文件
 
- FROM adoptopenjdk/openjdk8
- 
- WORKDIR app  #切换到镜像中的指定路径，设置工作目录
- 
- COPY target/*.jar app.jar  #会将宿主机的target/*.jar文件复制到 镜像的工作目录 /app/ 下 
- 
- CMD ["java", "-jar", "app.jar"]  #执行java -jar 命令
+FROM adoptopenjdk/openjdk8
+#切换到镜像中的指定路径，设置工作目录
+WORKDIR app
+#会将宿主机的target/.jar文件复制到 镜像的工作目录 /app/ 下
+COPY target/.jar app.jar
+#执行java -jar 命令
+CMD ["java", "-jar", "app.jar"]
+
 复制
 因为不是本文关注的重点，更多详情可能还需朋友们去查询。
 
@@ -293,8 +294,9 @@ Build 那不用改啥，用默认的就可以。
 ![42](/images/DockerAndJenkins/42.PNG)
 （图片说明：那个映射的端口应为 8080，我写漏了）
 
-#/bin/bash
 # 注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下 
+#/bin/bash
+
 echo ">>>>>>>>>>>>>cd 到宿主机映射 Jenkins 的项目路径下>>>>>>>>>>>>>"
 
 cd /home/jenkins/workspace/hello-springboot

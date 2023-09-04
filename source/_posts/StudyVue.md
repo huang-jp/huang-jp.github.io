@@ -1283,3 +1283,31 @@ public class MybatisPlusConfig {
     }
  
 }
+--------------创建vue项目
+(*) Babel   //ES6转ES5
+(*) TypeScript   //使用ts
+( ) Progressive Web App (PWA) Support   //渐进式Web应用
+(*) Router  //路由
+(*) Vuex  //状态管理
+(*) CSS Pre-processors  //CSS预处理
+(*) Linter / Formatter   //规范类型
+( ) Unit Testing  //测试
+( ) E2E Testing  //测试
+
+Use class-style component syntax? (Y/n)   是否使用class风格的组件语法   输入Y回车
+Use Babel alongside TypeScript (required for modern mode, auto-detected polyfills, trans
+piling JSX)? (Y/n)   是否使用Babel和TypeScript（现代模式、自动检测多边形填充、trans所需（JSX） 输入Y回车
+Use history mode for router? (Requires proper server setup for index fallback in product
+ion) (Y/n)    是否使用history路由模式  输入N回车
+Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default)  选择预处理器模式 我常选择Sass/SCSS (with node-sass)
+Pick a linter / formatter config: (Use arrow keys)：选择语法检测规范  一般默认第一个ESLint with error prevention only， 但是使用ts可以选择TSLint
+Pick additional lint features: (Press to select, to toggle all, to invert selection)   选择保存时检查 / 提交时检查  一般开发时选择第一个保存时检查
+Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? (Use arrow keys)   选择配置信息存放位置，单独存放或者并入package.json  一般也是默认选择第一个，插件配置单独存放在一个文件
+Save this as a preset for future projects? (y/N)   是否保存为预设，这样下次创建项目就不用重新选择  输入N回车
+
+
+从零完成vue搭建element-ui前端项目，对接后端springboot项目
+https://blog.csdn.net/qq_33371766/article/details/110679423
+
+Vue+element-plus+SpringBoot搭建管理系统
+https://blog.csdn.net/a1939504134/article/details/124683192

@@ -168,6 +168,27 @@ Publish Over SSH ：SSH 发布工具
 2、JDK 配置
 JDK 也是可以选择自动安装和使用宿主机原有的 JDK 两种方案。
 ![31](/images/DockerAndJenkins/31.PNG)
+建议配置里取消自动安装，直接配置和使用jenkins容器的java环境。
+
+进入容器内 通过java -version查看版本
+
+root@jenkins-6869f47d99-2fcgm:/# 
+root@jenkins-6869f47d99-2fcgm:/# java  -version
+openjdk version "11.0.18" 2023-01-17
+OpenJDK Runtime Environment Temurin-11.0.18+10 (build 11.0.18+10)
+OpenJDK 64-Bit Server VM Temurin-11.0.18+10 (build 11.0.18+10, mixed mode)
+root@jenkins-6869f47d99-2fcgm:/# 
+通过which java找到java目录，通过echo $JAVA_HOME输出配置好的环境变量
+
+root@jenkins-6869f47d99-2fcgm:/# which java
+/opt/java/openjdk/bin/java
+root@jenkins-6869f47d99-2fcgm:/# 
+root@jenkins-6869f47d99-2fcgm:/# 
+root@jenkins-6869f47d99-2fcgm:/# echo $JAVA_HOME
+/opt/java/openjdk
+root@jenkins-6869f47d99-2fcgm:/# 
+重新在Manage Jenkins > Global Tool Configuration里面配置JAVA_HOME为刚找到的目录/opt/java/openjdk ，并取消勾选Install automatically选项。
+
 点击 Please enter your username/password蓝色小字后，会跳转至下面的界面
 ![32](/images/DockerAndJenkins/32.PNG)
 (图片说明：在这里输入 Oracle 官网的账号密码即可)

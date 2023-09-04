@@ -143,6 +143,185 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-DockerAndJenkins" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/08/31/DockerAndJenkins/">Jenkins + Docker + Github 实现自动化部署 Maven 项目</a>
+    </h1>
+  
+
+        
+        <a href="/2023/08/31/DockerAndJenkins/" class="archive-article-date">
+  	<time datetime="2023-08-31T03:56:14.601Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、Jenkins 介绍<br>看到这篇文章的你，或多或少都已经对 Jenkins 有过一定了解，就算没有也一定已经听过它的相关话题。</p>
+<p>在我们学习阶段，常会听到持续集成和持续部署这样的词语，有些小伙伴们已经亲手实践过，还有些没有过，今天就让我们一起对 Jenkins 做一个了解吧。</p>
+<p>1、持续集成和持续部署是什么<br>持续集成：CI 是一种开发实践，其中开发人员一天几次将代码集成到共享存储库中。当有人将新代码推送到共享存储库中时，测试会在非开发人员（测试人员）的计算机上自动运行。这种纯手动的构建测试,效率非常的低,开发人员必须等待测试人员的反馈后才知道结果,如果错了,还要修改 bug , 这个过程一方面需要沟通成本,另外一方面效率是非常低的.</p>
+<p>持续部署：我们都知道，项目最终是会部署到服务器上去，在没用 Jenkins 之前，大都是我们或专业的运维将项目进行部署。如果项目非常多或者部署完后出现 bug，需要人手动的一个个部署或者能力强些的大佬，就是用脚本文件部署，但是看起来还是非常麻烦.</p>
+<p>2、关于 Jenkins<br>Jenkins 是一个用 Java 编写的开源自动化工具，带有用于持续集成的插件。</p>
+<p>Jenkins 用于持续构建和测试您的软件项目，从而使开发人员更容易将更改集成到项目中，并使用户更容易获得新的构建。它还允许您通过与大量测试和部署技术集成来持续交付软件。</p>
+<p>Jenkins 集成了各种开发生命周期过程，包括构建、文档、测试、打包、模拟、部署、静态分析等等。</p>
+<p>Jenkins 借助插件实现了持续集成。插件允许集成各种 DevOps 阶段。如果要集成特定工具，则需要安装该工具的插件。例如 Git、Maven、Node 项目等。</p>
+<p>3、Jenkins 的工作流程<br>我画了一张简易的 Jenkins 的工作流程图，希望能带给你一些帮助。<br><img src="/images/DockerAndJenkins/top1.PNG" alt="0"><br>（图片说明：Jenkins 一项配置简单的工作流程图）</p>
+<p>流程说明：</p>
+<p>开发者在本地开发，然后提交到 Source Respository 中，<br>触发 GitHub 或者 GitLab 配置的钩子函数程序，继而通知 Jenkins<br>Jenkins 收到通知，会通过 Git&#x2F;SVN 插件，重新从项目配置中的代码仓库中拉取最新代码，放置于 Workspace （Jenkins 存放任务的目录）<br>之后重新触发构建任务，Jenkins 有很多的构建的插件，Java 常用的 Maven 、Gradle，前端的 Node 等<br>如果有安装发送邮件的插件并且进行了配置，那么可以在项目中进行配置，构建失败或者成功都可以选择是否给开发者发送邮件<br>构建成功后，Jenkins 会通过一个 SSH 插件，来远程执行 Shell 命令，发布项目，在项目中可以配置多台服务器，也就可以一次性部署到多台服务器上去。<br>补充：当然很多时候，构建成功后，并不会直接部署到服务器上，而是打包到另外一台服务器上存储（应用服务器）或者存储为软件仓库中的一个新版本。<br>原因是一方面为了更好的回退版本，出现错误可以及时恢复，因为一个大型项目，它的构建过程时间说不上短；<br>另外一方面也是为了更好的扩展，如果出现紧急情况，需要横向扩展，可以在备用机器上，直接进行拉取部署即可。<br>一个简易的自动部署化的过程，大致是如此的。</p>
+<p>但其实中间还有不少东西的，例如代码审查和 Jenkins 自动化测试等等，对一门技术了解的越多，不知道的也就越多了。</p>
+<p>二、Docker 安装 Jenkins<br>Jenkins 其实支持各个系统安装，Windows 、Liunx 、Mac 都可以的。选择 Docker 是方便哈，因为我其他的环境都是用 Docker 搭建的~~ 所以我这里介绍的也是 Docker 安装 Jenkins，后续的文章也都是基于此。</p>
+<p>我目前的环境：Jenkins 2.346.2、阿里云服务器 centos7、Docker version 20.10.7</p>
+<p>2.1、搜索 Jenkins 镜像<br> docker search jenkins<br><img src="/images/DockerAndJenkins/1.png" alt="1"><br>deprecated 是弃用的意思，第一条搜索记录就是告诉我们 jenkins 镜像已经弃用，让我们使用 jenkins&#x2F;jenkins:lts 镜像名进行拉取。</p>
+<p>2.2、拉取 Jenkins 镜像<br>  docker pull jenkins&#x2F;jenkins:lts<br> docker images #查看镜像<br>复制<br>既然是学习，就得上手最新的啦，错了再降。<br><img src="/images/DockerAndJenkins/2.PNG" alt="2"><br>2.3、启动 Jenkins 容器<br>在宿主机创建挂载目录</p>
+<p> mkdir -p &#x2F;home&#x2F;jenkins&#x2F;workspace<br>复制<br>启动 Jenkins 容器</p>
+<p> docker run -uroot -d –restart&#x3D;always -p 9001:8080 <br> -v &#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;:&#x2F;var&#x2F;jenkins_home&#x2F;workspace <br> -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock <br> –name jenkins jenkins&#x2F;jenkins:lts<br><img src="/images/DockerAndJenkins/3.PNG" alt="3"><br>2.4、使用 Jenkins<br>这个时候就可以直接访问了。<br><img src="/images/DockerAndJenkins/4.PNG" alt="4"><br>会看到这样的一个界面，我们就要进入容器，去拿到这个密码。</p>
+<p> docker exec -it -uroot jenkins bash # -uroot 是以管理员身份登入容器<br><img src="/images/DockerAndJenkins/5.PNG" alt="5"><br>然后复制粘贴上去后，会看到这样的一个界面。</p>
+<p><img src="/images/DockerAndJenkins/6.PNG" alt="6"><br>如果和我一样是个小白的话，直接安装推荐的插件吧，稍微省事点，不然很多插件都需要自己一个个的查。<br><img src="/images/DockerAndJenkins/7.PNG" alt="7"><br>耐心等待它下载完吧</p>
+<p>大家根据自己的需求进行操作，后续也是根据自己的想法一直点击下去就好了，反正咱们还在学习，无妨的。<br><img src="/images/DockerAndJenkins/8.PNG" alt="8"><br>主界面<br><img src="/images/DockerAndJenkins/9.PNG" alt="9"><br>一些简单页面，大家点进去都能看的明白，我就不再多嘴了。</p>
+<p>着重说一下 Manger Jenkins 界面一些东西<br><img src="/images/DockerAndJenkins/10.PNG" alt="10"><br>2.5、配置 Jenkins 密钥<br>其实在很多时候你可以把 Jenkins 容器看成一台独立的服务器，因为你运行项目的那些环境，都可以安装在它的内部。</p>
+<p>还是先说说配置密钥，配置密钥主要作用就是为了去 Github、Gitee、GitLab 上拉取代码，这点相信大家都是能够理解的吧。</p>
+<p>生成密钥：之前我们已经进入 Jenkins 的终端，直接输入下面的命令就好了。</p>
+<p> ssh-keygen -t rsa -C “root”  #输入完一直回车就结束了<br> cat &#x2F;root&#x2F;.ssh&#x2F;id_rsa.pub #查看公钥<br><img src="/images/DockerAndJenkins/11.PNG" alt="11"><br>如果没有的话，就先输入 下面命令进入 Jenkins 容器终端</p>
+<p> docker exec -it -uroot jenkins bash # jenkins 是我启动的容器名 换成容器id 也可以的<br>复制<br>拿到 Jenkins 公钥后，就放到 Github、Gitee 或者是 GitLab 上去，我放的 Github，如下：<br><img src="/images/DockerAndJenkins/12.PNG" alt="12"><br><img src="/images/DockerAndJenkins/13.PNG" alt="13"><br>这样就算是添加完成了。</p>
+<p>到这一步，可以进行测试一下，是否已经可以从 Github 上拉取项目<br><img src="/images/DockerAndJenkins/14.PNG" alt="14"><br>三、 Jenkins 插件安装、添加凭据、系统配置、全局工具配置<br>实际上 Jenkins 的功能基本上都是依靠插件来完成，所以不同项目也会要安装不同的插件。</p>
+<p>3.1、插件安装<br>我演示的是一个 SpringBoot 后端项目的部署，中间也没有穿插复杂的操作，所以装的插件也不多哈。<br><img src="/images/DockerAndJenkins/15.png" alt="15"><br>安装的插件的名称：</p>
+<p>Maven Integration ：Maven 项目打包工具<br>SSH ： SSH 连接工具<br>Publish Over SSH ：SSH 发布工具<br>如果要运行前端 Vue 项目，记得下载一个 NodeJS 的插件（我会的前端就只有 Vue 哈）<br><img src="/images/DockerAndJenkins/16.PNG" alt="16"><br><img src="/images/DockerAndJenkins/17.PNG" alt="17"><br>等待下载完即可</p>
+<p>3.2、添加凭据<br>凭据其实就是账号密码，你访问 Github、远程服务器都需要账号密码才行，这里的凭据就是相应的账号密码。<br><img src="/images/DockerAndJenkins/18.PNG" alt="18"><br><img src="/images/DockerAndJenkins/19.PNG" alt="19"><br>添加 github 的账号密码<br><img src="/images/DockerAndJenkins/20.PNG" alt="20"><br>添加服务器的登录账号和密码<br><img src="/images/DockerAndJenkins/21.PNG" alt="21"><br>补充：这些都是可以填加多个的。</p>
+<p>最后就是这样的：<br><img src="/images/DockerAndJenkins/22.PNG" alt="22"><br>稍后在项目中都是需要用到的。</p>
+<p>3.3、系统配置<br><img src="/images/DockerAndJenkins/23.PNG" alt="23"><br>找到两个配置：</p>
+<p>1、SSH remote hosts</p>
+<p>2、SSH Servers<br><img src="/images/DockerAndJenkins/24.PNG" alt="24"><br><img src="/images/DockerAndJenkins/25.PNG" alt="25"><br><img src="/images/DockerAndJenkins/26.PNG" alt="26"><br>对了记得点击保存哈，不然又得重现填写。</p>
+<p>3.4、全局工具配置<br>我上文有提到很多时候我们可以把 Jenkins 看成一台单独的电脑，尤其是在工具设置的时候。<br><img src="/images/DockerAndJenkins/27.PNG" alt="27"><br>在这里其实就是配置一些项目中需要用到的环境，如 JDK、Maven、NodeJS 等等<br><img src="/images/DockerAndJenkins/28.PNG" alt="28"><br>1、Maven 配置<br>这里可以用默认的，也可以用宿主机文件系统中的。<br><img src="/images/DockerAndJenkins/29.PNG" alt="29"><br>我这里用的是默认的，因为我 Liunx 服务器上的环境全部都是基于 Docker 搭建的。</p>
+<p>选择默认的话，就需要在 Jenkins 中新增一个，然后 Jenkins 在你构建项目的时候，如果是选择默认的话，没有的 Maven 情况下，它会主动给你下载一个 Maven<br><img src="/images/DockerAndJenkins/30.PNG" alt="30"><br>2、JDK 配置<br>JDK 也是可以选择自动安装和使用宿主机原有的 JDK 两种方案。<br><img src="/images/DockerAndJenkins/31.PNG" alt="31"><br>点击 Please enter your username&#x2F;password蓝色小字后，会跳转至下面的界面<br><img src="/images/DockerAndJenkins/32.PNG" alt="32"><br>(图片说明：在这里输入 Oracle 官网的账号密码即可)</p>
+<p>没有账号需要去注册 Oracle 账号</p>
+<p>补充：如果这里选择 Oracle 官网下载 JDK，最高支持 JDK 版本为 9，如果要选择更高的稳定的 JDK 版本，一个是使用宿主机的 JDK，另外就是使用压缩包方式，然后解压等。只要想用，互联网应该还是能够满足的。</p>
+<p>关于 Git ，我们直接用 Jenkins 默认的即可，在安装 Jenkins 推荐的插件的时候，其中就有 Git，当然 Git，这里 Jenkins 也允许你使用 宿主机的 Git。</p>
+<p>最后记得点击保存</p>
+<p>四、Jenkins 部署 Maven 项目<br>相关要求：</p>
+<p>本地需要 Java、Git 环境<br>需要有一个 Github&#x2F;Gitee 账号<br>不管在那里安装的 Jenkins 都要确保它能够访问网络<br>4.1、本地创建一个 Maven 项目<br>创建一个 SpringBoot 项目，controller，自己看着写就好了<br><img src="/images/DockerAndJenkins/33.PNG" alt="33"><br>pom.xml</p>
+<pre><code>&lt;parent&gt;
+     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+     &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+     &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+ &lt;/parent&gt;
+
+ &lt;properties&gt;
+     &lt;maven.compiler.source&gt;8&lt;/maven.compiler.source&gt;
+     &lt;maven.compiler.target&gt;8&lt;/maven.compiler.target&gt;
+ &lt;/properties&gt;
+
+ &lt;dependencies&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+         &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;/dependency&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+         &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+
+ &lt;!-- 这个插件，可以将应用打包成一个可执行的jar包  --&gt;
+ &lt;build&gt;
+     &lt;plugins&gt;
+         &lt;plugin&gt;
+             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+             &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+         &lt;/plugin&gt;
+     &lt;/plugins&gt;
+ &lt;/build&gt;
+</code></pre>
+<p>复制<br>Dockerfile 文件</p>
+<p> FROM adoptopenjdk&#x2F;openjdk8</p>
+<p> WORKDIR app  #切换到镜像中的指定路径，设置工作目录</p>
+<p> COPY target&#x2F;<em>.jar app.jar  #会将宿主机的target&#x2F;</em>.jar文件复制到 镜像的工作目录 &#x2F;app&#x2F; 下 </p>
+<p> CMD [“java”, “-jar”, “app.jar”]  #执行java -jar 命令<br>复制<br>因为不是本文关注的重点，更多详情可能还需朋友们去查询。</p>
+<p>4.2、推送到远程仓库 github 上<br>首先在 Github 上创建一个仓库<br>然后点击 idea 中下方菜单栏 Terminal 命令行终端中输入<br>   git init<br>   git add .  #这里 . 默认提交所有修改文件<br>   git commit -m “init”<br>   git branch -m main # 因为gitgub 仓库默认主分支为main ，而我们本地初始化时 主分支为 master<br>   git remote add  远程仓库地址 # 添加远程仓库<br>   git push origin main  # push 上去<br>复制<br>然后刷新 github 界面，就可以看到已经 push 成功了<br>4.3、Jenkins 项目配置<br>新建任务<br><img src="/images/DockerAndJenkins/34.PNG" alt="34"><br>选择构建一个 Maven 项目<br><img src="/images/DockerAndJenkins/35.PNG" alt="35"><br>项目配置<br><img src="/images/DockerAndJenkins/36.PNG" alt="36"><br>源码管理<br><img src="/images/DockerAndJenkins/37.PNG" alt="37"><br><img src="/images/DockerAndJenkins/38.PNG" alt="38"><br>构建环境没啥说的<br><img src="/images/DockerAndJenkins/39.PNG" alt="39"><br>Build 那不用改啥，用默认的就可以。</p>
+<p>然后来到 Post Steps<br><img src="/images/DockerAndJenkins/40.PNG" alt="40"><br>选择这个 send files or execute commands over SSH 就是通过SSH发送文件或执行命令</p>
+<p>我们要将构建好的 jar&#x2F;war 发送至相应的服务器，然后执行相关的命令，进行部署。<br><img src="/images/DockerAndJenkins/41.PNG" alt="41"><br><img src="/images/DockerAndJenkins/42.PNG" alt="42"><br>（图片说明：那个映射的端口应为 8080，我写漏了）</p>
+<p>#&#x2F;bin&#x2F;bash</p>
+<h1 id="注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"><a href="#注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下" class="headerlink" title="注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"></a>注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下</h1><p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cd 到宿主机映射 Jenkins 的项目路径下&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>cd &#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;hello-springboot</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;停止容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker stop hellospringboot</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;删除容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;?&gt;&gt;&gt;2&gt;22”</p>
+<p>docker rm hellospringboot</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;删除镜像&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;”</p>
+<p>docker rmi nzc&#x2F;hellospringboot:1.0</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;制作镜像&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker build -f Dockerfile -t nzc&#x2F;hellospringboot:1.0  .</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;启动容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker run -p 8080:8080 –name hellospringboot -d nzc&#x2F;hellospringboot:1.0</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;自动部署结束&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”<br>复制<br>记得点击保存</p>
+<p>4.4、部署和测试<br>然后点击立即构建就好了，但因为是第一次构建，要从 github 拉取代码，下载 jdk、maven 等，还有相应 jar 包等，所以时间会相对久一些。<br><img src="/images/DockerAndJenkins/43.PNG" alt="43"><br>点击这个，可以看到控制台输出<br><img src="/images/DockerAndJenkins/44.PNG" alt="44"><br>控制台输出，日志比较多，就挑了一点<br><img src="/images/DockerAndJenkins/45.PNG" alt="45"><br><img src="/images/DockerAndJenkins/46.PNG" alt="46"><br>末尾是Finished: SUCCESS 就证明是构建成功啦。</p>
+<p>我们来看看 Jenkins 的工作空间<br><img src="/images/DockerAndJenkins/47.PNG" alt="47"><br>这里已经是存在项目啦。</p>
+<p>我们再去看看 Docker 镜像有没有构建成功<br><img src="/images/DockerAndJenkins/48.PNG" alt="48"><br>再去看一眼 有没有在运行<br><img src="/images/DockerAndJenkins/49.PNG" alt="49"><br>最后就是看看能不能访问到了<br><img src="/images/DockerAndJenkins/50.PNG" alt="50"><br>已经是可以访问到了。</p>
+<p>当然现在的话，还没有做到自动化部署，就是我提交完，jenkins 就能自己知道，然后进行构建，我们现在要做的就是把手动构建修改成 github 更新或合并就构建。</p>
+<p>五、GitHub 提交代码时触发 Jenkins 自动构建<br>其实主要就三步，因为前面我们已经搭建好了，所以就只要修改一下即可。</p>
+<p>5.1、GitHub 上配置 Jenkins 的 webhook<br><img src="/images/DockerAndJenkins/51.PNG" alt="51"><br><img src="/images/DockerAndJenkins/52.PNG" alt="52"><br>像我 jenkins 是部署在服务器上的 我的 地址就是服务器 IP:port&#x2F;github-webhook&#x2F;</p>
+<p>5.2、GitHub 上创建一个 access token<br>Jenkins 做一些需要权限的操作的时候就用这个 access token 去鉴权<br><img src="/images/DockerAndJenkins/53.PNG" alt="53"><br><img src="/images/DockerAndJenkins/54.PNG" alt="54"><br>就是命名，然后勾选你需要的权限就可以了</p>
+<p>最后完成的时候，记得复制<br><img src="/images/DockerAndJenkins/55.PNG" alt="55"><br>5.3、修改 Jenkins 配置<br>首先先要修改一下系统配置 Configure System<br><img src="/images/DockerAndJenkins/56.PNG" alt="56"><br>点添加的时候，会弹出一个框<br><img src="/images/DockerAndJenkins/57.PNG" alt="57"><br><img src="/images/DockerAndJenkins/58.PNG" alt="58"><br>描述自己写就行~~<br><img src="/images/DockerAndJenkins/59.PNG" alt="59"><br>第一步完成，记得点击保存，接下来去修改一下项目配置</p>
+<p>找到项目，点击配置</p>
+<p>把构建触发器中的 GitHub hook trigger for GITScm polling 勾上<br><img src="/images/DockerAndJenkins/60.PNG" alt="60"><br><img src="/images/DockerAndJenkins/61.PNG" alt="61"><br>记得点击保存。</p>
+<p>然后就可以进行测试啦。</p>
+<p>5.4、Push 测试<br><img src="/images/DockerAndJenkins/62.PNG" alt="62"><br>这是我本地还没更新的代码，现在 push 上去哈。<br><img src="/images/DockerAndJenkins/63.PNG" alt="63"><br>push 成功后，刷新一下就可以看到构建任务正在执行了。<br><img src="/images/DockerAndJenkins/64.PNG" alt="64"><br>在构建日志中也可以看到 最新 的提交记录<br><img src="/images/DockerAndJenkins/65.PNG" alt="65"><br><img src="/images/DockerAndJenkins/66.PNG" alt="66"><br>六、总结<br>文章的脉络大致：</p>
+<p>首先是介绍了 Jenkins，以及 Jenkins 的简单工作流程；</p>
+<p>而后是教大家如何用 Docker 安装 Jenkins ；</p>
+<p>然后再是对 Jenkins 进行一些插件安装和配置；</p>
+<p>再以 Jenkins 部署 Maven 项目为案例，讲解如何使用 Jenkins；</p>
+<p>最后是对上一步操作的改早，Jenkins + Github + Docker 实现自动化部署。</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/news/918888">https://cloud.tencent.com/developer/news/918888</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/08/31/DockerAndJenkins/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-StudyVue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1051,7 +1230,10 @@ return config
 </ul>
 </li>
 </ul>
-<p>}</p>
+<p>}<br>————–创建vue项目<br>(<em>) Babel   &#x2F;&#x2F;ES6转ES5<br>(</em>) TypeScript   &#x2F;&#x2F;使用ts<br>( ) Progressive Web App (PWA) Support   &#x2F;&#x2F;渐进式Web应用<br>(<em>) Router  &#x2F;&#x2F;路由<br>(</em>) Vuex  &#x2F;&#x2F;状态管理<br>(<em>) CSS Pre-processors  &#x2F;&#x2F;CSS预处理<br>(</em>) Linter &#x2F; Formatter   &#x2F;&#x2F;规范类型<br>( ) Unit Testing  &#x2F;&#x2F;测试<br>( ) E2E Testing  &#x2F;&#x2F;测试</p>
+<p>Use class-style component syntax? (Y&#x2F;n)   是否使用class风格的组件语法   输入Y回车<br>Use Babel alongside TypeScript (required for modern mode, auto-detected polyfills, trans<br>piling JSX)? (Y&#x2F;n)   是否使用Babel和TypeScript（现代模式、自动检测多边形填充、trans所需（JSX） 输入Y回车<br>Use history mode for router? (Requires proper server setup for index fallback in product<br>ion) (Y&#x2F;n)    是否使用history路由模式  输入N回车<br>Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default)  选择预处理器模式 我常选择Sass&#x2F;SCSS (with node-sass)<br>Pick a linter &#x2F; formatter config: (Use arrow keys)：选择语法检测规范  一般默认第一个ESLint with error prevention only， 但是使用ts可以选择TSLint<br>Pick additional lint features: (Press to select, to toggle all, to invert selection)   选择保存时检查 &#x2F; 提交时检查  一般开发时选择第一个保存时检查<br>Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? (Use arrow keys)   选择配置信息存放位置，单独存放或者并入package.json  一般也是默认选择第一个，插件配置单独存放在一个文件<br>Save this as a preset for future projects? (y&#x2F;N)   是否保存为预设，这样下次创建项目就不用重新选择  输入N回车</p>
+<p>从零完成vue搭建element-ui前端项目，对接后端springboot项目<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33371766/article/details/110679423">https://blog.csdn.net/qq_33371766/article/details/110679423</a></p>
+<p>Vue+element-plus+SpringBoot搭建管理系统<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/a1939504134/article/details/124683192">https://blog.csdn.net/a1939504134/article/details/124683192</a></p>
 
       
 
@@ -1622,92 +1804,6 @@ return config
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/02/09/List/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/02/09/Linux/">Linux常用命令大全</a>
-    </h1>
-  
-
-        
-        <a href="/2023/02/09/Linux/" class="archive-article-date">
-  	<time datetime="2023-02-09T03:34:53.230Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>系统信息 <br>arch 显示机器的处理器架构(1) <br>uname -m 显示机器的处理器架构(2) <br>uname -r 显示正在使用的内核版本 <br>dmidecode -q 显示硬件系统部件 - (SMBIOS &#x2F; DMI) <br>hdparm -i &#x2F;dev&#x2F;hda 罗列一个磁盘的架构特性 <br>hdparm -tT &#x2F;dev&#x2F;sda 在磁盘上执行测试性读取操作 <br>cat &#x2F;proc&#x2F;cpuinfo 显示CPU info的信息 <br>cat &#x2F;proc&#x2F;interrupts 显示中断 <br>cat &#x2F;proc&#x2F;meminfo 校验内存使用 <br>cat &#x2F;proc&#x2F;swaps 显示哪些swap被使用 <br>cat &#x2F;proc&#x2F;version 显示内核的版本 <br>cat &#x2F;proc&#x2F;net&#x2F;dev 显示网络适配器及统计 <br>cat &#x2F;proc&#x2F;mounts 显示已加载的文件系统 <br>lspci -tv 罗列 PCI 设备 <br>lsusb -tv 显示 USB 设备 <br>date 显示系统日期 <br>cal 2007 显示2007年的日历表 <br>date 041217002007.00 设置日期和时间 - 月日时分年.秒 <br>clock -w 将时间修改保存到 BIOS </p>
-<p>关机 (系统的关机、重启以及登出 ) <br>shutdown -h now 关闭系统(1) <br>init 0 关闭系统(2) <br>telinit 0 关闭系统(3) <br>shutdown -h hours:minutes &amp; 按预定时间关闭系统 <br>shutdown -c 取消按预定时间关闭系统 <br>shutdown -r now 重启(1) <br>reboot 重启(2) <br>logout 注销 </p>
-<p>文件和目录 <br>cd &#x2F;home 进入 ‘&#x2F; home’ 目录’ <br>cd .. 返回上一级目录 <br>cd ..&#x2F;.. 返回上两级目录 <br>cd 进入个人的主目录 <br>cd ~user1 进入个人的主目录 <br>cd - 返回上次所在的目录 <br>ls 查看目录中的文件 <br>ls -F 查看目录中的文件 <br>ls -l 显示文件和目录的详细资料 <br>ls -a 显示隐藏文件 <br>ls <em>[0-9]</em> 显示包含数字的文件名和目录名 <br>tree 显示文件和目录由根目录开始的树形结构(1) <br>lstree 显示文件和目录由根目录开始的树形结构(2) <br>mkdir dir1 创建一个叫做 ‘dir1’ 的目录’ <br>mkdir dir1 dir2 同时创建两个目录 <br>mkdir -p &#x2F;tmp&#x2F;dir1&#x2F;dir2 创建一个目录树 <br>rm -f file1 删除一个叫做 ‘file1’ 的文件’ <br>rmdir dir1 删除一个叫做 ‘dir1’ 的目录’ <br>rm -rf dir1 删除一个叫做 ‘dir1’ 的目录并同时删除其内容 <br>rm -rf dir1 dir2 同时删除两个目录及它们的内容 <br>mv dir1 new_dir 重命名&#x2F;移动 一个目录 <br>cp file1 file2 复制一个文件 <br>cp dir&#x2F;* . 复制一个目录下的所有文件到当前工作目录 <br>cp -a &#x2F;tmp&#x2F;dir1 . 复制一个目录到当前工作目录 <br>cp -a dir1 dir2 复制一个目录 <br>ln -s file1 lnk1 创建一个指向文件或目录的软链接 <br>ln file1 lnk1 创建一个指向文件或目录的物理链接 <br>touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm) <br>file file1 outputs the mime type of the file as text <br>iconv -l 列出已知的编码 <br>iconv -f fromEncoding -t toEncoding inputFile &gt; outputFile creates a new from the given input file by assuming it is encoded in fromEncoding and converting it to toEncoding. <br>find . -maxdepth 1 -name *.jpg -print -exec convert “{}” -resize 80x60 “thumbs&#x2F;{}” ; batch resize files in the current directory and send them to a thumbnails directory (requires convert from Imagemagick) </p>
-<p>文件搜索 <br>find &#x2F; -name file1 从 ‘&#x2F;‘ 开始进入根文件系统搜索文件和目录 <br>find &#x2F; -user user1 搜索属于用户 ‘user1’ 的文件和目录 <br>find &#x2F;home&#x2F;user1 -name *.bin 在目录 ‘&#x2F; home&#x2F;user1’ 中搜索带有’.bin’ 结尾的文件 <br>find &#x2F;usr&#x2F;bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 <br>find &#x2F;usr&#x2F;bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 <br>find &#x2F; -name *.rpm -exec chmod 755 ‘{}’ ; 搜索以 ‘.rpm’ 结尾的文件并定义其权限 <br>find &#x2F; -xdev -name *.rpm 搜索以 ‘.rpm’ 结尾的文件，忽略光驱、捷盘等可移动设备 <br>locate *.ps 寻找以 ‘.ps’ 结尾的文件 - 先运行 ‘updatedb’ 命令 <br>whereis halt 显示一个二进制文件、源码或man的位置 <br>which halt 显示一个二进制文件或可执行文件的完整路径 </p>
-<p>挂载一个文件系统 <br>mount &#x2F;dev&#x2F;hda2 &#x2F;mnt&#x2F;hda2 挂载一个叫做hda2的盘 - 确定目录 ‘&#x2F; mnt&#x2F;hda2’ 已经存在 <br>umount &#x2F;dev&#x2F;hda2 卸载一个叫做hda2的盘 - 先从挂载点 ‘&#x2F; mnt&#x2F;hda2’ 退出 <br>fuser -km &#x2F;mnt&#x2F;hda2 当设备繁忙时强制卸载 <br>umount -n &#x2F;mnt&#x2F;hda2 运行卸载操作而不写入 &#x2F;etc&#x2F;mtab 文件- 当文件为只读或当磁盘写满时非常有用 <br>mount &#x2F;dev&#x2F;fd0 &#x2F;mnt&#x2F;floppy 挂载一个软盘 <br>mount &#x2F;dev&#x2F;cdrom &#x2F;mnt&#x2F;cdrom 挂载一个cdrom或dvdrom <br>mount &#x2F;dev&#x2F;hdc &#x2F;mnt&#x2F;cdrecorder 挂载一个cdrw或dvdrom <br>mount &#x2F;dev&#x2F;hdb &#x2F;mnt&#x2F;cdrecorder 挂载一个cdrw或dvdrom <br>mount -o loop file.iso &#x2F;mnt&#x2F;cdrom 挂载一个文件或ISO镜像文件 <br>mount -t vfat &#x2F;dev&#x2F;hda5 &#x2F;mnt&#x2F;hda5 挂载一个Windows FAT32文件系统 <br>mount &#x2F;dev&#x2F;sda1 &#x2F;mnt&#x2F;usbdisk 挂载一个usb 捷盘或闪存设备 <br>mount -t smbfs -o username&#x3D;user,password&#x3D;pass &#x2F;&#x2F;WinClient&#x2F;share &#x2F;mnt&#x2F;share 挂载一个windows网络共享 </p>
-<p>磁盘空间 <br>df -h 显示已经挂载的分区列表 <br>ls -lSr |more 以尺寸大小排列文件和目录 <br>du -sh dir1 估算目录 ‘dir1’ 已经使用的磁盘空间’ <br>du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 <br>rpm -q -a –qf ‘%10{SIZE}t%{NAME}n’ | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) <br>dpkg-query -W -f&#x3D;’${Installed-Size;10}t${Package}n’ | sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统) </p>
-<p>用户和群组 <br>groupadd group_name 创建一个新用户组 <br>groupdel group_name 删除一个用户组 <br>groupmod -n new_group_name old_group_name 重命名一个用户组 <br>useradd -c “Name Surname “ -g admin -d &#x2F;home&#x2F;user1 -s &#x2F;bin&#x2F;bash user1 创建一个属于 “admin” 用户组的用户 <br>useradd user1 创建一个新用户 <br>userdel -r user1 删除一个用户 ( ‘-r’ 排除主目录) <br>usermod -c “User FTP” -g system -d &#x2F;ftp&#x2F;user1 -s &#x2F;bin&#x2F;nologin user1 修改用户属性 <br>passwd 修改口令 <br>passwd user1 修改一个用户的口令 (只允许root执行) <br>chage -E 2005-12-31 user1 设置用户口令的失效期限 <br>pwck 检查 ‘&#x2F;etc&#x2F;passwd’ 的文件格式和语法修正以及存在的用户 <br>grpck 检查 ‘&#x2F;etc&#x2F;passwd’ 的文件格式和语法修正以及存在的群组 <br>newgrp group_name 登陆进一个新的群组以改变新创建文件的预设群组 </p>
-<p>文件的权限 - 使用 “+” 设置权限，使用 “-“ 用于取消 <br>ls -lh 显示权限 <br>ls &#x2F;tmp | pr -T5 -W$COLUMNS 将终端划分成5栏显示 <br>chmod ugo+rwx directory1 设置目录的所有人(u)、群组(g)以及其他人(o)以读（r ）、写(w)和执行(x)的权限 <br>chmod go-rwx directory1 删除群组(g)与其他人(o)对目录的读写执行权限 <br>chown user1 file1 改变一个文件的所有人属性 <br>chown -R user1 directory1 改变一个目录的所有人属性并同时改变改目录下所有文件的属性 <br>chgrp group1 file1 改变文件的群组 <br>chown user1:group1 file1 改变一个文件的所有人和群组属性 <br>find &#x2F; -perm -u+s 罗列一个系统中所有使用了SUID控制的文件 <br>chmod u+s &#x2F;bin&#x2F;file1 设置一个二进制文件的 SUID 位 - 运行该文件的用户也被赋予和所有者同样的权限 <br>chmod u-s &#x2F;bin&#x2F;file1 禁用一个二进制文件的 SUID位 <br>chmod g+s &#x2F;home&#x2F;public 设置一个目录的SGID 位 - 类似SUID ，不过这是针对目录的 <br>chmod g-s &#x2F;home&#x2F;public 禁用一个目录的 SGID 位 <br>chmod o+t &#x2F;home&#x2F;public 设置一个文件的 STIKY 位 - 只允许合法所有人删除文件 <br>chmod o-t &#x2F;home&#x2F;public 禁用一个目录的 STIKY 位 </p>
-<p>文件的特殊属性 - 使用 “+” 设置权限，使用 “-“ 用于取消 <br>chattr +a file1 只允许以追加方式读写文件 <br>chattr +c file1 允许这个文件能被内核自动压缩&#x2F;解压 <br>chattr +d file1 在进行文件系统备份时，dump程序将忽略这个文件 <br>chattr +i file1 设置成不可变的文件，不能被删除、修改、重命名或者链接 <br>chattr +s file1 允许一个文件被安全地删除 <br>chattr +S file1 一旦应用程序对这个文件执行了写操作，使系统立刻把修改的结果写到磁盘 <br>chattr +u file1 若文件被删除，系统会允许你在以后恢复这个被删除的文件 <br>lsattr 显示特殊的属性 </p>
-<p>打包和压缩文件 <br>bunzip2 file1.bz2 解压一个叫做 ‘file1.bz2’的文件 <br>bzip2 file1 压缩一个叫做 ‘file1’ 的文件 <br>gunzip file1.gz 解压一个叫做 ‘file1.gz’的文件 <br>gzip file1 压缩一个叫做 ‘file1’的文件 <br>gzip -9 file1 最大程度压缩 <br>rar a file1.rar file1 file2 dir1 同时压缩 ‘file1’, ‘file2’ 以及目录 ‘dir1’ <br>rar x file1.rar 解压rar包 <br>unrar x file1.rar 解压rar包 <br>tar -cvf archive.tar file1 创建一个非压缩的 tarball <br>tar -cvf archive.tar file1 file2 dir1 创建一个包含了 ‘file1’, ‘file2’ 以及 ‘dir1’的档案文件 <br>tar -tf archive.tar 显示一个包中的内容 <br>tar -xvf archive.tar 释放一个包 <br>tar -xvf archive.tar -C &#x2F;tmp 将压缩包释放到 &#x2F;tmp目录下 <br>tar -cvfj archive.tar.bz2 dir1 创建一个bzip2格式的压缩包 <br>tar -xvfj archive.tar.bz2 解压一个bzip2格式的压缩包 <br>tar -cvfz archive.tar.gz dir1 创建一个gzip格式的压缩包 <br>tar -xvfz archive.tar.gz 解压一个gzip格式的压缩包 <br>zip file1.zip file1 创建一个zip格式的压缩包 <br>zip -r file1.zip file1 file2 dir1 将几个文件和目录同时压缩成一个zip格式的压缩包 <br>unzip file1.zip 解压一个zip格式压缩包 </p>
-<p>RPM 包 - （Fedora, Redhat及类似系统） <br>rpm -ivh package.rpm 安装一个rpm包 <br>rpm -ivh –nodeeps package.rpm 安装一个rpm包而忽略依赖关系警告 <br>rpm -U package.rpm 更新一个rpm包但不改变其配置文件 <br>rpm -F package.rpm 更新一个确定已经安装的rpm包 <br>rpm -e package_name.rpm 删除一个rpm包 <br>rpm -qa 显示系统中所有已经安装的rpm包 <br>rpm -qa | grep httpd 显示所有名称中包含 “httpd” 字样的rpm包 <br>rpm -qi package_name 获取一个已安装包的特殊信息 <br>rpm -qg “System Environment&#x2F;Daemons” 显示一个组件的rpm包 <br>rpm -ql package_name 显示一个已经安装的rpm包提供的文件列表 <br>rpm -qc package_name 显示一个已经安装的rpm包提供的配置文件列表 <br>rpm -q package_name –whatrequires 显示与一个rpm包存在依赖关系的列表 <br>rpm -q package_name –whatprovides 显示一个rpm包所占的体积 <br>rpm -q package_name –scripts 显示在安装&#x2F;删除期间所执行的脚本l <br>rpm -q package_name –changelog 显示一个rpm包的修改历史 <br>rpm -qf &#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf 确认所给的文件由哪个rpm包所提供 <br>rpm -qp package.rpm -l 显示由一个尚未安装的rpm包提供的文件列表 <br>rpm –import &#x2F;media&#x2F;cdrom&#x2F;RPM-GPG-KEY 导入公钥数字证书 <br>rpm –checksig package.rpm 确认一个rpm包的完整性 <br>rpm -qa gpg-pubkey 确认已安装的所有rpm包的完整性 <br>rpm -V package_name 检查文件尺寸、 许可、类型、所有者、群组、MD5检查以及最后修改时间 <br>rpm -Va 检查系统中所有已安装的rpm包- 小心使用 <br>rpm -Vp package.rpm 确认一个rpm包还未安装 <br>rpm2cpio package.rpm | cpio –extract –make-directories <em>bin</em> 从一个rpm包运行可执行文件 <br>rpm -ivh &#x2F;usr&#x2F;src&#x2F;redhat&#x2F;RPMS&#x2F;<code>arch</code>&#x2F;package.rpm 从一个rpm源码安装一个构建好的包 <br>rpmbuild –rebuild package_name.src.rpm 从一个rpm源码构建一个 rpm 包 </p>
-<p>YUM 软件包升级器 - （Fedora, RedHat及类似系统） <br>yum install package_name 下载并安装一个rpm包 <br>yum localinstall package_name.rpm 将安装一个rpm包，使用你自己的软件仓库为你解决所有依赖关系 <br>yum update package_name.rpm 更新当前系统中所有安装的rpm包 <br>yum update package_name 更新一个rpm包 <br>yum remove package_name 删除一个rpm包 <br>yum list 列出当前系统中安装的所有包 <br>yum search package_name 在rpm仓库中搜寻软件包 <br>yum clean packages 清理rpm缓存删除下载的包 <br>yum clean headers 删除所有头文件 <br>yum clean all 删除所有缓存的包和头文件 </p>
-<p>DEB 包 (Debian, Ubuntu 以及类似系统) <br>dpkg -i package.deb 安装&#x2F;更新一个 deb 包 <br>dpkg -r package_name 从系统删除一个 deb 包 <br>dpkg -l 显示系统中所有已经安装的 deb 包 <br>dpkg -l | grep httpd 显示所有名称中包含 “httpd” 字样的deb包 <br>dpkg -s package_name 获得已经安装在系统中一个特殊包的信息 <br>dpkg -L package_name 显示系统中已经安装的一个deb包所提供的文件列表 <br>dpkg –contents package.deb 显示尚未安装的一个包所提供的文件列表 <br>dpkg -S &#x2F;bin&#x2F;ping 确认所给的文件由哪个deb包提供 </p>
-<p>APT 软件工具 (Debian, Ubuntu 以及类似系统) <br>apt-get install package_name 安装&#x2F;更新一个 deb 包 <br>apt-cdrom install package_name 从光盘安装&#x2F;更新一个 deb 包 <br>apt-get update 升级列表中的软件包 <br>apt-get upgrade 升级所有已安装的软件 <br>apt-get remove package_name 从系统删除一个deb包 <br>apt-get check 确认依赖的软件仓库正确 <br>apt-get clean 从下载的软件包中清理缓存 <br>apt-cache search searched-package 返回包含所要搜索字符串的软件包名称 </p>
-<p>查看文件内容 <br>cat file1 从第一个字节开始正向查看文件的内容 <br>tac file1 从最后一行开始反向查看一个文件的内容 <br>more file1 查看一个长文件的内容 <br>less file1 类似于 ‘more’ 命令，但是它允许在文件中和正向操作一样的反向操作 <br>head -2 file1 查看一个文件的前两行 <br>tail -2 file1 查看一个文件的最后两行 <br>tail -f &#x2F;var&#x2F;log&#x2F;messages 实时查看被添加到一个文件中的内容 </p>
-<p>文本处理 <br>cat file1 file2 … | command &lt;&gt; file1_in.txt_or_file1_out.txt general syntax for text manipulation using PIPE, STDIN and STDOUT <br>cat file1 | command( sed, grep, awk, grep, etc…) &gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个新文件中 <br>cat file1 | command( sed, grep, awk, grep, etc…) &gt;&gt; result.txt 合并一个文件的详细说明文本，并将简介写入一个已有的文件中 <br>grep Aug &#x2F;var&#x2F;log&#x2F;messages 在文件 ‘&#x2F;var&#x2F;log&#x2F;messages’中查找关键词”Aug” <br>grep ^Aug &#x2F;var&#x2F;log&#x2F;messages 在文件 ‘&#x2F;var&#x2F;log&#x2F;messages’中查找以”Aug”开始的词汇 <br>grep [0-9] &#x2F;var&#x2F;log&#x2F;messages 选择 ‘&#x2F;var&#x2F;log&#x2F;messages’ 文件中所有包含数字的行 <br>grep Aug -R &#x2F;var&#x2F;log&#x2F;* 在目录 ‘&#x2F;var&#x2F;log’ 及随后的目录中搜索字符串”Aug” <br>sed ‘s&#x2F;stringa1&#x2F;stringa2&#x2F;g’ example.txt 将example.txt文件中的 “string1” 替换成 “string2” <br>sed ‘&#x2F;^$&#x2F;d’ example.txt 从example.txt文件中删除所有空白行 <br>sed ‘&#x2F; *#&#x2F;d; &#x2F;^$&#x2F;d’ example.txt 从example.txt文件中删除所有注释和空白行 <br>echo ‘esempio’ | tr ‘[:lower:]’ ‘[:upper:]’ 合并上下单元格内容 <br>sed -e ‘1d’ result.txt 从文件example.txt 中排除第一行 <br>sed -n ‘&#x2F;stringa1&#x2F;p’ 查看只包含词汇 “string1”的行 <br>sed -e ‘s&#x2F; <em>$&#x2F;&#x2F;‘ example.txt 删除每一行最后的空白字符 <br>sed -e ‘s&#x2F;stringa1&#x2F;&#x2F;g’ example.txt 从文档中只删除词汇 “string1” 并保留剩余全部 <br>sed -n ‘1,5p;5q’ example.txt 查看从第一行到第5行内容 <br>sed -n ‘5p;5q’ example.txt 查看第5行 <br>sed -e ‘s&#x2F;00</em>&#x2F;0&#x2F;g’ example.txt 用单个零替换多个零 <br>cat -n file1 标示文件的行数 <br>cat example.txt | awk ‘NR%2&#x3D;&#x3D;1’ 删除example.txt文件中的所有偶数行 <br>echo a b c | awk ‘{print $1}’ 查看一行第一栏 <br>echo a b c | awk ‘{print $1,$3}’ 查看一行的第一和第三栏 <br>paste file1 file2 合并两个文件或两栏的内容 <br>paste -d ‘+’ file1 file2 合并两个文件或两栏的内容，中间用”+”区分 <br>sort file1 file2 排序两个文件的内容 <br>sort file1 file2 | uniq 取出两个文件的并集(重复的行只保留一份) <br>sort file1 file2 | uniq -u 删除交集，留下其他的行 <br>sort file1 file2 | uniq -d 取出两个文件的交集(只留下同时存在于两个文件中的文件) <br>comm -1 file1 file2 比较两个文件的内容只删除 ‘file1’ 所包含的内容 <br>comm -2 file1 file2 比较两个文件的内容只删除 ‘file2’ 所包含的内容 <br>comm -3 file1 file2 比较两个文件的内容只删除两个文件共有的部分 </p>
-<p>字符设置和文件格式转换 <br>dos2unix filedos.txt fileunix.txt 将一个文本文件的格式从MSDOS转换成UNIX <br>unix2dos fileunix.txt filedos.txt 将一个文本文件的格式从UNIX转换成MSDOS <br>recode ..HTML &lt; page.txt &gt; page.html 将一个文本文件转换成html <br>recode -l | more 显示所有允许的转换格式 </p>
-<p>文件系统分析 <br>badblocks -v &#x2F;dev&#x2F;hda1 检查磁盘hda1上的坏磁块 <br>fsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上linux文件系统的完整性 <br>fsck.ext2 &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext2文件系统的完整性 <br>e2fsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext2文件系统的完整性 <br>e2fsck -j &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext3文件系统的完整性 <br>fsck.ext3 &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上ext3文件系统的完整性 <br>fsck.vfat &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上fat文件系统的完整性 <br>fsck.msdos &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上dos文件系统的完整性 <br>dosfsck &#x2F;dev&#x2F;hda1 修复&#x2F;检查hda1磁盘上dos文件系统的完整性 </p>
-<p>初始化一个文件系统 <br>mkfs &#x2F;dev&#x2F;hda1 在hda1分区创建一个文件系统 <br>mke2fs &#x2F;dev&#x2F;hda1 在hda1分区创建一个linux ext2的文件系统 <br>mke2fs -j &#x2F;dev&#x2F;hda1 在hda1分区创建一个linux ext3(日志型)的文件系统 <br>mkfs -t vfat 32 -F &#x2F;dev&#x2F;hda1 创建一个 FAT32 文件系统 <br>fdformat -n &#x2F;dev&#x2F;fd0 格式化一个软盘 <br>mkswap &#x2F;dev&#x2F;hda3 创建一个swap文件系统 </p>
-<p>SWAP文件系统 <br>mkswap &#x2F;dev&#x2F;hda3 创建一个swap文件系统 <br>swapon &#x2F;dev&#x2F;hda3 启用一个新的swap文件系统 <br>swapon &#x2F;dev&#x2F;hda2 &#x2F;dev&#x2F;hdb3 启用两个swap分区 </p>
-<p>备份 <br>dump -0aj -f &#x2F;tmp&#x2F;home0.bak &#x2F;home 制作一个 ‘&#x2F;home’ 目录的完整备份 <br>dump -1aj -f &#x2F;tmp&#x2F;home0.bak &#x2F;home 制作一个 ‘&#x2F;home’ 目录的交互式备份 <br>restore -if &#x2F;tmp&#x2F;home0.bak 还原一个交互式备份 <br>rsync -rogpav –delete &#x2F;home &#x2F;tmp 同步两边的目录 <br>rsync -rogpav -e ssh –delete &#x2F;home ip_address:&#x2F;tmp 通过SSH通道rsync <br>rsync -az -e ssh –delete ip_addr:&#x2F;home&#x2F;public &#x2F;home&#x2F;local 通过ssh和压缩将一个远程目录同步到本地目录 <br>rsync -az -e ssh –delete &#x2F;home&#x2F;local ip_addr:&#x2F;home&#x2F;public 通过ssh和压缩将本地目录同步到远程目录 <br>dd bs&#x3D;1M if&#x3D;&#x2F;dev&#x2F;hda | gzip | ssh user@ip_addr ‘dd of&#x3D;hda.gz’ 通过ssh在远程主机上执行一次备份本地磁盘的操作 <br>dd if&#x3D;&#x2F;dev&#x2F;sda of&#x3D;&#x2F;tmp&#x2F;file1 备份磁盘内容到一个文件 <br>tar -Puf backup.tar &#x2F;home&#x2F;user 执行一次对 ‘&#x2F;home&#x2F;user’ 目录的交互式备份操作 <br>( cd &#x2F;tmp&#x2F;local&#x2F; &amp;&amp; tar c . ) | ssh -C user@ip_addr ‘cd &#x2F;home&#x2F;share&#x2F; &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个目录内容 <br>( tar c &#x2F;home ) | ssh -C user@ip_addr ‘cd &#x2F;home&#x2F;backup-home &amp;&amp; tar x -p’ 通过ssh在远程目录中复制一个本地目录 <br>tar cf - . | (cd &#x2F;tmp&#x2F;backup ; tar xf - ) 本地将一个目录复制到另一个地方，保留原有权限及链接 <br>find &#x2F;home&#x2F;user1 -name ‘<em>.txt’ | xargs cp -av –target-directory&#x3D;&#x2F;home&#x2F;backup&#x2F; –parents 从一个目录查找并复制所有以 ‘.txt’ 结尾的文件到另一个目录 <br>find &#x2F;var&#x2F;log -name ‘</em>.log’ | tar cv –files-from&#x3D;- | bzip2 &gt; log.tar.bz2 查找所有以 ‘.log’ 结尾的文件并做成一个bzip包 <br>dd if&#x3D;&#x2F;dev&#x2F;hda of&#x3D;&#x2F;dev&#x2F;fd0 bs&#x3D;512 count&#x3D;1 做一个将 MBR (Master Boot Record)内容复制到软盘的动作 <br>dd if&#x3D;&#x2F;dev&#x2F;fd0 of&#x3D;&#x2F;dev&#x2F;hda bs&#x3D;512 count&#x3D;1 从已经保存到软盘的备份中恢复MBR内容 </p>
-<p>光盘 <br>cdrecord -v gracetime&#x3D;2 dev&#x3D;&#x2F;dev&#x2F;cdrom -eject blank&#x3D;fast -force 清空一个可复写的光盘内容 <br>mkisofs &#x2F;dev&#x2F;cdrom &gt; cd.iso 在磁盘上创建一个光盘的iso镜像文件 <br>mkisofs &#x2F;dev&#x2F;cdrom | gzip &gt; cd_iso.gz 在磁盘上创建一个压缩了的光盘iso镜像文件 <br>mkisofs -J -allow-leading-dots -R -V “Label CD” -iso-level 4 -o .&#x2F;cd.iso data_cd 创建一个目录的iso镜像文件 <br>cdrecord -v dev&#x3D;&#x2F;dev&#x2F;cdrom cd.iso 刻录一个ISO镜像文件 <br>gzip -dc cd_iso.gz | cdrecord dev&#x3D;&#x2F;dev&#x2F;cdrom - 刻录一个压缩了的ISO镜像文件 <br>mount -o loop cd.iso &#x2F;mnt&#x2F;iso 挂载一个ISO镜像文件 <br>cd-paranoia -B 从一个CD光盘转录音轨到 wav 文件中 <br>cd-paranoia – “-3” 从一个CD光盘转录音轨到 wav 文件中（参数-3） <br>cdrecord –scanbus 扫描总线以识别scsi通道 <br>dd if&#x3D;&#x2F;dev&#x2F;hdc | md5sum 校验一个设备的md5sum编码，例如一张 CD </p>
-<p>网络 - （以太网和WIFI无线） <br>ifconfig eth0 显示一个以太网卡的配置 <br>ifup eth0 启用一个 ‘eth0’ 网络设备 <br>ifdown eth0 禁用一个 ‘eth0’ 网络设备 <br>ifconfig eth0 192.168.1.1 netmask 255.255.255.0 控制IP地址 <br>ifconfig eth0 promisc 设置 ‘eth0’ 成混杂模式以嗅探数据包 (sniffing) <br>dhclient eth0 以dhcp模式启用 ‘eth0’ <br>route -n show routing table <br>route add -net 0&#x2F;0 gw IP_Gateway configura default gateway <br>route add -net 192.168.0.0 netmask 255.255.0.0 gw 192.168.1.1 configure static route to reach network ‘192.168.0.0&#x2F;16’ <br>route del 0&#x2F;0 gw IP_gateway remove static route <br>echo “1” &gt; &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_forward activate ip routing <br>hostname show hostname of system <br>host <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(1) <br>nslookup <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa(2) <br>ip link show show link status of all interfaces <br>mii-tool eth0 show link status of ‘eth0’ <br>ethtool eth0 show statistics of network card ‘eth0’ <br>netstat -tup show all active network connections and their PID <br>netstat -tupl show all network services listening on the system and their PID <br>tcpdump tcp port 80 show all HTTP traffic <br>iwlist scan show wireless networks <br>iwconfig eth1 show configuration of a wireless network card <br>hostname show hostname <br>host <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa <br>nslookup <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup hostname to resolve name to ip address and viceversa <br>whois <a target="_blank" rel="noopener" href="http://www.example.com/">www.example.com</a> lookup on Whois database </p>
-<p>GO TOP INDEX ^ <br>Microsoft Windows networks (SAMBA) <br>nbtscan ip_addr netbios name resolution <br>nmblookup -A ip_addr netbios name resolution <br>smbclient -L ip_addr&#x2F;hostname show remote shares of a windows host <br>smbget -Rr smb:&#x2F;&#x2F;ip_addr&#x2F;share like wget can download files from a host windows via smb <br>mount -t smbfs -o username&#x3D;user,password&#x3D;pass &#x2F;&#x2F;WinClient&#x2F;share &#x2F;mnt&#x2F;share mount a windows network share</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/02/09/Linux/">展开全文 >></a>
         </p>
       
 

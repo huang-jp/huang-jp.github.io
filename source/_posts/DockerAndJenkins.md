@@ -291,35 +291,35 @@ Build 那不用改啥，用默认的就可以。
 
 我们要将构建好的 jar/war 发送至相应的服务器，然后执行相关的命令，进行部署。
 ![41](/images/DockerAndJenkins/41.PNG)
+Remote directory 可以修改为该目录/home/jenkins/workspace/record
 ![42](/images/DockerAndJenkins/42.PNG)
 （图片说明：那个映射的端口应为 8080，我写漏了）
 
 # 注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下 
 #/bin/bash
-
 echo ">>>>>>>>>>>>>cd 到宿主机映射 Jenkins 的项目路径下>>>>>>>>>>>>>"
 
-cd /home/jenkins/workspace/hello-springboot
+cd /home/jenkins/workspace/record
 
 echo ">>>>>>>>>>>>>停止容器>>>>>>>>>>>>>"
 
-docker stop hellospringboot
+docker stop record
 
-echo ">>>>>>>>>>>>>删除容器>>>>>>>?>>>2>22"
+echo ">>>>>>>>>>>>>删除容器>>>>>>>>>>>>>"
 
-docker rm hellospringboot
+docker rm record
 
 echo ">>>>>>>>>>>>>删除镜像>>>>>>>>>>>> >"
 
-docker rmi nzc/hellospringboot:1.0
+docker rmi nzc/record:1.0
 
 echo ">>>>>>>>>>>>>制作镜像>>>>>>>>>>>>>"
 
-docker build -f Dockerfile -t nzc/hellospringboot:1.0  .
+docker build -f Dockerfile -t nzc/record:1.0 .
 
 echo ">>>>>>>>>>>>>启动容器>>>>>>>>>>>>>"
 
-docker run -p 8080:8080 --name hellospringboot -d nzc/hellospringboot:1.0
+docker run -p 8080:8080 --name record -d nzc/record:1.0
 
 echo ">>>>>>>>>>>>自动部署结束>>>>>>>>>>>>>"
 复制
@@ -412,3 +412,8 @@ push 成功后，刷新一下就可以看到构建任务正在执行了。
 
 
 https://cloud.tencent.com/developer/news/918888
+
+安装docker
+https://blog.csdn.net/u011397981/article/details/130616038
+
+https://blog.csdn.net/weixin_43834401/article/details/130971053

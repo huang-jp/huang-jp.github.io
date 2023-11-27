@@ -10,7 +10,7 @@ title: Jenkins + Docker + Gitee 实现部署 Maven 项目(1)
 一、安装docker
 1.1、删除之前安装的docker(若之前未安装过，此步骤省略…)
 进入centos根目录执行以下命令（\ 是linux系统种命令换行符，如果命令过长，可以用\来换行）
-
+```
   yum remove docker \\
   docker-client \\
   docker-client-latest \\
@@ -22,7 +22,7 @@ title: Jenkins + Docker + Gitee 实现部署 Maven 项目(1)
   docker-engine-selinux \\
   docker-engine \\
   docker-ce
-
+```
 1.2、虚拟机联网，安装yum工具 （可省略）
 在新主机首次安装 Docker Engine-Community之前，需要设置Docker仓库，之后，您可以从仓库安装和更新 Docker。
 设置仓库，需要安装所需的软件包。yum-utils 提供了 yum-config-manager ，并且 device mapper 存储驱动程序需要 device-mapper-persistent-data 和 lvm2。
@@ -31,55 +31,63 @@ LVM（Logical Volume Manager）逻辑卷管理。
 它是对磁盘分区进行管理的一种机制，建立在硬盘和分区之上的一个逻辑层，用来提高磁盘管理的灵活性。通过LVM可将若干个磁盘分区连接为一个整块的卷组(Volume Group)，形成一个存储池。可以在卷组上随意创建逻辑卷(Logical Volumes)，并进一步在逻辑卷上创建文件系统，与直接使用物理存储在管理上相比，提供了更好灵活性。
 device-mapper-persistent-data 和 lvm2 两者都是Device Mapper所需要的。
 在这之前还可以更新下 yum linux 版本，毕竟docker 、及其他组件都是比较新的
-
+```
 yum update
-
+```
 执行以下命令
-
+```
 yum install -y yum-utils device-mapper-persistent-data lvm2
-
+```
 1.3、设置docker镜像源
 执行一下命令
-
+```
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-
+```
 可以先更新下yum 软件包最新
-
+```
  yum makecache fast
-
+```
 执行以下命令加粗样式
 
 1.4、安装docker
 默认安装最新版
-
+```
 yum -y install docker-ce
-
+```
 1.5、启动docker前准备
 (docker应用需要用到各种端口，逐一设置比较麻烦，建议直接关闭防火墙) 重要的事请说三遍：启动docker前，一定要关闭防火墙、启动docker前，一定要关闭防火墙、启动docker前，一定要关闭防火墙（关闭前可通过查看查看防火墙状态来检验是否关闭）
-
+```
 #关闭
 systemctl stop firewalld
 #禁止开机启动防火墙
 systemctl disable firewalld
+```
 
 1.6、启动docker
+```
 systemctl start docker
+```
 
 设置开机启动docker
-
+```
 systemctl enable docker.service
+```
 
 查看是否启动成功有多种方法
 
+```
  #查看状态：
  systemctl status docker
+ 
  #查看版本
+ 
  docker -v
+ ```
  ![1](/images/DockerAndJitee/1.png)
 1.7、设置国内镜像
 docker官方镜像仓库网速较差，设置国内镜像，首选阿里云参考阿里云的镜像加速文档: https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 我们这里选择centOS(如下图，执行图片中命令即可)
-
+```
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -88,24 +96,24 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-
+```
 1.8.安装docker-compose
 选择自己想要安装的版本修改以下语句版本号
-
+```
 curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-1
+```
 大概率失败
 可以看这里去取
 程序猿一枚
 https://blog.csdn.net/zhaozhiqiang1981/article/details/129227141
 授权
-
+```
 chmod +x /usr/local/bin/docker-compose
-
+```
 检查版本2.2.2
-
+```
 docker-compose version
-
+```
 二、通过docker-compose 安装redis、mysql、jenkins、nginx
 备注：一个一个按太麻烦了；后续还要部署前端vue项目 这里一并把nginx部署
 mysql 下面文件都要赋予权限
@@ -116,13 +124,13 @@ chmod -R 777 docker/** 授权文件夹权限不然会失败
  ![2](/images/DockerAndJitee/2.png)
  2.2 给docker分配文件夹权限
 重点注意: 一定要确保目录 /docker 及其所有子目录 具有写权限 如果后续出现权限异常问题 重新执行一遍分配权限,每个服务的文件夹都弄下
-
+```
 chmod -R 777 /docker
-
+```
 2.3 jenkins、redis 、mysql 、nginx 配置文件自己找吧
 附上1: nginx nginx.conf
 之所以监听端口配置81，主要是移动云 安全规则如此，也是摧残人啊
-
+```
 worker_processes  1;
 
 error_log  /var/log/nginx/error.log warn;
@@ -204,9 +212,9 @@ http {
         }
     }
 }
-
+```
 附件2：redis.conf
-
+```
 #redis 密码
 requirepass 123456
 
@@ -235,7 +243,7 @@ appendfilename "appendonly.aof"
 #appendfsync always
 appendfsync everysec
 #appendfsync no
-
+```
 2.4 配置 docker-compose.yml
 下载好的 docker-compose 一般是放在 /usr/local/bin 下
 在同级目录下 创建 docker-compose.yml 内容如下
@@ -243,7 +251,7 @@ appendfsync everysec
 注意：network_mode: “host” 外网直接访问服务端口，如此 映射的端口 实际上无效的，直接访问容器配置文件的 端口，比如 -p 5767:80 实际上访问地址ip:80 而不是ip:5756 详细查询compose网络模式
 
 (版本可以自选)
-
+```
 version: '3'
 
 services:
@@ -325,7 +333,8 @@ services:
       # 日志目录
       - /docker/nginx/log:/var/log/nginx
     privileged: true
-  
+  ```
+  ```
 #nginx不会自动创建需要手动复制文件
 #先用docker创建nginx，复制对应文件
 mkdir -p nginx/conf nginx/conf.d && cd nginx
@@ -336,9 +345,11 @@ docker cp nginx-demo:/etc/nginx/conf.d/default.conf ./conf.d/default.conf
 docker cp nginx-demo:/usr/share/nginx/html .
 #删除容器
 docker stop nginx-demo && docker rm nginx-demo
+```
 2.5 在 /usr/local/bin 目录执行
+```
  docker-compose up -d
-1
+```
 成功如下图：
  ![3](/images/DockerAndJitee/3.png)
  注意1：镜像版本尽可能指定，本人在测试安装jenkins 每次拉取最新的，但是 都是2.381的版本 这个版本在安装插件的时候 只有两三个成功，现在之所以选择2.4X 也是无意中拉取后 后续操作没有问题*
@@ -365,25 +376,27 @@ ls /var/run/docker.sock
 使用docker的话，只需要docker-cli和docker.sock即可。如果要在jenkins容器内部使用宿主机的docker,只需要将宿主机中的/usr/bin/docker和/var/run/docker.sock挂载到jenkins容器即可。
 
 进入jenkins容器内部
-
+```
 docker exec -it jenkins bash
-
+```
 验证执行docker 命令
-
+```
 docker ps -a
-
+```
 退出jenkins容器
-
+```
 exit
+```
  ![4](/images/DockerAndJitee/4.png)
  2.6 日志查看 然后copy下 密钥（后面要用密钥）
-
+```
 docker logs jenkins
+```
  ![5](/images/DockerAndJitee/5.png)
  查看容器
-
+```
 docker ps -a
-
+```
 访问Jenkins
 
 在浏览器中输入:http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口
@@ -394,24 +407,26 @@ docker ps -a
  因为网络原因，需要将插件源设置为国内的，这样才可以安装插件。进入宿主机目录 /home/jenkins_home/，编辑文件 hudson.model.UpdateCenter.xml
 
 1.进入宿主机目录 /docker/jenkins_home/
-
+```
 cd /docker/jenkins_home/
-
+```
 2.查看 hudson.model.UpdateCenter.xml
-
+```
 cat hudson.model.UpdateCenter.xml 
+```
  ![7](/images/DockerAndJitee/7.png)
  3.编辑 hudson.model.UpdateCenter.xml
-
+```
 vim hudson.model.UpdateCenter.xml
-
+```
 输入E,进入编辑模式，将 url 内容修改为 https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json（清华大学官方镜像）
  ![8](/images/DockerAndJitee/8.png)
  修改完成后，按ESC键，退出编辑模式，再输入: wq,强制保存并退出
 
 3.重启容器及配置环境、插件
+```
 docker restart jenkins
-
+```
 访问Jenkins
 
 在浏览器中输入:http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口
@@ -439,8 +454,9 @@ Gitee
  ![20](/images/DockerAndJitee/20.png)
     
    重启jenkins 中文就来了
-
+```
 docker restart jenkins
+```
 1
 配置maven （直接使用jenkins自带的，问题就是第一构建比较慢）
  ![21](/images/DockerAndJitee/21.png)
@@ -464,12 +480,14 @@ Credentials 还是需要填写GItee 账号密码
      Build
 
 pom.xml
-
+```
 clean package -Dmaven.test.skip=true
+```
  ![34](/images/DockerAndJitee/34.png)
  ![35](/images/DockerAndJitee/35.png)
  ![38](/images/DockerAndJitee/38.png)
  shell 脚本
+ ```
  #!/bin/bash
  #服务名称
  SERVER_NAME=zhnc
@@ -497,16 +515,15 @@ clean package -Dmaven.test.skip=true
  if [ -n   "$(docker images | grep "none" | awk '{print $3}')" ];then
      docker rmi -f $(docker images | grep "none" | awk '{print $3}')
  fi
-
+```
 看不懂自己百度
 保存
 
 DockerFile
 注意dockerfile位置
  ![36](/images/DockerAndJitee/36.png)
+ ```
  FROM anapsix/alpine-java:8_server-jre_unlimited
-
-MAINTAINER Lion Li
 
 RUN mkdir -p /ruoyi/server/logs \
     /ruoyi/server/temp \
@@ -527,5 +544,5 @@ ENTRYPOINT ["java", \
 #            "-Dskywalking.agent.service_name=ruoyi-server", \
 #            "-javaagent:/ruoyi/skywalking/agent/skywalking-agent.jar", \
             "-jar", "app.jar"]
-
+```
  ![37](/images/DockerAndJitee/37.png)

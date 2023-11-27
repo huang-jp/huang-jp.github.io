@@ -19,9 +19,9 @@ title: Jenkins + Docker + Gitee 部署前端vue(2)
 
 2.linux 安装 unzip
 使用yum命令安装unzip
-
+```
 sudo yum install unzip
-
+```
 3. 新建项目
 ![4](/images/DockerAndJiteeAndVue/4.png)
 ![5](/images/DockerAndJiteeAndVue/5.png)
@@ -31,6 +31,7 @@ sudo yum install unzip
 ![9](/images/DockerAndJiteeAndVue/9.png)
 ![10](/images/DockerAndJiteeAndVue/10.png)
 ![11](/images/DockerAndJiteeAndVue/11.png)
+```
 npm -v
 node -v
 npm install --registry=https://registry.npmmirror.com
@@ -45,25 +46,27 @@ cd dist
 zip -q -r dist.zip *
 echo "************* 完成压缩dist****************"
 echo "************* 打包成功****************"
+```
 ![12](/images/DockerAndJiteeAndVue/12.png)
 ![13](/images/DockerAndJiteeAndVue/13.png)
+```
 cd /docker/nginx/html/manage/
 rm -rf dist/
 mkdir dist
 mv dist.zip dist/
 cd dist
 unzip -o dist.zip
-
+```
 如果是 仅仅部署一个项目 只需要cd 到
-
+```
 cd /docker/nginx/html
-
+```
 4.保存
 4.1接下来配置nginx
 先创建文件夹按下图目录（各位自便）
 ![14](/images/DockerAndJiteeAndVue/14.png)
 在/docker/nginx/conf 文件夹下 创建nginx.conf 文件
-
+```
 worker_processes  1;
 
 error_log  /var/log/nginx/error.log warn;
@@ -146,17 +149,17 @@ http {
         }
     }
 }
-
+```
 4.2 重启nginx
-
+```
 docker restart nginx
-1
+```
 跑起来后查看下
-
+```
 docker ps
-1
+```
 因为考虑nginx 部署多个前端 改好的如下：
-
+```
 worker_processes  1;
 
 error_log  /var/log/nginx/error.log warn;
@@ -251,7 +254,7 @@ http {
         }
     }
 }
-
+```
 详细参考这个博主
 同样 docker/nginx/html 目录下创建相应的文件夹
 ![15](/images/DockerAndJiteeAndVue/15.png)
@@ -263,3 +266,7 @@ http {
 ![17](/images/DockerAndJiteeAndVue/17.png)
 finally
 jenkins构建项目
+
+
+https://blog.csdn.net/qq_22654727/article/details/132385989
+https://blog.csdn.net/qq_22654727/article/details/132421317

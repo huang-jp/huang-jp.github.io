@@ -152,13 +152,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/15/DockerAndJiteeAndVue/">Jenkins + Docker + Gitee 部署前端vue(2)</a>
+      <a class="article-title" href="/2023/11/27/DockerAndJiteeAndVue/">Jenkins + Docker + Gitee 部署前端vue(2)</a>
     </h1>
   
 
         
-        <a href="/2023/11/15/DockerAndJiteeAndVue/" class="archive-article-date">
-  	<time datetime="2023-11-15T08:21:21.024Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-15</time>
+        <a href="/2023/11/27/DockerAndJiteeAndVue/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:16:17.802Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -170,172 +170,20 @@
 <p>开始（有些步骤已经在上篇做过了，继续往下看）<br>1.jenkins 安装 Publish Over SSH 插件(远程传送压缩文件)以及nodeJS</p>
 <p><img src="/images/DockerAndJiteeAndVue/1.png" alt="1"><br><img src="/images/DockerAndJiteeAndVue/2.png" alt="2"><br><img src="/images/DockerAndJiteeAndVue/3.png" alt="3"><br>测试不通过可以在Publish over SSH的Passphrase添加root</p>
 <p>2.linux 安装 unzip<br>使用yum命令安装unzip</p>
-<p>sudo yum install unzip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install unzip</span><br></pre></td></tr></table></figure>
 <ol start="3">
-<li>新建项目<br><img src="/images/DockerAndJiteeAndVue/4.png" alt="4"><br><img src="/images/DockerAndJiteeAndVue/5.png" alt="5"><br><img src="/images/DockerAndJiteeAndVue/6.png" alt="6"><br><img src="/images/DockerAndJiteeAndVue/7.png" alt="7"><br><img src="/images/DockerAndJiteeAndVue/8.png" alt="8"><br><img src="/images/DockerAndJiteeAndVue/9.png" alt="9"><br><img src="/images/DockerAndJiteeAndVue/10.png" alt="10"><br><img src="/images/DockerAndJiteeAndVue/11.png" alt="11"><br>npm -v<br>node -v<br>npm install –registry&#x3D;<a target="_blank" rel="noopener" href="https://registry.npmmirror.com/">https://registry.npmmirror.com</a><br>echo “************* 删除历史dist****************”<br>rm -rf .&#x2F;dist&#x2F;*</li>
+<li>新建项目<br><img src="/images/DockerAndJiteeAndVue/4.png" alt="4"><br><img src="/images/DockerAndJiteeAndVue/5.png" alt="5"><br><img src="/images/DockerAndJiteeAndVue/6.png" alt="6"><br><img src="/images/DockerAndJiteeAndVue/7.png" alt="7"><br><img src="/images/DockerAndJiteeAndVue/8.png" alt="8"><br><img src="/images/DockerAndJiteeAndVue/9.png" alt="9"><br><img src="/images/DockerAndJiteeAndVue/10.png" alt="10"><br><img src="/images/DockerAndJiteeAndVue/11.png" alt="11"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br><span class="line">node -v</span><br><span class="line">npm install --registry=https://registry.npmmirror.com</span><br><span class="line">echo &quot;************* 删除历史dist****************&quot;</span><br><span class="line">rm -rf ./dist/* </span><br><span class="line">#打包命令</span><br><span class="line">npm run build:prod</span><br><span class="line">#打印容器目录</span><br><span class="line">echo $&#123;PWD&#125;</span><br><span class="line">echo &quot;************* 准备压缩dist****************&quot;</span><br><span class="line">cd dist</span><br><span class="line">zip -q -r dist.zip *</span><br><span class="line">echo &quot;************* 完成压缩dist****************&quot;</span><br><span class="line">echo &quot;************* 打包成功****************&quot;</span><br></pre></td></tr></table></figure>
+<img src="/images/DockerAndJiteeAndVue/12.png" alt="12"><br><img src="/images/DockerAndJiteeAndVue/13.png" alt="13"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /docker/nginx/html/manage/</span><br><span class="line">rm -rf dist/</span><br><span class="line">mkdir dist</span><br><span class="line">mv dist.zip dist/</span><br><span class="line">cd dist</span><br><span class="line">unzip -o dist.zip</span><br></pre></td></tr></table></figure>
+如果是 仅仅部署一个项目 只需要cd 到<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /docker/nginx/html</span><br></pre></td></tr></table></figure>
+4.保存<br>4.1接下来配置nginx<br>先创建文件夹按下图目录（各位自便）<br><img src="/images/DockerAndJiteeAndVue/14.png" alt="14"><br>在&#x2F;docker&#x2F;nginx&#x2F;conf 文件夹下 创建nginx.conf 文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    # 限制body大小</span><br><span class="line">    client_max_body_size 100m;</span><br><span class="line"></span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                          &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                          &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    upstream server &#123;</span><br><span class="line">        ip_hash;</span><br><span class="line">        # gateway 地址</span><br><span class="line">        server 127.0.0.1:8080;</span><br><span class="line">        # server 127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        # https配置参考 start</span><br><span class="line">        #listen       443 ssl;</span><br><span class="line"></span><br><span class="line">        # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径</span><br><span class="line">        #ssl on;</span><br><span class="line">        #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_session_timeout 5m;</span><br><span class="line">        #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        #ssl_prefer_server_ciphers on;</span><br><span class="line">        # https配置参考 end</span><br><span class="line"></span><br><span class="line">        # 演示环境配置 拦截除 GET POST 之外的所有请求</span><br><span class="line">        # if ($request_method !~* GET|POST) &#123;</span><br><span class="line">        #     rewrite  ^/(.*)$  /403;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # location = /403 &#123;</span><br><span class="line">        #     default_type application/json;</span><br><span class="line">        #     return 200 &#x27;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#x27;;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # 限制外网访问内网 actuator 相关路径</span><br><span class="line">        location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;</span><br><span class="line">            return 403;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/html;</span><br><span class="line">            try_files $uri $uri/ /index.html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /prod-api/ &#123;</span><br><span class="line">            proxy_set_header Host $http_host;</span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header REMOTE-HOST $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass http://server/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+4.2 重启nginx<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart nginx</span><br></pre></td></tr></table></figure>
+跑起来后查看下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+因为考虑nginx 部署多个前端 改好的如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    # 限制body大小</span><br><span class="line">    client_max_body_size 100m;</span><br><span class="line"></span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                          &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                          &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    upstream server &#123;</span><br><span class="line">        ip_hash;</span><br><span class="line">        # gateway 地址</span><br><span class="line">        server 127.0.0.1:8080;</span><br><span class="line">        # server 127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        # https配置参考 start</span><br><span class="line">        #listen       443 ssl;</span><br><span class="line"></span><br><span class="line">        # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径</span><br><span class="line">        #ssl on;</span><br><span class="line">        #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_session_timeout 5m;</span><br><span class="line">        #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        #ssl_prefer_server_ciphers on;</span><br><span class="line">        # https配置参考 end</span><br><span class="line"></span><br><span class="line">        # 演示环境配置 拦截除 GET POST 之外的所有请求</span><br><span class="line">        # if ($request_method !~* GET|POST) &#123;</span><br><span class="line">        #     rewrite  ^/(.*)$  /403;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # location = /403 &#123;</span><br><span class="line">        #     default_type application/json;</span><br><span class="line">        #     return 200 &#x27;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#x27;;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # 限制外网访问内网 actuator 相关路径</span><br><span class="line">        location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;</span><br><span class="line">            return 403;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/html;</span><br><span class="line">      </span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">     # 多个项目（后台管理系统）</span><br><span class="line">        location /manage &#123;</span><br><span class="line">            alias  /usr/share/nginx/html/manage/dist;</span><br><span class="line">            index  index.html;</span><br><span class="line">        &#125;</span><br><span class="line">     # 多个项目（前端H5客户端）</span><br><span class="line">        location /webapp &#123;</span><br><span class="line">            alias  /usr/share/nginx/html/webapp/dist;</span><br><span class="line">            index  index.html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">        location /prod-api/ &#123;</span><br><span class="line">            proxy_set_header Host $http_host;</span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header REMOTE-HOST $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass http://XXXXXXXXXX:7530/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+详细参考这个博主<br>同样 docker&#x2F;nginx&#x2F;html 目录下创建相应的文件夹<br><img src="/images/DockerAndJiteeAndVue/15.png" alt="15"><br>这是jenkins那边上传成功后的</li>
 </ol>
-<p>#打包命令<br>npm run build:prod<br>#打印容器目录<br>echo ${PWD}<br>echo “************* 准备压缩dist****************”<br>cd dist<br>zip -q -r dist.zip *<br>echo “************* 完成压缩dist****************”<br>echo “************* 打包成功****************”<br><img src="/images/DockerAndJiteeAndVue/12.png" alt="12"><br><img src="/images/DockerAndJiteeAndVue/13.png" alt="13"><br>cd &#x2F;docker&#x2F;nginx&#x2F;html&#x2F;manage&#x2F;<br>rm -rf dist&#x2F;<br>mkdir dist<br>mv dist.zip dist&#x2F;<br>cd dist<br>unzip -o dist.zip</p>
-<p>如果是 仅仅部署一个项目 只需要cd 到</p>
-<p>cd &#x2F;docker&#x2F;nginx&#x2F;html</p>
-<p>4.保存<br>4.1接下来配置nginx<br>先创建文件夹按下图目录（各位自便）<br><img src="/images/DockerAndJiteeAndVue/14.png" alt="14"><br>在&#x2F;docker&#x2F;nginx&#x2F;conf 文件夹下 创建nginx.conf 文件</p>
-<p>worker_processes  1;</p>
-<p>error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log warn;<br>pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;</p>
-<p>events {<br>    worker_connections  1024;<br>}</p>
-<p>http {<br>    include       mime.types;<br>    default_type  application&#x2F;octet-stream;<br>    sendfile        on;<br>    keepalive_timeout  65;<br>    # 限制body大小<br>    client_max_body_size 100m;</p>
-<pre><code>log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
-
-access_log  /var/log/nginx/access.log  main;
-
-upstream server &#123;
-    ip_hash;
-    # gateway 地址
-    server 127.0.0.1:8080;
-    # server 127.0.0.1:8081;
-&#125;
-
-server &#123;
-    listen       80;
-    server_name  localhost;
-
-    # https配置参考 start
-    #listen       443 ssl;
-
-    # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径
-    #ssl on;
-    #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_session_timeout 5m;
-    #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    #ssl_prefer_server_ciphers on;
-    # https配置参考 end
-
-    # 演示环境配置 拦截除 GET POST 之外的所有请求
-    # if ($request_method !~* GET|POST) &#123;
-    #     rewrite  ^/(.*)$  /403;
-    # &#125;
-
-    # location = /403 &#123;
-    #     default_type application/json;
-    #     return 200 &#39;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#39;;
-    # &#125;
-
-    # 限制外网访问内网 actuator 相关路径
-    location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;
-        return 403;
-    &#125;
-
-    location / &#123;
-        root   /usr/share/nginx/html;
-        try_files $uri $uri/ /index.html;
-        index  index.html index.htm;
-    &#125;
-
-    location /prod-api/ &#123;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header REMOTE-HOST $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://server/;
-    &#125;
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html &#123;
-        root   html;
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
-<p>4.2 重启nginx</p>
-<p>docker restart nginx<br>1<br>跑起来后查看下</p>
-<p>docker ps<br>1<br>因为考虑nginx 部署多个前端 改好的如下：</p>
-<p>worker_processes  1;</p>
-<p>error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log warn;<br>pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;</p>
-<p>events {<br>    worker_connections  1024;<br>}</p>
-<p>http {<br>    include       mime.types;<br>    default_type  application&#x2F;octet-stream;<br>    sendfile        on;<br>    keepalive_timeout  65;<br>    # 限制body大小<br>    client_max_body_size 100m;</p>
-<pre><code>log_format  main  &#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;
-                      &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;
-                      &#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;;
-
-access_log  /var/log/nginx/access.log  main;
-
-upstream server &#123;
-    ip_hash;
-    # gateway 地址
-    server 127.0.0.1:8080;
-    # server 127.0.0.1:8081;
-&#125;
-
-server &#123;
-    listen       80;
-    server_name  localhost;
-
-    # https配置参考 start
-    #listen       443 ssl;
-
-    # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径
-    #ssl on;
-    #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_session_timeout 5m;
-    #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    #ssl_prefer_server_ciphers on;
-    # https配置参考 end
-
-    # 演示环境配置 拦截除 GET POST 之外的所有请求
-    # if ($request_method !~* GET|POST) &#123;
-    #     rewrite  ^/(.*)$  /403;
-    # &#125;
-
-    # location = /403 &#123;
-    #     default_type application/json;
-    #     return 200 &#39;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#39;;
-    # &#125;
-
-    # 限制外网访问内网 actuator 相关路径
-    location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;
-        return 403;
-    &#125;
-
-    location / &#123;
-        root   /usr/share/nginx/html;
-  
-        index  index.html index.htm;
-    &#125;
- # 多个项目（后台管理系统）
-    location /manage &#123;
-        alias  /usr/share/nginx/html/manage/dist;
-        index  index.html;
-    &#125;
- # 多个项目（前端H5客户端）
-    location /webapp &#123;
-        alias  /usr/share/nginx/html/webapp/dist;
-        index  index.html;
-    &#125;
-
-   
-
-    location /prod-api/ &#123;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header REMOTE-HOST $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://XXXXXXXXXX:7530/;
-    &#125;
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html &#123;
-        root   html;
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
-<p>详细参考这个博主<br>同样 docker&#x2F;nginx&#x2F;html 目录下创建相应的文件夹<br><img src="/images/DockerAndJiteeAndVue/15.png" alt="15"><br>这是jenkins那边上传成功后的</p>
 <p><img src="/images/DockerAndJiteeAndVue/16.png" alt="16"><br>特别注意 1前端vite项目里有个这个，可以按我的这个配置来，体验下就知道怎么回事了</p>
 <p><img src="/images/DockerAndJiteeAndVue/17.png" alt="17"><br>finally<br>jenkins构建项目</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22654727/article/details/132385989">https://blog.csdn.net/qq_22654727/article/details/132385989</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_22654727/article/details/132421317">https://blog.csdn.net/qq_22654727/article/details/132421317</a></p>
 
       
 
@@ -348,7 +196,7 @@ server &#123;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/15/DockerAndJiteeAndVue/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/DockerAndJiteeAndVue/">展开全文 >></a>
         </p>
       
 
@@ -385,13 +233,13 @@ server &#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/14/DockerAndJitee/">Jenkins + Docker + Gitee 实现部署 Maven 项目(1)</a>
+      <a class="article-title" href="/2023/11/27/DockerAndJitee/">Jenkins + Docker + Gitee 实现部署 Maven 项目(1)</a>
     </h1>
   
 
         
-        <a href="/2023/11/14/DockerAndJitee/" class="archive-article-date">
-  	<time datetime="2023-11-14T09:12:19.205Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-14</time>
+        <a href="/2023/11/27/DockerAndJitee/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:16:17.793Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -400,115 +248,52 @@ server &#123;
       
         <p>环境：移动云申请的免费一个使用<br>坑：移动云 的80、443 … 要备案才能公网访问<br>目标： docker-compose 一次性部署基础组件，jenkins 一键发布<br>下篇通过jenkins部署前端vue项目</p>
 <p>一、安装docker<br>1.1、删除之前安装的docker(若之前未安装过，此步骤省略…)<br>进入centos根目录执行以下命令（\ 是linux系统种命令换行符，如果命令过长，可以用\来换行）</p>
-<p>  yum remove docker \<br>  docker-client \<br>  docker-client-latest \<br>  docker- common \<br>  docker-latest \<br>  docker-latest-logrotate \<br>  docker-logrotate \<br>  docker-sqlinux \<br>  docker-engine-selinux \<br>  docker-engine \<br>  docker-ce</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \\</span><br><span class="line">docker-client \\</span><br><span class="line">docker-client-latest \\</span><br><span class="line">docker- common \\</span><br><span class="line">docker-latest \\</span><br><span class="line">docker-latest-logrotate \\</span><br><span class="line">docker-logrotate \\</span><br><span class="line">docker-sqlinux \\</span><br><span class="line">docker-engine-selinux \\</span><br><span class="line">docker-engine \\</span><br><span class="line">docker-ce</span><br></pre></td></tr></table></figure>
 <p>1.2、虚拟机联网，安装yum工具 （可省略）<br>在新主机首次安装 Docker Engine-Community之前，需要设置Docker仓库，之后，您可以从仓库安装和更新 Docker。<br>设置仓库，需要安装所需的软件包。yum-utils 提供了 yum-config-manager ，并且 device mapper 存储驱动程序需要 device-mapper-persistent-data 和 lvm2。<br>Device Mapper 是 Linux2.6 内核中支持逻辑卷管理的通用设备映射机制，它为实现用于存储资源管理的块设备驱动提供了一个高度模块化的内核架构。<br>LVM（Logical Volume Manager）逻辑卷管理。<br>它是对磁盘分区进行管理的一种机制，建立在硬盘和分区之上的一个逻辑层，用来提高磁盘管理的灵活性。通过LVM可将若干个磁盘分区连接为一个整块的卷组(Volume Group)，形成一个存储池。可以在卷组上随意创建逻辑卷(Logical Volumes)，并进一步在逻辑卷上创建文件系统，与直接使用物理存储在管理上相比，提供了更好灵活性。<br>device-mapper-persistent-data 和 lvm2 两者都是Device Mapper所需要的。<br>在这之前还可以更新下 yum linux 版本，毕竟docker 、及其他组件都是比较新的</p>
-<p>yum update</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br></pre></td></tr></table></figure>
 <p>执行以下命令</p>
-<p>yum install -y yum-utils device-mapper-persistent-data lvm2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
 <p>1.3、设置docker镜像源<br>执行一下命令</p>
-<p>yum-config-manager –add-repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
 <p>可以先更新下yum 软件包最新</p>
-<p> yum makecache fast</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
 <p>执行以下命令加粗样式</p>
 <p>1.4、安装docker<br>默认安装最新版</p>
-<p>yum -y install docker-ce</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce</span><br></pre></td></tr></table></figure>
 <p>1.5、启动docker前准备<br>(docker应用需要用到各种端口，逐一设置比较麻烦，建议直接关闭防火墙) 重要的事请说三遍：启动docker前，一定要关闭防火墙、启动docker前，一定要关闭防火墙、启动docker前，一定要关闭防火墙（关闭前可通过查看查看防火墙状态来检验是否关闭）</p>
-<p>#关闭<br>systemctl stop firewalld<br>#禁止开机启动防火墙<br>systemctl disable firewalld</p>
-<p>1.6、启动docker<br>systemctl start docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#关闭</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">#禁止开机启动防火墙</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+
+<p>1.6、启动docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
 <p>设置开机启动docker</p>
-<p>systemctl enable docker.service</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker.service</span><br></pre></td></tr></table></figure>
+
 <p>查看是否启动成功有多种方法</p>
-<p> #查看状态：<br> systemctl status docker<br> #查看版本<br> docker -v<br> <img src="/images/DockerAndJitee/1.png" alt="1"><br>1.7、设置国内镜像<br>docker官方镜像仓库网速较差，设置国内镜像，首选阿里云参考阿里云的镜像加速文档: <a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a><br>我们这里选择centOS(如下图，执行图片中命令即可)</p>
-<p>sudo mkdir -p &#x2F;etc&#x2F;docker<br>sudo tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;-‘EOF’<br>{<br>  “registry-mirrors”: [“<a href="https://ds56c2e4.mirror.aliyuncs.com&quot;]">https://ds56c2e4.mirror.aliyuncs.com&quot;]</a><br>}<br>EOF<br>sudo systemctl daemon-reload<br>sudo systemctl restart docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#查看状态：</span><br><span class="line">systemctl status docker</span><br><span class="line"></span><br><span class="line">#查看版本</span><br><span class="line"></span><br><span class="line">docker -v</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/DockerAndJitee/1.png" alt="1"><br>1.7、设置国内镜像<br>docker官方镜像仓库网速较差，设置国内镜像，首选阿里云参考阿里云的镜像加速文档: <a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a><br>我们这里选择centOS(如下图，执行图片中命令即可)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://ds56c2e4.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 <p>1.8.安装docker-compose<br>选择自己想要安装的版本修改以下语句版本号</p>
-<p>curl -L <a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$">https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$</a>(uname -s)-$(uname -m) -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose<br>1<br>大概率失败<br>可以看这里去取<br>程序猿一枚<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhaozhiqiang1981/article/details/129227141">https://blog.csdn.net/zhaozhiqiang1981/article/details/129227141</a><br>授权</p>
-<p>chmod +x &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<p>大概率失败<br>可以看这里去取<br>程序猿一枚<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhaozhiqiang1981/article/details/129227141">https://blog.csdn.net/zhaozhiqiang1981/article/details/129227141</a><br>授权</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 <p>检查版本2.2.2</p>
-<p>docker-compose version</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose version</span><br></pre></td></tr></table></figure>
 <p>二、通过docker-compose 安装redis、mysql、jenkins、nginx<br>备注：一个一个按太麻烦了；后续还要部署前端vue项目 这里一并把nginx部署<br>mysql 下面文件都要赋予权限</p>
 <p>2.1在根目录下创建 相应文件夹 如下图<br>使用sudo mkdir &#x2F;docker&#x2F;<strong>创建更目录文件夹<br>chmod -R 777 docker&#x2F;</strong> 授权文件夹权限不然会失败<br> <img src="/images/DockerAndJitee/2.png" alt="2"><br> 2.2 给docker分配文件夹权限<br>重点注意: 一定要确保目录 &#x2F;docker 及其所有子目录 具有写权限 如果后续出现权限异常问题 重新执行一遍分配权限,每个服务的文件夹都弄下</p>
-<p>chmod -R 777 &#x2F;docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 /docker</span><br></pre></td></tr></table></figure>
 <p>2.3 jenkins、redis 、mysql 、nginx 配置文件自己找吧<br>附上1: nginx nginx.conf<br>之所以监听端口配置81，主要是移动云 安全规则如此，也是摧残人啊</p>
-<p>worker_processes  1;</p>
-<p>error_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log warn;<br>pid        &#x2F;var&#x2F;run&#x2F;nginx.pid;</p>
-<p>events {<br>    worker_connections  1024;<br>}</p>
-<p>http {<br>    include       mime.types;<br>    default_type  application&#x2F;octet-stream;<br>    sendfile        on;<br>    keepalive_timeout  65;<br>    # 限制body大小<br>    client_max_body_size 100m;<br>    log_format  main  ‘$remote_addr - $remote_user [$time_local] “$request” ‘<br>                          ‘$status $body_bytes_sent “$http_referer” ‘<br>                          ‘“$http_user_agent” “$http_x_forwarded_for”‘;</p>
-<pre><code>access_log  /var/log/nginx/access.log  main;
-
-upstream server &#123;
-    ip_hash;
-    # gateway 地址
-    server 127.0.0.1:8080;
-    # server 127.0.0.1:8081;
-&#125;
-
-server &#123;
-    listen       81;
-    server_name  localhost;
-
-    # https配置参考 start
-    #listen       443 ssl;
-
-    # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径
-    #ssl on;
-    #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改
-    #ssl_session_timeout 5m;
-    #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-    #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    #ssl_prefer_server_ciphers on;
-    # https配置参考 end
-
-    # 演示环境配置 拦截除 GET POST 之外的所有请求
-    # if ($request_method !~* GET|POST) &#123;
-    #     rewrite  ^/(.*)$  /403;
-    # &#125;
-
-    # location = /403 &#123;
-    #     default_type application/json;
-    #     return 200 &#39;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#39;;
-    # &#125;
-
-    # 限制外网访问内网 actuator 相关路径
-    location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;
-        return 403;
-    &#125;
-
-    location / &#123;
-        root   /usr/share/nginx/html;
-        try_files $uri $uri/ /index.html;
-        index  index.html index.htm;
-    &#125;
-
-    location /prod-api/ &#123;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header REMOTE-HOST $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://server/;
-    &#125;
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html &#123;
-        root   html;
-    &#125;
-&#125;
-</code></pre>
-<p>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    # 限制body大小</span><br><span class="line">    client_max_body_size 100m;</span><br><span class="line">    log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br><span class="line">                          &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br><span class="line">                          &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    upstream server &#123;</span><br><span class="line">        ip_hash;</span><br><span class="line">        # gateway 地址</span><br><span class="line">        server 127.0.0.1:8080;</span><br><span class="line">        # server 127.0.0.1:8081;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       81;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        # https配置参考 start</span><br><span class="line">        #listen       443 ssl;</span><br><span class="line"></span><br><span class="line">        # 证书直接存放 /docker/nginx/cert/ 目录下即可 更改证书名称即可 无需更改证书路径</span><br><span class="line">        #ssl on;</span><br><span class="line">        #ssl_certificate      /etc/nginx/cert/xxx.local.crt; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_certificate_key  /etc/nginx/cert/xxx.local.key; # /etc/nginx/cert/ 为docker映射路径 不允许更改</span><br><span class="line">        #ssl_session_timeout 5m;</span><br><span class="line">        #ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        #ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        #ssl_prefer_server_ciphers on;</span><br><span class="line">        # https配置参考 end</span><br><span class="line"></span><br><span class="line">        # 演示环境配置 拦截除 GET POST 之外的所有请求</span><br><span class="line">        # if ($request_method !~* GET|POST) &#123;</span><br><span class="line">        #     rewrite  ^/(.*)$  /403;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # location = /403 &#123;</span><br><span class="line">        #     default_type application/json;</span><br><span class="line">        #     return 200 &#x27;&#123;&quot;msg&quot;:&quot;演示模式，不允许操作&quot;,&quot;code&quot;:500&#125;&#x27;;</span><br><span class="line">        # &#125;</span><br><span class="line"></span><br><span class="line">        # 限制外网访问内网 actuator 相关路径</span><br><span class="line">        location ~ ^(/[^/]*)?/actuator(/.*)?$ &#123;</span><br><span class="line">            return 403;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/html;</span><br><span class="line">            try_files $uri $uri/ /index.html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /prod-api/ &#123;</span><br><span class="line">            proxy_set_header Host $http_host;</span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header REMOTE-HOST $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass http://server/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>附件2：redis.conf</p>
-<p>#redis 密码<br>requirepass 123456</p>
-<p>#key 监听器配置<br>#notify-keyspace-events Ex</p>
-<p>#配置持久化文件存储路径<br>dir &#x2F;redis&#x2F;data<br>#配置rdb<br>#15分钟内有至少1个key被更改则进行快照<br>save 900 1<br>#5分钟内有至少10个key被更改则进行快照<br>save 300 10<br>#1分钟内有至少10000个key被更改则进行快照<br>save 60 10000<br>#开启压缩<br>rdbcompression yes<br>#rdb文件名 用默认的即可<br>dbfilename dump.rdb</p>
-<p>#开启aof<br>appendonly yes<br>#文件名<br>appendfilename “appendonly.aof”<br>#持久化策略,no:不同步,everysec:每秒一次,always:总是同步,速度比较慢<br>#appendfsync always<br>appendfsync everysec<br>#appendfsync no</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#redis 密码</span><br><span class="line">requirepass 123456</span><br><span class="line"></span><br><span class="line">#key 监听器配置</span><br><span class="line">#notify-keyspace-events Ex</span><br><span class="line"></span><br><span class="line">#配置持久化文件存储路径</span><br><span class="line">dir /redis/data</span><br><span class="line">#配置rdb</span><br><span class="line">#15分钟内有至少1个key被更改则进行快照</span><br><span class="line">save 900 1</span><br><span class="line">#5分钟内有至少10个key被更改则进行快照</span><br><span class="line">save 300 10</span><br><span class="line">#1分钟内有至少10000个key被更改则进行快照</span><br><span class="line">save 60 10000</span><br><span class="line">#开启压缩</span><br><span class="line">rdbcompression yes</span><br><span class="line">#rdb文件名 用默认的即可</span><br><span class="line">dbfilename dump.rdb</span><br><span class="line"></span><br><span class="line">#开启aof</span><br><span class="line">appendonly yes</span><br><span class="line">#文件名</span><br><span class="line">appendfilename &quot;appendonly.aof&quot;</span><br><span class="line">#持久化策略,no:不同步,everysec:每秒一次,always:总是同步,速度比较慢</span><br><span class="line">#appendfsync always</span><br><span class="line">appendfsync everysec</span><br><span class="line">#appendfsync no</span><br></pre></td></tr></table></figure>
 <p>2.4 配置 docker-compose.yml<br>下载好的 docker-compose 一般是放在 &#x2F;usr&#x2F;local&#x2F;bin 下<br>在同级目录下 创建 docker-compose.yml 内容如下</p>
 <p>注意：network_mode: “host” 外网直接访问服务端口，如此 映射的端口 实际上无效的，直接访问容器配置文件的 端口，比如 -p 5767:80 实际上访问地址ip:80 而不是ip:5756 详细查询compose网络模式</p>
 <p>(版本可以自选)</p>
-<p>version: ‘3’</p>
-<p>services:<br>  mysql:<br>    image: mysql:8.0.31<br>    container_name: mysql<br>    environment:<br>      # 时区上海<br>      TZ: Asia&#x2F;Shanghai<br>      # root 密码<br>      MYSQL_ROOT_PASSWORD: 123456<br>      # 初始化数据库<br>      MYSQL_DATABASE: ry-vue-zhnc<br>    ports:<br>      - “3306:3306”<br>    volumes:<br>      # 数据挂载<br>      - &#x2F;docker&#x2F;mysql&#x2F;data&#x2F;:&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;<br>      # 配置挂载<br>      - &#x2F;docker&#x2F;mysql&#x2F;conf&#x2F;:&#x2F;etc&#x2F;mysql&#x2F;conf.d&#x2F;<br>    command:<br>      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)<br>      –default-authentication-plugin&#x3D;mysql_native_password<br>      –character-set-server&#x3D;utf8mb4<br>      –collation-server&#x3D;utf8mb4_general_ci<br>      –explicit_defaults_for_timestamp&#x3D;true<br>      –lower_case_table_names&#x3D;1<br>    privileged: true</p>
-<p>  jenkins:<br>    image: jenkins&#x2F;jenkins:2.419<br>    container_name: jenkins<br>    restart: always<br>    user: root<br>    ports:<br>    - “8081:8080”<br>    - “50000:50000”<br>    volumes:<br>    - &#x2F;docker&#x2F;jenkins_home:&#x2F;var&#x2F;jenkins_home<br>    - &#x2F;etc&#x2F;localtime:&#x2F;etc&#x2F;localtime:ro<br>    - &#x2F;usr&#x2F;bin&#x2F;docker:&#x2F;usr&#x2F;bin&#x2F;docker<br>    - &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock</p>
-<p>  redis:<br>    image: redis:6.2.6<br>    container_name: redis<br>    ports:<br>      - “6379:6379”<br>    environment:<br>      # 时区上海<br>      TZ: Asia&#x2F;Shanghai<br>    volumes:<br>      # 配置文件<br>      - &#x2F;docker&#x2F;redis&#x2F;conf:&#x2F;redis&#x2F;config<br>      # 数据文件<br>      - &#x2F;docker&#x2F;redis&#x2F;data&#x2F;:&#x2F;redis&#x2F;data&#x2F;<br>    command: “redis-server &#x2F;redis&#x2F;config&#x2F;redis.conf”<br>    privileged: true</p>
-<p>  nginx:<br>    image: nginx:latest<br>    container_name: nginx<br>    restart: always<br>    environment:<br>      # 时区上海<br>      TZ: Asia&#x2F;Shanghai<br>    ports:<br>      - “81:81”<br>    volumes:<br>      # 证书映射<br>      - &#x2F;docker&#x2F;nginx&#x2F;cert:&#x2F;etc&#x2F;nginx&#x2F;cert<br>      # 配置文件映射<br>      - &#x2F;docker&#x2F;nginx&#x2F;conf&#x2F;nginx.conf:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf<br>      # 页面目录<br>      - &#x2F;docker&#x2F;nginx&#x2F;html:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html<br>      # 日志目录<br>      - &#x2F;docker&#x2F;nginx&#x2F;log:&#x2F;var&#x2F;log&#x2F;nginx<br>    privileged: true</p>
-<p>#nginx不会自动创建需要手动复制文件<br>#先用docker创建nginx，复制对应文件<br>mkdir -p nginx&#x2F;conf nginx&#x2F;conf.d &amp;&amp; cd nginx<br>docker run –name nginx-demo -d nginx<br>#复制文件<br>docker cp nginx-demo:&#x2F;etc&#x2F;nginx&#x2F;nginx.conf .&#x2F;conf&#x2F;nginx.conf<br>docker cp nginx-demo:&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default.conf .&#x2F;conf.d&#x2F;default.conf<br>docker cp nginx-demo:&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html .<br>#删除容器<br>docker stop nginx-demo &amp;&amp; docker rm nginx-demo<br>2.5 在 &#x2F;usr&#x2F;local&#x2F;bin 目录执行<br> docker-compose up -d<br>1<br>成功如下图：<br> <img src="/images/DockerAndJitee/3.png" alt="3"><br> 注意1：镜像版本尽可能指定，本人在测试安装jenkins 每次拉取最新的，但是 都是2.381的版本 这个版本在安装插件的时候 只有两三个成功，现在之所以选择2.4X 也是无意中拉取后 后续操作没有问题*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    image: mysql:8.0.31</span><br><span class="line">    container_name: mysql</span><br><span class="line">    environment:</span><br><span class="line">      # 时区上海</span><br><span class="line">      TZ: Asia/Shanghai</span><br><span class="line">      # root 密码</span><br><span class="line">      MYSQL_ROOT_PASSWORD: 123456</span><br><span class="line">      # 初始化数据库</span><br><span class="line">      MYSQL_DATABASE: ry-vue-zhnc</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;3306:3306&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      # 数据挂载</span><br><span class="line">      - /docker/mysql/data/:/var/lib/mysql/</span><br><span class="line">      # 配置挂载</span><br><span class="line">      - /docker/mysql/conf/:/etc/mysql/conf.d/</span><br><span class="line">    command:</span><br><span class="line">      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)</span><br><span class="line">      --default-authentication-plugin=mysql_native_password</span><br><span class="line">      --character-set-server=utf8mb4</span><br><span class="line">      --collation-server=utf8mb4_general_ci</span><br><span class="line">      --explicit_defaults_for_timestamp=true</span><br><span class="line">      --lower_case_table_names=1</span><br><span class="line">    privileged: true</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">  jenkins:</span><br><span class="line">    image: jenkins/jenkins:2.419</span><br><span class="line">    container_name: jenkins</span><br><span class="line">    restart: always</span><br><span class="line">    user: root</span><br><span class="line">    ports:</span><br><span class="line">    - &quot;8081:8080&quot;</span><br><span class="line">    - &quot;50000:50000&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    - /docker/jenkins_home:/var/jenkins_home</span><br><span class="line">    - /etc/localtime:/etc/localtime:ro</span><br><span class="line">    - /usr/bin/docker:/usr/bin/docker </span><br><span class="line">    - /var/run/docker.sock:/var/run/docker.sock</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis:6.2.6</span><br><span class="line">    container_name: redis</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;6379:6379&quot;</span><br><span class="line">    environment:</span><br><span class="line">      # 时区上海</span><br><span class="line">      TZ: Asia/Shanghai</span><br><span class="line">    volumes:</span><br><span class="line">      # 配置文件</span><br><span class="line">      - /docker/redis/conf:/redis/config</span><br><span class="line">      # 数据文件</span><br><span class="line">      - /docker/redis/data/:/redis/data/</span><br><span class="line">    command: &quot;redis-server /redis/config/redis.conf&quot;</span><br><span class="line">    privileged: true</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  nginx:</span><br><span class="line">    image: nginx:latest</span><br><span class="line">    container_name: nginx</span><br><span class="line">	restart: always</span><br><span class="line">    environment:</span><br><span class="line">      # 时区上海</span><br><span class="line">      TZ: Asia/Shanghai</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;81:81&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      # 证书映射</span><br><span class="line">      - /docker/nginx/cert:/etc/nginx/cert</span><br><span class="line">      # 配置文件映射</span><br><span class="line">      - /docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf</span><br><span class="line">      # 页面目录</span><br><span class="line">      - /docker/nginx/html:/usr/share/nginx/html</span><br><span class="line">      # 日志目录</span><br><span class="line">      - /docker/nginx/log:/var/log/nginx</span><br><span class="line">    privileged: true</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#nginx不会自动创建需要手动复制文件</span><br><span class="line">#先用docker创建nginx，复制对应文件</span><br><span class="line">mkdir -p nginx/conf nginx/conf.d &amp;&amp; cd nginx</span><br><span class="line">docker run --name nginx-demo -d nginx</span><br><span class="line">#复制文件</span><br><span class="line">docker cp nginx-demo:/etc/nginx/nginx.conf ./conf/nginx.conf</span><br><span class="line">docker cp nginx-demo:/etc/nginx/conf.d/default.conf ./conf.d/default.conf</span><br><span class="line">docker cp nginx-demo:/usr/share/nginx/html .</span><br><span class="line">#删除容器</span><br><span class="line">docker stop nginx-demo &amp;&amp; docker rm nginx-demo</span><br></pre></td></tr></table></figure>
+<p>2.5 在 &#x2F;usr&#x2F;local&#x2F;bin 目录执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<p>成功如下图：<br> <img src="/images/DockerAndJitee/3.png" alt="3"><br> 注意1：镜像版本尽可能指定，本人在测试安装jenkins 每次拉取最新的，但是 都是2.381的版本 这个版本在安装插件的时候 只有两三个成功，现在之所以选择2.4X 也是无意中拉取后 后续操作没有问题*</p>
 <p>注意2：docker的运行包括以下三部分：<br>开始看别帖子 没有注意到这里要说明什么，直到后面遇到</p>
 <p>Jenkins执行shell脚本报错：docker: command not found</p>
 <p>1.docker-cli ——-docker客户端<br>2.docker.sock ——–docker中间件<br>3.docker-server ———docker服务器<br>查看docker在宿主机的位置</p>
@@ -518,23 +303,27 @@ server &#123;
 <p>ls &#x2F;var&#x2F;run&#x2F;docker.sock</p>
 <p>使用docker的话，只需要docker-cli和docker.sock即可。如果要在jenkins容器内部使用宿主机的docker,只需要将宿主机中的&#x2F;usr&#x2F;bin&#x2F;docker和&#x2F;var&#x2F;run&#x2F;docker.sock挂载到jenkins容器即可。</p>
 <p>进入jenkins容器内部</p>
-<p>docker exec -it jenkins bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it jenkins bash</span><br></pre></td></tr></table></figure>
 <p>验证执行docker 命令</p>
-<p>docker ps -a</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
 <p>退出jenkins容器</p>
-<p>exit<br> <img src="/images/DockerAndJitee/4.png" alt="4"><br> 2.6 日志查看 然后copy下 密钥（后面要用密钥）</p>
-<p>docker logs jenkins<br> <img src="/images/DockerAndJitee/5.png" alt="5"><br> 查看容器</p>
-<p>docker ps -a</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/DockerAndJitee/4.png" alt="4"><br> 2.6 日志查看 然后copy下 密钥（后面要用密钥）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs jenkins</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/DockerAndJitee/5.png" alt="5"><br> 查看容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
 <p>访问Jenkins</p>
 <p>在浏览器中输入:<a href="http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口">http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口</a><br>输入上面复制的密钥</p>
 <p>安装推荐插件<br> <img src="/images/DockerAndJitee/6.png" alt="6"><br> 因为网络原因，需要将插件源设置为国内的，这样才可以安装插件。进入宿主机目录 &#x2F;home&#x2F;jenkins_home&#x2F;，编辑文件 hudson.model.UpdateCenter.xml</p>
 <p>1.进入宿主机目录 &#x2F;docker&#x2F;jenkins_home&#x2F;</p>
-<p>cd &#x2F;docker&#x2F;jenkins_home&#x2F;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /docker/jenkins_home/</span><br></pre></td></tr></table></figure>
 <p>2.查看 hudson.model.UpdateCenter.xml</p>
-<p>cat hudson.model.UpdateCenter.xml<br> <img src="/images/DockerAndJitee/7.png" alt="7"><br> 3.编辑 hudson.model.UpdateCenter.xml</p>
-<p>vim hudson.model.UpdateCenter.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat hudson.model.UpdateCenter.xml </span><br></pre></td></tr></table></figure>
+<p> <img src="/images/DockerAndJitee/7.png" alt="7"><br> 3.编辑 hudson.model.UpdateCenter.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim hudson.model.UpdateCenter.xml</span><br></pre></td></tr></table></figure>
 <p>输入E,进入编辑模式，将 url 内容修改为 <a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json%EF%BC%88%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F%EF%BC%89">https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json（清华大学官方镜像）</a><br> <img src="/images/DockerAndJitee/8.png" alt="8"><br> 修改完成后，按ESC键，退出编辑模式，再输入: wq,强制保存并退出</p>
-<p>3.重启容器及配置环境、插件<br>docker restart jenkins</p>
+<p>3.重启容器及配置环境、插件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart jenkins</span><br></pre></td></tr></table></figure>
 <p>访问Jenkins</p>
 <p>在浏览器中输入:<a href="http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口">http://serverIp:port/访问jenkins，serverIp为docker宿主机的ip，port即为宿主机映射的端口</a><br>输入上面复制的密钥</p>
 <p> <img src="/images/DockerAndJitee/10.png" alt="10"><br>  安装推荐插件</p>
@@ -543,23 +332,13 @@ server &#123;
 <p> <img src="/images/DockerAndJitee/15.png" alt="15"><br>  3.1Jenkins插件安装、环境配置<br>Gitee<br> <img src="/images/DockerAndJitee/16.png" alt="16"><br> <img src="/images/DockerAndJitee/17.png" alt="17"><br> <img src="/images/DockerAndJitee/18.png" alt="18"><br> <img src="/images/DockerAndJitee/19.png" alt="19"><br>   以上个插件从Available plugins 中 install</p>
 <p> <img src="/images/DockerAndJitee/20.png" alt="20"></p>
 <p>   重启jenkins 中文就来了</p>
-<p>docker restart jenkins<br>1<br>配置maven （直接使用jenkins自带的，问题就是第一构建比较慢）<br> <img src="/images/DockerAndJitee/21.png" alt="21"><br> <img src="/images/DockerAndJitee/22.png" alt="22"><br> <img src="/images/DockerAndJitee/23.png" alt="23"><br> <img src="/images/DockerAndJitee/24.png" alt="24"><br> <img src="/images/DockerAndJitee/25.png" alt="25"><br> <img src="/images/DockerAndJitee/26.png" alt="26"><br>   以上基础配置差不多了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart jenkins</span><br></pre></td></tr></table></figure>
+<p>1<br>配置maven （直接使用jenkins自带的，问题就是第一构建比较慢）<br> <img src="/images/DockerAndJitee/21.png" alt="21"><br> <img src="/images/DockerAndJitee/22.png" alt="22"><br> <img src="/images/DockerAndJitee/23.png" alt="23"><br> <img src="/images/DockerAndJitee/24.png" alt="24"><br> <img src="/images/DockerAndJitee/25.png" alt="25"><br> <img src="/images/DockerAndJitee/26.png" alt="26"><br>   以上基础配置差不多了</p>
 <p>3.2新建一个maven项目<br> <img src="/images/DockerAndJitee/27.png" alt="27"><br> 配置源码 gitee 项目<br>Credentials 还是需要填写GItee 账号密码<br> <img src="/images/DockerAndJitee/28.png" alt="28"><br> <img src="/images/DockerAndJitee/29.png" alt="29"><br> <img src="/images/DockerAndJitee/30.png" alt="30"><br> <img src="/images/DockerAndJitee/31.png" alt="31"><br> <img src="/images/DockerAndJitee/32.png" alt="32"><br> <img src="/images/DockerAndJitee/33.png" alt="33"><br>     Build</p>
 <p>pom.xml</p>
-<p>clean package -Dmaven.test.skip&#x3D;true<br> <img src="/images/DockerAndJitee/34.png" alt="34"><br> <img src="/images/DockerAndJitee/35.png" alt="35"><br> <img src="/images/DockerAndJitee/38.png" alt="38"><br> shell 脚本<br> #!&#x2F;bin&#x2F;bash<br> #服务名称<br> SERVER_NAME&#x3D;zhnc<br> #镜像tag<br> IMAGE_TAG&#x3D;latest<br> #镜像名称<br> IMAGE_NAME&#x3D;$SERVER_NAME:$IMAGE_TAG<br> echo “—— 开始构建镜像：${SERVER_NAME} ——“<br> docker build -t ${IMAGE_NAME} .<br> echo “—— 镜像构建结束：${IMAGE_NAME} ——“<br> ISFLAG&#x3D;$(docker ps -q -f “name&#x3D;${SERVER_NAME}”)<br> if [ -n  “$ISFLAG” ];then<br>     echo “—— 容器正在运行：${SERVER_NAME} ——“<br>     echo “—— 停止容器：$SERVER_NAME ——“<br>     docker stop $SERVER_NAME<br>     echo “—— 删除容器：$SERVER_NAME ——“<br>     docker rm $SERVER_NAME<br> else<br>     echo “—— 容器未在运行：${SERVER_NAME} ——“<br> fi</p>
-<p> echo “—— 开始运行容器：$SERVER_NAME ——“<br> docker run -d –name $SERVER_NAME -p 7530:7530 $IMAGE_NAME<br> echo “—— 清理虚悬镜像 ——“<br> if [ -n   “$(docker images | grep “none” | awk ‘{print $3}’)” ];then<br>     docker rmi -f $(docker images | grep “none” | awk ‘{print $3}’)<br> fi</p>
-<p>看不懂自己百度<br>保存</p>
-<p>DockerFile<br>注意dockerfile位置<br> <img src="/images/DockerAndJitee/36.png" alt="36"><br> FROM anapsix&#x2F;alpine-java:8_server-jre_unlimited</p>
-<p>MAINTAINER Lion Li</p>
-<p>RUN mkdir -p &#x2F;ruoyi&#x2F;server&#x2F;logs <br>    &#x2F;ruoyi&#x2F;server&#x2F;temp <br>    &#x2F;ruoyi&#x2F;skywalking&#x2F;agent</p>
-<p>WORKDIR &#x2F;ruoyi&#x2F;server</p>
-<p>ENV SERVER_PORT&#x3D;7530</p>
-<p>EXPOSE ${SERVER_PORT}</p>
-<p>ADD ruoyi-admin&#x2F;target&#x2F;*.jar .&#x2F;app.jar</p>
-<p>ENTRYPOINT [“java”, <br>            “-Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom”, <br>            “-Dserver.port&#x3D;${SERVER_PORT}”, <br>            # 应用名称 如果想区分集群节点监控 改成不同的名称即可</p>
-<h1 id="“-Dskywalking-agent-service-name-x3D-ruoyi-server”"><a href="#“-Dskywalking-agent-service-name-x3D-ruoyi-server”" class="headerlink" title="“-Dskywalking.agent.service_name&#x3D;ruoyi-server”, \"></a>“-Dskywalking.agent.service_name&#x3D;ruoyi-server”, \</h1><h1 id="“-javaagent-x2F-ruoyi-x2F-skywalking-x2F-agent-x2F-skywalking-agent-jar”"><a href="#“-javaagent-x2F-ruoyi-x2F-skywalking-x2F-agent-x2F-skywalking-agent-jar”" class="headerlink" title="“-javaagent:&#x2F;ruoyi&#x2F;skywalking&#x2F;agent&#x2F;skywalking-agent.jar”, \"></a>“-javaagent:&#x2F;ruoyi&#x2F;skywalking&#x2F;agent&#x2F;skywalking-agent.jar”, \</h1><pre><code>        &quot;-jar&quot;, &quot;app.jar&quot;]
-</code></pre>
-<p> <img src="/images/DockerAndJitee/37.png" alt="37"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clean package -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+<p> <img src="/images/DockerAndJitee/34.png" alt="34"><br> <img src="/images/DockerAndJitee/35.png" alt="35"><br> <img src="/images/DockerAndJitee/38.png" alt="38"><br> shell 脚本<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#服务名称</span><br><span class="line">SERVER_NAME=zhnc</span><br><span class="line">#镜像tag</span><br><span class="line">IMAGE_TAG=latest</span><br><span class="line">#镜像名称</span><br><span class="line">IMAGE_NAME=$SERVER_NAME:$IMAGE_TAG</span><br><span class="line">echo &quot;------ 开始构建镜像：$&#123;SERVER_NAME&#125; ------&quot;</span><br><span class="line">docker build -t $&#123;IMAGE_NAME&#125; .</span><br><span class="line">echo &quot;------ 镜像构建结束：$&#123;IMAGE_NAME&#125; ------&quot;</span><br><span class="line">ISFLAG=$(docker ps -q -f &quot;name=$&#123;SERVER_NAME&#125;&quot;)</span><br><span class="line">if [ -n  &quot;$ISFLAG&quot; ];then</span><br><span class="line">    echo &quot;------ 容器正在运行：$&#123;SERVER_NAME&#125; ------&quot;</span><br><span class="line">    echo &quot;------ 停止容器：$SERVER_NAME ------&quot;</span><br><span class="line">    docker stop $SERVER_NAME</span><br><span class="line">    echo &quot;------ 删除容器：$SERVER_NAME ------&quot;</span><br><span class="line">    docker rm $SERVER_NAME</span><br><span class="line">else</span><br><span class="line">    echo &quot;------ 容器未在运行：$&#123;SERVER_NAME&#125; ------&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------ 开始运行容器：$SERVER_NAME ------&quot;</span><br><span class="line">docker run -d --name $SERVER_NAME -p 7530:7530 $IMAGE_NAME</span><br><span class="line">echo &quot;------ 清理虚悬镜像 ------&quot;</span><br><span class="line">if [ -n   &quot;$(docker images | grep &quot;none&quot; | awk &#x27;&#123;print $3&#125;&#x27;)&quot; ];then</span><br><span class="line">    docker rmi -f $(docker images | grep &quot;none&quot; | awk &#x27;&#123;print $3&#125;&#x27;)</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><br>看不懂自己百度<br>保存</p>
+<p>DockerFile<br>注意dockerfile位置<br> <img src="/images/DockerAndJitee/36.png" alt="36"><br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> FROM anapsix/alpine-java:8_server-jre_unlimited</span><br><span class="line"></span><br><span class="line">RUN mkdir -p /ruoyi/server/logs \</span><br><span class="line">    /ruoyi/server/temp \</span><br><span class="line">    /ruoyi/skywalking/agent</span><br><span class="line"></span><br><span class="line">WORKDIR /ruoyi/server</span><br><span class="line"></span><br><span class="line">ENV SERVER_PORT=7530</span><br><span class="line"></span><br><span class="line">EXPOSE $&#123;SERVER_PORT&#125;</span><br><span class="line"></span><br><span class="line">ADD ruoyi-admin/target/*.jar ./app.jar</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;java&quot;, \</span><br><span class="line">            &quot;-Djava.security.egd=file:/dev/./urandom&quot;, \</span><br><span class="line">            &quot;-Dserver.port=$&#123;SERVER_PORT&#125;&quot;, \</span><br><span class="line">            # 应用名称 如果想区分集群节点监控 改成不同的名称即可</span><br><span class="line">#            &quot;-Dskywalking.agent.service_name=ruoyi-server&quot;, \</span><br><span class="line">#            &quot;-javaagent:/ruoyi/skywalking/agent/skywalking-agent.jar&quot;, \</span><br><span class="line">            &quot;-jar&quot;, &quot;app.jar&quot;]</span><br></pre></td></tr></table></figure><br> <img src="/images/DockerAndJitee/37.png" alt="37"></p>
 
       
 
@@ -572,7 +351,261 @@ server &#123;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/14/DockerAndJitee/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/DockerAndJitee/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-DockerAndJenkins" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/DockerAndJenkins/">Jenkins + Docker + Github 实现自动化部署 Maven 项目</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/DockerAndJenkins/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:16:17.771Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、Jenkins 介绍<br>看到这篇文章的你，或多或少都已经对 Jenkins 有过一定了解，就算没有也一定已经听过它的相关话题。</p>
+<p>在我们学习阶段，常会听到持续集成和持续部署这样的词语，有些小伙伴们已经亲手实践过，还有些没有过，今天就让我们一起对 Jenkins 做一个了解吧。</p>
+<p>1、持续集成和持续部署是什么<br>持续集成：CI 是一种开发实践，其中开发人员一天几次将代码集成到共享存储库中。当有人将新代码推送到共享存储库中时，测试会在非开发人员（测试人员）的计算机上自动运行。这种纯手动的构建测试,效率非常的低,开发人员必须等待测试人员的反馈后才知道结果,如果错了,还要修改 bug , 这个过程一方面需要沟通成本,另外一方面效率是非常低的.</p>
+<p>持续部署：我们都知道，项目最终是会部署到服务器上去，在没用 Jenkins 之前，大都是我们或专业的运维将项目进行部署。如果项目非常多或者部署完后出现 bug，需要人手动的一个个部署或者能力强些的大佬，就是用脚本文件部署，但是看起来还是非常麻烦.</p>
+<p>2、关于 Jenkins<br>Jenkins 是一个用 Java 编写的开源自动化工具，带有用于持续集成的插件。</p>
+<p>Jenkins 用于持续构建和测试您的软件项目，从而使开发人员更容易将更改集成到项目中，并使用户更容易获得新的构建。它还允许您通过与大量测试和部署技术集成来持续交付软件。</p>
+<p>Jenkins 集成了各种开发生命周期过程，包括构建、文档、测试、打包、模拟、部署、静态分析等等。</p>
+<p>Jenkins 借助插件实现了持续集成。插件允许集成各种 DevOps 阶段。如果要集成特定工具，则需要安装该工具的插件。例如 Git、Maven、Node 项目等。</p>
+<p>3、Jenkins 的工作流程<br>我画了一张简易的 Jenkins 的工作流程图，希望能带给你一些帮助。<br><img src="/images/DockerAndJenkins/top1.PNG" alt="0"><br>（图片说明：Jenkins 一项配置简单的工作流程图）</p>
+<p>流程说明：</p>
+<p>开发者在本地开发，然后提交到 Source Respository 中，<br>触发 GitHub 或者 GitLab 配置的钩子函数程序，继而通知 Jenkins<br>Jenkins 收到通知，会通过 Git&#x2F;SVN 插件，重新从项目配置中的代码仓库中拉取最新代码，放置于 Workspace （Jenkins 存放任务的目录）<br>之后重新触发构建任务，Jenkins 有很多的构建的插件，Java 常用的 Maven 、Gradle，前端的 Node 等<br>如果有安装发送邮件的插件并且进行了配置，那么可以在项目中进行配置，构建失败或者成功都可以选择是否给开发者发送邮件<br>构建成功后，Jenkins 会通过一个 SSH 插件，来远程执行 Shell 命令，发布项目，在项目中可以配置多台服务器，也就可以一次性部署到多台服务器上去。<br>补充：当然很多时候，构建成功后，并不会直接部署到服务器上，而是打包到另外一台服务器上存储（应用服务器）或者存储为软件仓库中的一个新版本。<br>原因是一方面为了更好的回退版本，出现错误可以及时恢复，因为一个大型项目，它的构建过程时间说不上短；<br>另外一方面也是为了更好的扩展，如果出现紧急情况，需要横向扩展，可以在备用机器上，直接进行拉取部署即可。<br>一个简易的自动部署化的过程，大致是如此的。</p>
+<p>但其实中间还有不少东西的，例如代码审查和 Jenkins 自动化测试等等，对一门技术了解的越多，不知道的也就越多了。</p>
+<p>二、Docker 安装 Jenkins<br>Jenkins 其实支持各个系统安装，Windows 、Liunx 、Mac 都可以的。选择 Docker 是方便哈，因为我其他的环境都是用 Docker 搭建的~~ 所以我这里介绍的也是 Docker 安装 Jenkins，后续的文章也都是基于此。</p>
+<p>我目前的环境：Jenkins 2.346.2、阿里云服务器 centos7、Docker version 20.10.7</p>
+<p>2.1、搜索 Jenkins 镜像<br> docker search jenkins<br><img src="/images/DockerAndJenkins/1.png" alt="1"><br>deprecated 是弃用的意思，第一条搜索记录就是告诉我们 jenkins 镜像已经弃用，让我们使用 jenkins&#x2F;jenkins:lts 镜像名进行拉取。</p>
+<p>2.2、拉取 Jenkins 镜像<br>  docker pull jenkins&#x2F;jenkins:lts<br> docker images #查看镜像<br>复制<br>既然是学习，就得上手最新的啦，错了再降。<br><img src="/images/DockerAndJenkins/2.PNG" alt="2"><br>2.3、启动 Jenkins 容器<br>在宿主机创建挂载目录</p>
+<p> mkdir -p &#x2F;home&#x2F;jenkins&#x2F;workspace<br>复制<br>启动 Jenkins 容器</p>
+<p> docker run -uroot -d –restart&#x3D;always -p 9001:8080 <br> -v &#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;:&#x2F;var&#x2F;jenkins_home&#x2F;workspace <br> -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock <br> –name jenkins jenkins&#x2F;jenkins:lts<br><img src="/images/DockerAndJenkins/3.PNG" alt="3"><br>2.4、使用 Jenkins<br>这个时候就可以直接访问了。<br><img src="/images/DockerAndJenkins/4.PNG" alt="4"><br>会看到这样的一个界面，我们就要进入容器，去拿到这个密码。</p>
+<p> docker exec -it -uroot jenkins bash # -uroot 是以管理员身份登入容器<br><img src="/images/DockerAndJenkins/5.PNG" alt="5"><br>然后复制粘贴上去后，会看到这样的一个界面。</p>
+<p><img src="/images/DockerAndJenkins/6.PNG" alt="6"><br>如果和我一样是个小白的话，直接安装推荐的插件吧，稍微省事点，不然很多插件都需要自己一个个的查。<br><img src="/images/DockerAndJenkins/7.PNG" alt="7"><br>耐心等待它下载完吧</p>
+<p>大家根据自己的需求进行操作，后续也是根据自己的想法一直点击下去就好了，反正咱们还在学习，无妨的。<br><img src="/images/DockerAndJenkins/8.PNG" alt="8"><br>主界面<br><img src="/images/DockerAndJenkins/9.PNG" alt="9"><br>一些简单页面，大家点进去都能看的明白，我就不再多嘴了。</p>
+<p>着重说一下 Manger Jenkins 界面一些东西<br><img src="/images/DockerAndJenkins/10.PNG" alt="10"><br>2.5、配置 Jenkins 密钥<br>其实在很多时候你可以把 Jenkins 容器看成一台独立的服务器，因为你运行项目的那些环境，都可以安装在它的内部。</p>
+<p>还是先说说配置密钥，配置密钥主要作用就是为了去 Github、Gitee、GitLab 上拉取代码，这点相信大家都是能够理解的吧。</p>
+<p>生成密钥：之前我们已经进入 Jenkins 的终端，直接输入下面的命令就好了。</p>
+<p> ssh-keygen -t rsa -C “root”  #输入完一直回车就结束了<br> cat &#x2F;root&#x2F;.ssh&#x2F;id_rsa.pub #查看公钥<br><img src="/images/DockerAndJenkins/11.PNG" alt="11"><br>如果没有的话，就先输入 下面命令进入 Jenkins 容器终端</p>
+<p> docker exec -it -uroot jenkins bash # jenkins 是我启动的容器名 换成容器id 也可以的<br>复制<br>拿到 Jenkins 公钥后，就放到 Github、Gitee 或者是 GitLab 上去，我放的 Github，如下：<br><img src="/images/DockerAndJenkins/12.PNG" alt="12"><br><img src="/images/DockerAndJenkins/13.PNG" alt="13"><br>这样就算是添加完成了。</p>
+<p>到这一步，可以进行测试一下，是否已经可以从 Github 上拉取项目<br><img src="/images/DockerAndJenkins/14.PNG" alt="14"><br>三、 Jenkins 插件安装、添加凭据、系统配置、全局工具配置<br>实际上 Jenkins 的功能基本上都是依靠插件来完成，所以不同项目也会要安装不同的插件。</p>
+<p>3.1、插件安装<br>我演示的是一个 SpringBoot 后端项目的部署，中间也没有穿插复杂的操作，所以装的插件也不多哈。<br><img src="/images/DockerAndJenkins/15.PNG" alt="15"><br>安装的插件的名称：</p>
+<p>Maven Integration ：Maven 项目打包工具<br>SSH ： SSH 连接工具<br>Publish Over SSH ：SSH 发布工具<br>如果要运行前端 Vue 项目，记得下载一个 NodeJS 的插件（我会的前端就只有 Vue 哈）<br><img src="/images/DockerAndJenkins/16.PNG" alt="16"><br><img src="/images/DockerAndJenkins/17.PNG" alt="17"><br>等待下载完即可</p>
+<p>3.2、添加凭据<br>凭据其实就是账号密码，你访问 Github、远程服务器都需要账号密码才行，这里的凭据就是相应的账号密码。<br><img src="/images/DockerAndJenkins/18.PNG" alt="18"><br><img src="/images/DockerAndJenkins/19.PNG" alt="19"><br>添加 github 的账号密码<br><img src="/images/DockerAndJenkins/20.PNG" alt="20"><br>添加服务器的登录账号和密码<br><img src="/images/DockerAndJenkins/21.PNG" alt="21"><br>补充：这些都是可以填加多个的。</p>
+<p>最后就是这样的：<br><img src="/images/DockerAndJenkins/22.PNG" alt="22"><br>稍后在项目中都是需要用到的。</p>
+<p>3.3、系统配置<br><img src="/images/DockerAndJenkins/23.PNG" alt="23"><br>找到两个配置：</p>
+<p>1、SSH remote hosts</p>
+<p>2、SSH Servers<br><img src="/images/DockerAndJenkins/24.PNG" alt="24"><br><img src="/images/DockerAndJenkins/25.PNG" alt="25"><br><img src="/images/DockerAndJenkins/26.PNG" alt="26"><br>对了记得点击保存哈，不然又得重现填写。</p>
+<p>3.4、全局工具配置<br>我上文有提到很多时候我们可以把 Jenkins 看成一台单独的电脑，尤其是在工具设置的时候。<br><img src="/images/DockerAndJenkins/27.PNG" alt="27"><br>在这里其实就是配置一些项目中需要用到的环境，如 JDK、Maven、NodeJS 等等<br><img src="/images/DockerAndJenkins/28.PNG" alt="28"><br>1、Maven 配置<br>这里可以用默认的，也可以用宿主机文件系统中的。<br><img src="/images/DockerAndJenkins/29.PNG" alt="29"><br>我这里用的是默认的，因为我 Liunx 服务器上的环境全部都是基于 Docker 搭建的。</p>
+<p>选择默认的话，就需要在 Jenkins 中新增一个，然后 Jenkins 在你构建项目的时候，如果是选择默认的话，没有的 Maven 情况下，它会主动给你下载一个 Maven<br><img src="/images/DockerAndJenkins/30.PNG" alt="30"><br>2、JDK 配置<br>JDK 也是可以选择自动安装和使用宿主机原有的 JDK 两种方案。<br><img src="/images/DockerAndJenkins/31.PNG" alt="31"><br>建议配置里取消自动安装，直接配置和使用jenkins容器的java环境。</p>
+<p>进入容器内 通过java -version查看版本</p>
+<p>root@jenkins-6869f47d99-2fcgm:&#x2F;#<br>root@jenkins-6869f47d99-2fcgm:&#x2F;# java  -version<br>openjdk version “11.0.18” 2023-01-17<br>OpenJDK Runtime Environment Temurin-11.0.18+10 (build 11.0.18+10)<br>OpenJDK 64-Bit Server VM Temurin-11.0.18+10 (build 11.0.18+10, mixed mode)<br>root@jenkins-6869f47d99-2fcgm:&#x2F;#<br>通过which java找到java目录，通过echo $JAVA_HOME输出配置好的环境变量</p>
+<p>root@jenkins-6869f47d99-2fcgm:&#x2F;# which java<br>&#x2F;opt&#x2F;java&#x2F;openjdk&#x2F;bin&#x2F;java<br>root@jenkins-6869f47d99-2fcgm:&#x2F;#<br>root@jenkins-6869f47d99-2fcgm:&#x2F;#<br>root@jenkins-6869f47d99-2fcgm:&#x2F;# echo $JAVA_HOME<br>&#x2F;opt&#x2F;java&#x2F;openjdk<br>root@jenkins-6869f47d99-2fcgm:&#x2F;#<br>重新在Manage Jenkins &gt; Global Tool Configuration里面配置JAVA_HOME为刚找到的目录&#x2F;opt&#x2F;java&#x2F;openjdk ，并取消勾选Install automatically选项。</p>
+<p>点击 Please enter your username&#x2F;password蓝色小字后，会跳转至下面的界面<br><img src="/images/DockerAndJenkins/32.PNG" alt="32"><br>(图片说明：在这里输入 Oracle 官网的账号密码即可)</p>
+<p>没有账号需要去注册 Oracle 账号</p>
+<p>补充：如果这里选择 Oracle 官网下载 JDK，最高支持 JDK 版本为 9，如果要选择更高的稳定的 JDK 版本，一个是使用宿主机的 JDK，另外就是使用压缩包方式，然后解压等。只要想用，互联网应该还是能够满足的。</p>
+<p>关于 Git ，我们直接用 Jenkins 默认的即可，在安装 Jenkins 推荐的插件的时候，其中就有 Git，当然 Git，这里 Jenkins 也允许你使用 宿主机的 Git。</p>
+<p>最后记得点击保存</p>
+<p>四、Jenkins 部署 Maven 项目<br>相关要求：</p>
+<p>本地需要 Java、Git 环境<br>需要有一个 Github&#x2F;Gitee 账号<br>不管在那里安装的 Jenkins 都要确保它能够访问网络<br>4.1、本地创建一个 Maven 项目<br>创建一个 SpringBoot 项目，controller，自己看着写就好了<br><img src="/images/DockerAndJenkins/33.PNG" alt="33"><br>pom.xml</p>
+<pre><code>&lt;parent&gt;
+     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+     &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+     &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+ &lt;/parent&gt;
+
+ &lt;properties&gt;
+     &lt;maven.compiler.source&gt;8&lt;/maven.compiler.source&gt;
+     &lt;maven.compiler.target&gt;8&lt;/maven.compiler.target&gt;
+ &lt;/properties&gt;
+
+ &lt;dependencies&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+         &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;/dependency&gt;
+     &lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+         &lt;version&gt;2.5.1&lt;/version&gt;
+     &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+
+ &lt;!-- 这个插件，可以将应用打包成一个可执行的jar包  --&gt;
+ &lt;build&gt;
+     &lt;plugins&gt;
+         &lt;plugin&gt;
+             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+             &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+         &lt;/plugin&gt;
+     &lt;/plugins&gt;
+ &lt;/build&gt;
+</code></pre>
+<p>复制<br>Dockerfile 文件</p>
+<p>FROM adoptopenjdk&#x2F;openjdk8<br>#切换到镜像中的指定路径，设置工作目录<br>WORKDIR app<br>#会将宿主机的target&#x2F;.jar文件复制到 镜像的工作目录 &#x2F;app&#x2F; 下<br>COPY target&#x2F;.jar app.jar<br>#执行java -jar 命令<br>CMD [“java”, “-jar”, “app.jar”]</p>
+<p>复制<br>因为不是本文关注的重点，更多详情可能还需朋友们去查询。</p>
+<p>4.2、推送到远程仓库 github 上<br>首先在 Github 上创建一个仓库<br>然后点击 idea 中下方菜单栏 Terminal 命令行终端中输入<br>   git init<br>   git add .  #这里 . 默认提交所有修改文件<br>   git commit -m “init”<br>   git branch -m main # 因为gitgub 仓库默认主分支为main ，而我们本地初始化时 主分支为 master<br>   git remote add  远程仓库地址 # 添加远程仓库<br>   git push origin main  # push 上去<br>复制<br>然后刷新 github 界面，就可以看到已经 push 成功了<br>4.3、Jenkins 项目配置<br>新建任务<br><img src="/images/DockerAndJenkins/34.PNG" alt="34"><br>选择构建一个 Maven 项目<br><img src="/images/DockerAndJenkins/35.PNG" alt="35"><br>项目配置<br><img src="/images/DockerAndJenkins/36.PNG" alt="36"><br>源码管理<br><img src="/images/DockerAndJenkins/37.PNG" alt="37"><br><img src="/images/DockerAndJenkins/38.PNG" alt="38"><br>构建环境没啥说的<br><img src="/images/DockerAndJenkins/39.PNG" alt="39"><br>Build 那不用改啥，用默认的就可以。</p>
+<p>然后来到 Post Steps<br><img src="/images/DockerAndJenkins/40.PNG" alt="40"><br>选择这个 send files or execute commands over SSH 就是通过SSH发送文件或执行命令</p>
+<p>我们要将构建好的 jar&#x2F;war 发送至相应的服务器，然后执行相关的命令，进行部署。<br><img src="/images/DockerAndJenkins/41.PNG" alt="41"><br>Remote directory 可以修改为该目录&#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;record<br><img src="/images/DockerAndJenkins/42.PNG" alt="42"><br>（图片说明：那个映射的端口应为 8080，我写漏了）</p>
+<h1 id="注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"><a href="#注意-其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下" class="headerlink" title="注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下"></a>注意 其实在这里输入的命令，就是在服务器上的命令，我们所处于的位置就是当前登录用户的根目录下</h1><p>#&#x2F;bin&#x2F;bash<br>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;cd 到宿主机映射 Jenkins 的项目路径下&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>cd &#x2F;home&#x2F;jenkins&#x2F;workspace&#x2F;record</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;停止容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker stop record</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;删除容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker rm record</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;删除镜像&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;”</p>
+<p>docker rmi nzc&#x2F;record:1.0</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;制作镜像&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker build -f Dockerfile -t nzc&#x2F;record:1.0 .</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;启动容器&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”</p>
+<p>docker run -p 8080:8080 –name record -d nzc&#x2F;record:1.0</p>
+<p>echo “&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;自动部署结束&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;”<br>复制<br>记得点击保存</p>
+<p>4.4、部署和测试<br>然后点击立即构建就好了，但因为是第一次构建，要从 github 拉取代码，下载 jdk、maven 等，还有相应 jar 包等，所以时间会相对久一些。<br><img src="/images/DockerAndJenkins/43.PNG" alt="43"><br>点击这个，可以看到控制台输出<br><img src="/images/DockerAndJenkins/44.PNG" alt="44"><br>控制台输出，日志比较多，就挑了一点<br><img src="/images/DockerAndJenkins/45.PNG" alt="45"><br><img src="/images/DockerAndJenkins/46.PNG" alt="46"><br>末尾是Finished: SUCCESS 就证明是构建成功啦。</p>
+<p>我们来看看 Jenkins 的工作空间<br><img src="/images/DockerAndJenkins/47.PNG" alt="47"><br>这里已经是存在项目啦。</p>
+<p>我们再去看看 Docker 镜像有没有构建成功<br><img src="/images/DockerAndJenkins/48.PNG" alt="48"><br>再去看一眼 有没有在运行<br><img src="/images/DockerAndJenkins/49.PNG" alt="49"><br>最后就是看看能不能访问到了<br><img src="/images/DockerAndJenkins/50.PNG" alt="50"><br>已经是可以访问到了。</p>
+<p>当然现在的话，还没有做到自动化部署，就是我提交完，jenkins 就能自己知道，然后进行构建，我们现在要做的就是把手动构建修改成 github 更新或合并就构建。</p>
+<p>五、GitHub 提交代码时触发 Jenkins 自动构建<br>其实主要就三步，因为前面我们已经搭建好了，所以就只要修改一下即可。</p>
+<p>5.1、GitHub 上配置 Jenkins 的 webhook<br><img src="/images/DockerAndJenkins/51.PNG" alt="51"><br><img src="/images/DockerAndJenkins/52.PNG" alt="52"><br>像我 jenkins 是部署在服务器上的 我的 地址就是服务器 IP:port&#x2F;github-webhook&#x2F;</p>
+<p>5.2、GitHub 上创建一个 access token<br>Jenkins 做一些需要权限的操作的时候就用这个 access token 去鉴权<br><img src="/images/DockerAndJenkins/53.PNG" alt="53"><br><img src="/images/DockerAndJenkins/54.PNG" alt="54"><br>就是命名，然后勾选你需要的权限就可以了</p>
+<p>最后完成的时候，记得复制<br><img src="/images/DockerAndJenkins/55.PNG" alt="55"><br>5.3、修改 Jenkins 配置<br>首先先要修改一下系统配置 Configure System<br><img src="/images/DockerAndJenkins/56.PNG" alt="56"><br>点添加的时候，会弹出一个框<br><img src="/images/DockerAndJenkins/57.PNG" alt="57"><br><img src="/images/DockerAndJenkins/58.PNG" alt="58"><br>描述自己写就行~~<br><img src="/images/DockerAndJenkins/59.PNG" alt="59"><br>第一步完成，记得点击保存，接下来去修改一下项目配置</p>
+<p>找到项目，点击配置</p>
+<p>把构建触发器中的 GitHub hook trigger for GITScm polling 勾上<br><img src="/images/DockerAndJenkins/60.PNG" alt="60"><br><img src="/images/DockerAndJenkins/61.PNG" alt="61"><br>记得点击保存。</p>
+<p>然后就可以进行测试啦。</p>
+<p>5.4、Push 测试<br><img src="/images/DockerAndJenkins/62.PNG" alt="62"><br>这是我本地还没更新的代码，现在 push 上去哈。<br><img src="/images/DockerAndJenkins/63.PNG" alt="63"><br>push 成功后，刷新一下就可以看到构建任务正在执行了。<br><img src="/images/DockerAndJenkins/64.PNG" alt="64"><br>在构建日志中也可以看到 最新 的提交记录<br><img src="/images/DockerAndJenkins/65.PNG" alt="65"><br><img src="/images/DockerAndJenkins/66.PNG" alt="66"><br>六、总结<br>文章的脉络大致：</p>
+<p>首先是介绍了 Jenkins，以及 Jenkins 的简单工作流程；</p>
+<p>而后是教大家如何用 Docker 安装 Jenkins ；</p>
+<p>然后再是对 Jenkins 进行一些插件安装和配置；</p>
+<p>再以 Jenkins 部署 Maven 项目为案例，讲解如何使用 Jenkins；</p>
+<p>最后是对上一步操作的改早，Jenkins + Github + Docker 实现自动化部署。</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/news/918888">https://cloud.tencent.com/developer/news/918888</a></p>
+<p>安装docker<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011397981/article/details/130616038">https://blog.csdn.net/u011397981/article/details/130616038</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43834401/article/details/130971053">https://blog.csdn.net/weixin_43834401/article/details/130971053</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/DockerAndJenkins/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-study" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/study/">学习教程</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/study/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.297Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/27-uflskemyknpxqkk.html">python开发windows本地服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BAI20010904/article/details/124481796">“婚礼邀请函”小程序开发过程</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Naiva/article/details/119538735">微信小程序 #项目笔记# | 从0到1实现婚礼邀请函小程序</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/251855ec704b/">nodejs搭建Hexo博客系统</a></p>
+<p>更新文章<br>hexo clean &#x2F;&#x2F;删除之前的静态文件<br>hexo g &#x2F;&#x2F;重新生成新的<br>hexo s &#x2F;&#x2F;开启服务</p>
+<p>提交代码<br>git init 初始化git<br>git add . 添加文件<br>git commit -m ‘备注’<br>git pull origin master<br>git push origin master</p>
+<p>如果出现合并操作<br>键盘输入‘i’<br>键盘输入‘esc’<br>键盘输入‘:wq’<br>键盘输入‘enter’，<br>提交代码成功</p>
+<p>服务部署到github<br>代码更新到git服务之后在git bush中执行hexo clean清除缓存，然后执行hexo g -d生成hexo静态网页并部署<br>– 还有更新一下Gitee Pages Services.<br>冲突解决方法<br>git pull –allow-unrelated-histories</p>
+<p>下载<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a>，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate
+ </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/study/">展开全文 >></a>
         </p>
       
 
@@ -609,13 +642,13 @@ server &#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
+      <a class="article-title" href="/2023/11/27/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
     </h1>
   
 
         
-        <a href="/2023/11/07/ThreeCharacteristics/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.375Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
+        <a href="/2023/11/27/ThreeCharacteristics/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -637,7 +670,82 @@ server &#123;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/ThreeCharacteristics/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/ThreeCharacteristics/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/hello-world/">Hello World</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/hello-world/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/hello-world/">展开全文 >></a>
         </p>
       
 
@@ -674,13 +782,13 @@ server &#123;
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/StudyVue/">Vue+element-plus+SpringBoot搭建管理系统</a>
+      <a class="article-title" href="/2023/11/27/StudyVue/">Vue+element-plus+SpringBoot搭建管理系统</a>
     </h1>
   
 
         
-        <a href="/2023/11/07/StudyVue/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.375Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
+        <a href="/2023/11/27/StudyVue/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.277Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -1591,146 +1699,7 @@ return config
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/StudyVue/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-study" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/study/">学习教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/07/study/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.374Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/27-uflskemyknpxqkk.html">python开发windows本地服务</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/BAI20010904/article/details/124481796">“婚礼邀请函”小程序开发过程</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Naiva/article/details/119538735">微信小程序 #项目笔记# | 从0到1实现婚礼邀请函小程序</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/251855ec704b/">nodejs搭建Hexo博客系统</a></p>
-<p>更新文章<br>hexo clean &#x2F;&#x2F;删除之前的静态文件<br>hexo g &#x2F;&#x2F;重新生成新的<br>hexo s &#x2F;&#x2F;开启服务</p>
-<p>提交代码<br>git init 初始化git<br>git add . 添加文件<br>git commit -m ‘备注’<br>git pull origin master<br>git push origin master</p>
-<p>如果出现合并操作<br>键盘输入‘i’<br>键盘输入‘esc’<br>键盘输入‘:wq’<br>键盘输入‘enter’，<br>提交代码成功</p>
-<p>服务部署到github<br>代码更新到git服务之后在git bush中执行hexo clean清除缓存，然后执行hexo g -d生成hexo静态网页并部署<br>– 还有更新一下Gitee Pages Services.<br>冲突解决方法<br>git pull –allow-unrelated-histories</p>
-<p>下载<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">主题</a>，Corporate为对应的主题 git clone <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/">https://github.com/hexojs/hexo/</a> themes&#x2F;Corporate
- </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/study/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/Shiro/">Shiro入门教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/07/Shiro/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.373Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
-<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
-<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
-<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
-<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/Shiro/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/StudyVue/">展开全文 >></a>
         </p>
       
 
@@ -1767,13 +1736,13 @@ return config
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/SpringMVC/">SpringMVC工作原理</a>
+      <a class="article-title" href="/2023/11/27/SpringMVC/">SpringMVC工作原理</a>
     </h1>
   
 
         
-        <a href="/2023/11/07/SpringMVC/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.373Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
+        <a href="/2023/11/27/SpringMVC/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.264Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -1793,7 +1762,74 @@ return config
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/SpringMVC/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/SpringMVC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/Shiro/">Shiro入门教程</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/Shiro/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.254Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
+<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
+<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
+<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
+<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/Shiro/">展开全文 >></a>
         </p>
       
 
@@ -1830,13 +1866,13 @@ return config
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/Search/">冒泡和二分查找</a>
+      <a class="article-title" href="/2023/11/27/Search/">冒泡和二分查找</a>
     </h1>
   
 
         
-        <a href="/2023/11/07/Search/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.372Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
+        <a href="/2023/11/27/Search/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.246Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
 </a>
         
       </header>
@@ -1856,171 +1892,7 @@ return config
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/Search/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LogPlatform" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/LogPlatform/">使用logstash+elasticsearch+kibana快速搭建日志平台</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/07/LogPlatform/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.371Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:<br>根据关键字查询日志详情<br>监控系统的运行状况<br>统计分析，比如接口的调用次数、执行时间、成功率等<br>异常数据自动触发消息通知<br>基于日志的数据挖掘<br>很多团队在日志方面可能遇到的一些问题有:<br>开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力<br>日志数据分散在多个系统，难以查找<br>日志数据量大，查询速度慢<br>一个调用会涉及多个系统，难以在这些系统的日志中快速定位数据<br>数据不够实时<br>常见的一些重量级的开源Trace系统有<br>facebook scribe<br>cloudera flume<br>twitter zipkin<br>storm<br>这些项目功能强大，但对于很多团队来说过于复杂，配置和部署比较麻烦，在系统规模大到一定程度前推荐轻量级下载即用的方案，比如logstash+elasticsearch+kibana(LEK)组合。<br>对于日志来说，最常见的需求就是收集、查询、显示，正对应logstash、elasticsearch、kibana的功能。<br>logstash<br>logstash主页<br>logstash部署简单，下载一个jar就可以用了，对日志的处理逻辑也很简单，就是一个pipeline的过程<br>inputs &gt;&gt; codecs &gt;&gt; filters &gt;&gt; outputs</p>
-<p>对应的插件有<br>从上面可以看到logstash支持常见的日志类型，与其他监控系统的整合也很方便，可以将数据输出到zabbix、nagios、email等。<br>推荐用redis作为输入缓冲队列。<br>你还可以把数据统计后输出到graphite，实现统计数据的可视化显示。<br>elasticsearch<br>elasticsearch主页<br>elasticsearch是基于lucene的开源搜索引擎<br>kibana<br>kibana主页<br>kibana是一个功能强大的elasticsearch数据显示客户端，logstash已经内置了kibana，你也可以单独部署kibana，最新版的kibana3是纯html+js客户端，可以很方便的部署到Apache、Nginx等Http服务器。<br>安装部署<br>下面列一下一个简易LEK体验环境的搭建步骤<br>安装jdk 1.7<br>oracle java主页<br>省略安装过程，推荐1.7+版本<br>java -version</p>
-<p>设置java的环境变量，比如<br>sudo vim ~&#x2F;.bashrc</p>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>export JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-7-oracle<br>export JRE_HOME&#x3D;${JAVA_HOME}&#x2F;jre<br>export CLASSPATH&#x3D;.:${JAVA_HOME}&#x2F;lib:${JRE_HOME}&#x2F;lib<br>export PATH&#x3D;${JAVA_HOME}&#x2F;bin:$PATH  </p>
-<blockquote>
-</blockquote>
-</blockquote>
-<p>source ~&#x2F;.bashrc</p>
-<p>安装redis<br>redis主页<br>cd ~&#x2F;src<br>wget <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-2.6.16.tar.gz">http://download.redis.io/releases/redis-2.6.16.tar.gz</a><br>tar -zxf redis-2.6.16.tar.gz<br>cd redis-2.6.16<br>make<br>sudo make install</p>
-<p>可以通过redis源代码里utils&#x2F;install_server下的脚本简化配置工作<br>cd utils<br>sudo .&#x2F;install_server.sh </p>
-<p>install_server.sh在问你几个问题后会把redis安装为开机启动的服务，可以通过下面的命令行来启动&#x2F;停止服务<br>sudo &#x2F;etc&#x2F;init.d&#x2F;redis_ start&#x2F;end </p>
-<p>启动redis客户端来验证安装<br>redis-cli</p>
-<blockquote>
-<p>keys *</p>
-</blockquote>
-<p>安装Elasticsearch<br>Elasticsearch主页<br>cd &#x2F;search<br>sudo mkdir elasticsearch<br>cd elasticsearch<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip">http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip</a><br>sudo unzip elasticsearch-0.90.5.zip</p>
-<p>elasticsearch解压即可使用非常方便，接下来我们看一下效果，首先启动ES服务，切换到elasticsearch目录，运行bin下的elasticsearch<br>cd &#x2F;search&#x2F;elasticsearch&#x2F;elasticsearch-0.90.5<br>bin&#x2F;elasticsearch -f</p>
-<p>访问默认的9200端口<br>curl -X GET <a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200</a></p>
-<p>安装logstash<br>logstash主页<br>cd &#x2F;search<br>sudo mkdir logstash<br>cd logstash<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar">http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar</a></p>
-<p>logstash下载即可使用，命令行参数可以参考logstash flags，主要有<br>agent   #运行Agent模式<br>-f CONFIGFILE #指定配置文件</p>
-<p>web     #自动Web服务<br>-p PORT #指定端口，默认9292</p>
-<p>安装kibana<br>logstash的最新版已经内置kibana，你也可以单独部署kibana。kibana3是纯粹JavaScript+html的客户端，所以可以部署到任意http服务器上。<br>cd &#x2F;search<br>sudo mkdir kibana<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip">http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip</a><br>sudo unzip kibana-latest.zip<br>sudo cp -r  kibana-latest &#x2F;var&#x2F;www&#x2F;html</p>
-<p>可以修改config.js来配置elasticsearch的地址和索引。<br>用浏览器访问试试看 <a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html">http://127.0.0.1/html/kibana-latest/index.html</a><br>集成<br>把上面的系统集成起来<br>首先把redis和elasticsearch都启动起来<br>为logstash新建一个配置文件<br>cd &#x2F;search&#x2F;logstash<br>sudo vi redis.conf</p>
-<p>配置文件内容如下<br>input {<br>  redis {<br>    host &#x3D;&gt; “127.0.0.1”<br>    port &#x3D;&gt; “6379”<br>    key &#x3D;&gt; “logstash:demo”<br>    data_type &#x3D;&gt; “list”<br>    codec  &#x3D;&gt; “json”<br>    type &#x3D;&gt; “logstash-redis-demo”<br>    tags &#x3D;&gt; [“logstashdemo”]<br>  }<br>}</p>
-<p>output {<br>  elasticsearch {<br>    host &#x3D;&gt; “127.0.0.1”<br>  }</p>
-<p>}</p>
-<p>用这个配置文件启动logstash agent<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar agent -f &#x2F;search&#x2F;logstash&#x2F;redis.conf &amp;</p>
-<p>启动logstash内置的web<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar web &amp;</p>
-<p>查看web，应该还没有数据<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>在redis 加一条数据<br>RPUSH logstash:demo “{&quot;time&quot;: &quot;2013-01-01T01:23:55&quot;, &quot;message&quot;: &quot;logstash demo message&quot;}”</p>
-<p>看看elasticsearch中的索引现状<br>curl 127.0.0.1:9200&#x2F;_search?pretty&#x3D;true </p>
-<p>curl -s <a target="_blank" rel="noopener" href="http://127.0.0.1:9200/_status?pretty=true">http://127.0.0.1:9200/_status?pretty=true</a> | grep logstash</p>
-<p>再通过logstash web查询一下看看<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>通过单独的kibana界面查看<br><a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json">http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json</a></p>
-<p>数据清理<br>logstash默认按天创建ES索引，这样的好处是删除历史数据时直接删掉整个索引就可以了，方便快速。<br>elasticsearch也可以设置每个文档的ttl(time to live)，相当于设置文档的过期时间，但相比删除整个索引要耗费更多的IO操作。<br>索引<br>elasticsearch默认会按照分隔符对字段拆分，日志有些字段不要分词，比如url，可以为这类字段设置not_analyzed属性。<br>设置multi-field-type属性可以将字段映射到其他类型。multi-field-type。<br>大量日志导入时用bulk方式。<br>对于日志查询来说，filter比query更快 过滤器里不会执行评分而且可以被自动缓存。query-dsl。<br>elasticsearch默认一个索引操作会在所有分片都完成对文档的索引后才返回，你可以把复制设置为异步来加快批量日志的导入。<br>elasticsearch 优化<br>优化JVM <br>优化系统可以打开最大文件描述符的数量 <br>适当增加索引刷新的间隔<br>最佳实践<br>首先你的程序要写日志<br>记录的日志要能帮助你分析问题，只记录”参数错误”这样的日志对解决问题毫无帮助<br>不要依赖异常，异常只处理你没考虑到的地方<br>要记录一些关键的参数，比如发生时间、执行时间、日志来源、输入参数、输出参数、错误码、异常堆栈信息等<br>要记录sessionid、transitionid、userid等帮你快速定位以及能把各个系统的日志串联起来的关键参数<br>推荐纯文本+json格式<br>使用队列<br>具体网址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html">https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html</a><br>或<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ityouknow/p/4933103.html">https://www.cnblogs.com/ityouknow/p/4933103.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/LogPlatform/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LogSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/07/LogSystem/">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/07/LogSystem/" class="archive-article-date">
-  	<time datetime="2023-11-07T09:20:38.371Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>       Logstash是一个完全开源的工具，他可以对你的日志进行收集、分析，并将其存储供以后使用（如，搜索），您可以使用它。说到搜索，logstash带有一个web界面，搜索和展示所有日志。<br>        kibana 也是一个开源和免费的工具，他可以帮助您汇总、分析和搜索重要数据日志并提供友好的web界面。他可以为 Logstash 和 ElasticSearch 提供的日志分析的 Web 界面</p>
-<p> 简单来讲他具体的工作流程就是 logstash agent 监控并过滤日志，将过滤后的日志内容发给redis(这里的redis只处理队列不做存储)，logstash index将日志收集在一起交给<br>全文搜索服务ElasticSearch 可以用ElasticSearch进行自定义搜索 通过Kibana 来结合 自定义搜索进行页面展示，下图是 Kibana官网上的流程图<br><img src="/images/LogSystem/1.png" alt="1"><br>具体的网址：<a target="_blank" rel="noopener" href="http://blog.51cto.com/storysky/1158707">http://blog.51cto.com/storysky/1158707</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/07/LogSystem/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/11/27/Search/">展开全文 >></a>
         </p>
       
 

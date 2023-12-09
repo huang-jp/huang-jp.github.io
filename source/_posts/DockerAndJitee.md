@@ -11,16 +11,16 @@ title: Jenkins + Docker + Gitee 实现部署 Maven 项目(1)
 1.1、删除之前安装的docker(若之前未安装过，此步骤省略…)
 进入centos根目录执行以下命令（\ 是linux系统种命令换行符，如果命令过长，可以用\来换行）
 ```
-  yum remove docker \\
-  docker-client \\
-  docker-client-latest \\
-  docker- common \\
-  docker-latest \\
-  docker-latest-logrotate \\
-  docker-logrotate \\
-  docker-sqlinux \\
-  docker-engine-selinux \\
-  docker-engine \\
+  yum remove docker \
+  docker-client \
+  docker-client-latest \
+  docker- common \
+  docker-latest \
+  docker-latest-logrotate \
+  docker-logrotate \
+  docker-sqlinux \
+  docker-engine-selinux \
+  docker-engine \
   docker-ce
 ```
 1.2、虚拟机联网，安装yum工具 （可省略）
@@ -163,6 +163,7 @@ http {
     server {
         listen       81;
         server_name  localhost;
+        # localhost修改为服务器地址
 
         # https配置参考 start
         #listen       443 ssl;
@@ -203,7 +204,7 @@ http {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header REMOTE-HOST $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass http://server/;
+            proxy_pass http:服务器地址/;
         }
 
         error_page   500 502 503 504  /50x.html;
@@ -257,6 +258,7 @@ version: '3'
 services:
   mysql:
     image: mysql:8.0.31
+    restart: always
     container_name: mysql
     environment:
       # 时区上海
@@ -299,6 +301,7 @@ services:
   redis:
     image: redis:6.2.6
     container_name: redis
+    restart: always
     ports:
       - "6379:6379"
     environment:
@@ -317,7 +320,7 @@ services:
   nginx:
     image: nginx:latest
     container_name: nginx
-	restart: always
+	  restart: always
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -332,7 +335,7 @@ services:
       - /docker/nginx/html:/usr/share/nginx/html
       # 日志目录
       - /docker/nginx/log:/var/log/nginx
-    privileged: true
+    privileged: true 
   ```
   ```
 #nginx不会自动创建需要手动复制文件
@@ -510,7 +513,7 @@ clean package -Dmaven.test.skip=true
  fi
 
  echo "------ 开始运行容器：$SERVER_NAME ------"
- docker run -d --name $SERVER_NAME -p 7530:7530 $IMAGE_NAME
+ docker run -d --name $SERVER_NAME --restart always -p 7530:7530 $IMAGE_NAME
  echo "------ 清理虚悬镜像 ------"
  if [ -n   "$(docker images | grep "none" | awk '{print $3}')" ];then
      docker rmi -f $(docker images | grep "none" | awk '{print $3}')

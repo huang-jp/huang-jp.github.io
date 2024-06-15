@@ -265,7 +265,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql：8.0
+    image: mysql:8.0
     restart: always
     container_name: mysql
     environment:

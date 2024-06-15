@@ -37,7 +37,7 @@ npm -v
 node -v
 npm install --registry=https://registry.npmmirror.com
 echo "************* 删除历史dist****************"
-rm -rf ./dist/* 
+rm -rf ./record/dist/* 
 #打包命令
 npm run build
 #打印容器目录

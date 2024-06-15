@@ -6,6 +6,14 @@ title: Jenkins + Docker + Gitee 实现部署 Maven 项目(1)
 目标： docker-compose 一次性部署基础组件，jenkins 一键发布
 下篇通过jenkins部署前端vue项目
 
+虚拟机系统功能参考
+win远程连接Hyper
+centos复制粘贴功能
+yum安装软件报错找不到包时安装扩展包
+yum install epel-release
+对于 CLI 环境，你可以安装 xclip 或 xsel 工具，然后使用它们的命令来实现复制粘贴。
+sudo yum install xclip
+
 
 一、安装docker
 1.1、删除之前安装的docker(若之前未安装过，此步骤省略…)
@@ -257,7 +265,7 @@ version: '3'
 
 services:
   mysql:
-    image: mysql:8.0.31
+    image: mysql：8.0
     restart: always
     container_name: mysql
     environment:
@@ -268,7 +276,7 @@ services:
       # 初始化数据库
       MYSQL_DATABASE: ry-vue-zhnc
     ports:
-      - "3306:3306"
+      - "3366:3306"
     volumes:
       # 数据挂载
       - /docker/mysql/data/:/var/lib/mysql/
@@ -285,25 +293,26 @@ services:
     
 
   jenkins:
-    image: jenkins/jenkins:2.419
+    image: jenkins/jenkins:lts
     container_name: jenkins
     restart: always
     user: root
     ports:
-    - "8081:8080"
+    - "8086:8080"
     - "50000:50000"
     volumes:
     - /docker/jenkins_home:/var/jenkins_home
     - /etc/localtime:/etc/localtime:ro
     - /usr/bin/docker:/usr/bin/docker 
     - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true
 
   redis:
-    image: redis:6.2.6
+    image: redis:latest
     container_name: redis
     restart: always
     ports:
-      - "6379:6379"
+      - "6376:6379"
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -407,7 +416,7 @@ docker ps -a
 
 安装推荐插件
  ![6](/images/DockerAndJitee/6.png)
- 因为网络原因，需要将插件源设置为国内的，这样才可以安装插件。进入宿主机目录 /home/jenkins_home/，编辑文件 hudson.model.UpdateCenter.xml
+ 因为网络原因，需要将插件源设置为国内的，这样才可以安装插件。进入宿主机目录 /docker/jenkins_home/，编辑文件 hudson.model.UpdateCenter.xml
 
 1.进入宿主机目录 /docker/jenkins_home/
 ```

@@ -32,13 +32,14 @@ sudo yum install unzip
 ![10](/images/DockerAndJiteeAndVue/10.png)
 ![11](/images/DockerAndJiteeAndVue/11.png)
 ```
+#!/bin/bash
 npm -v
 node -v
 npm install --registry=https://registry.npmmirror.com
 echo "************* 删除历史dist****************"
 rm -rf ./dist/* 
 #打包命令
-npm run build:prod
+npm run build
 #打印容器目录
 echo ${PWD}
 echo "************* 准备压缩dist****************"

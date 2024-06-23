@@ -1,0 +1,13 @@
+---
+title: ArrayList、Vector、LinkedList三者的异同点
+---
+一、ArrayList
+ArrayList是一个可以处理变长数组的类型，这里不局限于“数”组，ArrayList是一个泛型类，可以存放任意类型的对象。顾名思义，ArrayList是一个数组列表，因此其内部是使用一个数组来存放对象的，因为Object是一切类型的父类，因而ArrayList内部是有一个Object类型的数组类存放对象。ArrayList类常用的方法有add()、clear()、get()、indexOf()、remove()、sort()、toArray()、toString()等等，同时ArrayList内部有一个私有类实现Iterator接口，因此可以使用iterator()方法得到ArrayList的迭代器，同时，还有一个私有类实现了ListIterator接口，因此ArrayList也可以调用listIterator()方法得到ListIterator迭代器。
+由于ArrayList是依靠数组来存放对象的，只不过封装起来了而已，因此其一些查找方法的效率都是O(n)，跟普通的数组效率差不多，只不过这个ArrayList是一个可变”数组“，并且可以存放一切指定的对象。
+另外，由于ArrayList的所有方法都是默认在单一线程下进行的，因此ArrayList不具有线程安全性。若想在多线程下使用，应该使用Colletions类中的静态方法synchronizedList()对ArrayList进行调用即可。
+二、LinkedList
+LinkedList可以看做为一个双向链表，所有的操作都可以认为是一个双向链表的操作，因为它实现了Deque接口和List接口。同样，LinkedList也是线程不安全的，如果在并发环境下使用它，同样用Colletions类中的静态方法synchronizedList()对LinkedList进行调用即可。
+在LinkedList的内部实现中，并不是用普通的数组来存放数据的，而是使用结点<Node>来存放数据的，有一个指向链表头的结点first和一个指向链表尾的结点last。不同于ArrayList只能在数组末尾添加数据，LinkList可以很方便在链表头或者链表尾插入数据，或者在指定结点前后插入数据，还提供了取走链表头或链表尾的结点，或取走中间某个结点，还可以查询某个结点是否存在。add()方法默认在链表尾部插入数据。总之，LinkedList提供了大量方便的操作方法，并且它的插入或增加等方法的效率明显高于ArrayList类型，但是查询的效率要低一点，因为它是一个双向链表。
+因此，LinkedList与ArrayList最大的区别是LinkedList更加灵活，并且部分方法的效率比ArrayList对应方法的效率要高很多，对于数据频繁出入的情况下，并且要求操作要足够灵活，建议使用LinkedList；对于数组变动不大，主要是用来查询的情况下，可以使用ArrayList。
+三、Vector
+Vector也是一个类似于ArrayList的可变长度的数组类型，它的内部也是使用数组来存放数据对象的。值得注意的是Vector与ArrayList唯一的区别是，Vector是线程安全的，即它的大部分方法都包含有关键字synchronized，因此，若对于单一线程的应用来说，最好使用ArrayList代替Vector，因为这样效率会快很多（类似的情况有StringBuffer与StringBuilder）；而在多线程程序中，为了保证数据的同步和一致性，可以使用Vector代替ArrayList实现同样的功能。

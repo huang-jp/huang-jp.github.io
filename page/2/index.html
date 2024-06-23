@@ -2236,6 +2236,1323 @@ public List&lt;TbUser&gt; selectUser() &#123;
 
 
   
+<<<<<<< HEAD
+    <article id="post-Enum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/Enum/">Java 枚举(enum) 详解7种常见的用法</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/Enum/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.215Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>用法一：常量<br>public enum Color {  <br>RED, GREEN, BLANK, YELLOW  <br>}  </p>
+<p>用法二：switch<br>enum Signal {  <br>    GREEN, YELLOW, RED  <br>}  <br>public class TrafficLight {  <br>    Signal color &#x3D; Signal.RED;  <br>    public void change() {  <br>        switch (color) {  <br>        case RED:  <br>            color &#x3D; Signal.GREEN;  <br>            break;  <br>        case YELLOW:  <br>            color &#x3D; Signal.RED;  <br>            break;  <br>        case GREEN:  <br>            color &#x3D; Signal.YELLOW;  <br>            break;  <br>        }  <br>    }  <br>}  </p>
+<p>用法三：向枚举中添加新方法<br>public enum Color {  <br>    RED(“红色”, 1), GREEN(“绿色”, 2), BLANK(“白色”, 3), YELLO(“黄色”, 4);  <br>    &#x2F;&#x2F; 成员变量  <br>    private String name;  <br>    private int index;  <br>    &#x2F;&#x2F; 构造方法  <br>    private Color(String name, int index) {  <br>        this.name &#x3D; name;  <br>        this.index &#x3D; index;  <br>    }  <br>    &#x2F;&#x2F; 普通方法  <br>    public static String getName(int index) {  <br>        for (Color c : Color.values()) {  <br>            if (c.getIndex() &#x3D;&#x3D; index) {  <br>                return c.name;  <br>            }  <br>        }  <br>        return null;  <br>    }  <br>    &#x2F;&#x2F; get set 方法  <br>    public String getName() {  <br>        return name;  <br>    }  <br>    public void setName(String name) {  <br>        this.name &#x3D; name;  <br>    }  <br>    public int getIndex() {  <br>        return index;  <br>    }  <br>    public void setIndex(int index) {  <br>        this.index &#x3D; index;  <br>    }  <br>}  </p>
+<p>用法四：覆盖枚举的方法<br>public enum Color {  <br>    RED(“红色”, 1), GREEN(“绿色”, 2), BLANK(“白色”, 3), YELLO(“黄色”, 4);  <br>    &#x2F;&#x2F; 成员变量  <br>    private String name;  <br>    private int index;  <br>    &#x2F;&#x2F; 构造方法  <br>    private Color(String name, int index) {  <br>        this.name &#x3D; name;  <br>        this.index &#x3D; index;  <br>    }  <br>    &#x2F;&#x2F;覆盖方法  <br>    @Override  <br>    public String toString() {  <br>        return this.index+”_”+this.name;  <br>    }  <br>}  </p>
+<p>用法五：实现接口<br>public interface Behaviour {  <br>    void print();  <br>    String getInfo();  <br>}  <br>public enum Color implements Behaviour{  <br>    RED(“红色”, 1), GREEN(“绿色”, 2), BLANK(“白色”, 3), YELLO(“黄色”, 4);  <br>    &#x2F;&#x2F; 成员变量  <br>    private String name;  <br>    private int index;  <br>    &#x2F;&#x2F; 构造方法  <br>    private Color(String name, int index) {  <br>        this.name &#x3D; name;  <br>        this.index &#x3D; index;  <br>    }  <br>&#x2F;&#x2F;接口方法  <br>    @Override  <br>    public String getInfo() {  <br>        return this.name;  <br>    }  <br>    &#x2F;&#x2F;接口方法  <br>    @Override  <br>    public void print() {  <br>        System.out.println(this.index+”:”+this.name);  <br>    }  <br>}  </p>
+<p>用法六：使用接口组织枚举<br>public interface Food {  <br>    enum Coffee implements Food{  <br>        BLACK_COFFEE,DECAF_COFFEE,LATTE,CAPPUCCINO  <br>    }  <br>    enum Dessert implements Food{  <br>        FRUIT, CAKE, GELATO  <br>    }  <br>}  </p>
+<p>测试继承接口的枚举的使用（by 大师兄 or 大湿胸。） <br>private static void testImplementsInterface() {  <br>    for (Food.DessertEnum dessertEnum : Food.DessertEnum.values()) {  <br>        System.out.print(dessertEnum + “  “);  <br>    }  <br>    System.out.println();  <br>    &#x2F;&#x2F;我这地方这么写，是因为我在自己测试的时候，把这个coffee单独到一个文件去实现那个food接口，而不是在那个接口的内部。  <br>    for (CoffeeEnum coffee : CoffeeEnum.values()) {  <br>        System.out.print(coffee + “  “);  <br>    }  <br>    System.out.println();  <br>    &#x2F;&#x2F;搞个实现接口，来组织枚举，简单讲，就是分类吧。如果大量使用枚举的话，这么干，在写代码的时候，就很方便调用啦。  <br>    &#x2F;&#x2F;还有就是个“多态”的功能吧，  <br>    Food food &#x3D; Food.DessertEnum.CAKE;  <br>    System.out.println(food);  <br>    food &#x3D; CoffeeEnum.BLACK_COFFEE;  <br>    System.out.println(food);  <br>}  </p>
+<p>运行结果<br><img src="/images/Enum/1.png" alt="1"></p>
+<p>用法七：关于枚举集合的使用<br>package com.lxk.enumTest;  <br>  <br>&#x2F;** <br> * Java枚举用法测试 <br> * <p> <br> * Created by lxk on 2016&#x2F;12&#x2F;15 <br> <em>&#x2F;  <br>public class EnumTest {  <br>    public static void main(String[] args) {  <br>        forEnum();  <br>        useEnumInJava();  <br>    }  <br>  <br>    &#x2F;</em>* <br>     * 循环枚举,输出ordinal属性；若枚举有内部属性，则也输出。(说的就是我定义的TYPE类型的枚举的typeName属性) <br>     <em>&#x2F;  <br>    private static void forEnum() {  <br>        for (SimpleEnum simpleEnum : SimpleEnum.values()) {  <br>            System.out.println(simpleEnum + “  ordinal  “ + simpleEnum.ordinal());  <br>        }  <br>        System.out.println(“——————“);  <br>        for (TYPE type : TYPE.values()) {  <br>            System.out.println(“type &#x3D; “ + type + “    type.name &#x3D; “ + type.name() + “   typeName &#x3D; “ + type.getTypeName() + “   ordinal &#x3D; “ + type.ordinal());  <br>        }  <br>    }  <br>  <br>    &#x2F;</em>* <br>     * 在Java代码使用枚举 <br>     <em>&#x2F;  <br>    private static void useEnumInJava() {  <br>        String typeName &#x3D; “f5”;  <br>        TYPE type &#x3D; TYPE.fromTypeName(typeName);  <br>        if (TYPE.BALANCE.equals(type)) {  <br>            System.out.println(“根据字符串获得的枚举类型实例跟枚举常量一致”);  <br>        } else {  <br>            System.out.println(“大师兄代码错误”);  <br>        }  <br>  <br>    }  <br>  <br>    &#x2F;</em>* <br>     * 季节枚举(不带参数的枚举常量)这个是最简单的枚举使用实例 <br>     * Ordinal 属性，对应的就是排列顺序，从0开始。 <br>     <em>&#x2F;  <br>    private enum SimpleEnum {  <br>        SPRING,  <br>        SUMMER,  <br>        AUTUMN,  <br>        WINTER  <br>    }  <br>  <br>  <br>    &#x2F;</em>* <br>     * 常用类型(带参数的枚举常量，这个只是在书上不常见，实际使用还是很多的，看懂这个，使用就不是问题啦。) <br>     <em>&#x2F;  <br>    private enum TYPE {  <br>        FIREWALL(“firewall”),  <br>        SECRET(“secretMac”),  <br>        BALANCE(“f5”);  <br>  <br>        private String typeName;  <br>  <br>        TYPE(String typeName) {  <br>            this.typeName &#x3D; typeName;  <br>        }  <br>  <br>        &#x2F;</em>* <br>         * 根据类型的名称，返回类型的枚举实例。 <br>         * <br>         * @param typeName 类型名称 <br>         *&#x2F;  <br>        public static TYPE fromTypeName(String typeName) {  <br>            for (TYPE type : TYPE.values()) {  <br>                if (type.getTypeName().equals(typeName)) {  <br>                    return type;  <br>                }  <br>            }  <br>            return null;  <br>        }  <br>  <br>        public String getTypeName() {  <br>            return this.typeName;  <br>        }  <br>    }  <br>}  </p>
+<p>运行结果<br><img src="/images/Enum/2.png" alt="2"></p>
+<p>总结：<br>enum这个关键字，可以理解为跟class差不多，这也个单独的类。可以看到，上面的例子里面有属性，有构造方法，有getter，也可以有setter，但是一般都是构造传参数。还有其他自定义方法。那么在这些东西前面的，以逗号隔开的，最后以分号结尾的，这部分叫做，这个枚举的实例。也可以理解为，class  new 出来的实例对象。这下就好理解了。只是，class，new对象，可以自己随便new，想几个就几个，而这个enum关键字，他就不行，他的实例对象，只能在这个enum里面体现。也就是说，他对应的实例是有限的。这也就是枚举的好处了，限制了某些东西的范围，举个栗子：一年四季，只能有春夏秋冬，你要是字符串表示的话，那就海了去了，但是，要用枚举类型的话，你在enum的大括号里面把所有的选项，全列出来，那么这个季节的属性，对应的值，只能在里面挑。不能有其他的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/Enum/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+<<<<<<< HEAD
+    <article id="post-Agent" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/09/Agent/">安装Agent</a>
+    </h1>
+  
+
+        
+        <a href="/2023/02/09/Agent/" class="archive-article-date">
+  	<time datetime="2023-02-09T03:34:53.198Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>把安装Agent的命令行复制进去远程连接的ip地址（需要在远程建立该ip的连接）<br>然后在远程连接那边转换Window和Linux（即在bash前面输入dos2unix）<br>需要将远程连接到172.16.1.13这一台机器，将Y:\store\30Cloud\upload\agent的文件拷到本地store文件夹里面，需要执行UpdateAgentSql.sql语句,如果之前是安装失败就要移除（rm -rfv   &#x2F;tmp&#x2F;30sCloudAgent&#x2F;）了再添加<br><img src="/images/Agent/1.png" alt="1"><br><img src="/images/Agent/2.png" alt="2"><br><img src="/images/Agent/3.png" alt="3"><br><img src="/images/Agent/4.png" alt="4"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/02/09/Agent/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+<<<<<<< HEAD
+    <article id="post-50Programming" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/09/50Programming/">50道经典的JAVA编程题</a>
+    </h1>
+  
+
+        
+        <a href="/2023/02/09/50Programming/" class="archive-article-date">
+  	<time datetime="2023-02-09T03:34:53.195Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>【程序1】 TestRabbit.java <br>题目：古典问题：有一对兔子，从出生后第3个月起每个月都生一对兔子，小兔子长到第三个月后每个月又生一对兔子，假如兔子都不死，问每个月的兔子总数为多少？ <br>1.程序分析： 兔子的规律为数列1,1,2,3,5,8,13,21….<br>解答：<br>    package test50;</p>
+<pre><code>public class TestRabbit &#123;
+
+public static int sumRabbitNumber(int m)&#123;
+
+    int n = 1;//第0个月对数
+
+    int e = 0;//第0个月对数
+
+    int cup = 0;
+
+    for(int i=1; i&lt;m; i++)&#123;
+
+        cup = n;
+
+        n = e + n;
+
+        e = cup;
+
+    &#125;
+
+    return n;
+
+&#125;
+
+
+
+public static void main(String[] args) &#123;
+
+    for(int i=1; i&lt;=10; i++)&#123;
+
+        System.out.print(sumRabbitNumber(i)+&quot;,&quot;);
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>}<br>【程序2】 FindPrimeNumber.java <br>题目：判断101-200之间有多少个素数，并输出所有素数。 <br>1.程序分析：判断素数的方法：用一个数分别去除2<del>sqrt(n)或者2</del>n&#x2F;2,常用2~n&#x2F;2，</p>
+<p>因为一个数的一半的平方大于其本身是从5开始的，解方程：n&#x2F;2的平方&gt;n .如果能被整除，<br>则表明此数不是素数，反之是素数。<br>解答：<br>    package test50;<br>    public class FindPrimeNumber {</p>
+<pre><code>public static boolean isPrimeNumber(int n)&#123;
+
+    if(n == 2) return true;
+
+    for(int i=2; i&lt;=n/2; i++)&#123;
+
+        if(n % i == 0) return false;
+
+    &#125;
+
+    return true;
+
+&#125;
+
+public static void main(String[] args) &#123;
+
+    int n = 0;
+
+    for(int i=101; i&lt;=200; i++)&#123;
+
+        if(isPrimeNumber(i))&#123;
+
+            n++;
+
+            System.out.print(i + &quot;,&quot;);
+
+        &#125;
+
+    &#125;
+
+    System.out.println(&quot;\n101-200之间有&quot;+n+&quot;个素数&quot;);
+
+&#125;
+</code></pre>
+<p>}<br>【程序3】FindDaffodilNumber.java <br>题目：打印出所有的”水仙花数”，所谓”水仙花数”是指一个三位数，其各位数字立方和等于该数本身。例如： <br>153是一个”水仙花数”，因为153&#x3D;1的三次方＋5的三次方＋3的三次方。 <br>1.程序分析：利用for循环控制100-999个数，每个数分解出个位，十位，百位。<br>解答：<br>    package test50;<br>    public class FindDaffodilNumber {</p>
+<pre><code>public static boolean isDaffodNumber(int n)&#123;
+
+    char[] ch = String.valueOf(n).toCharArray();
+
+    int cup = 0;
+
+    for(int i=0; i&lt;ch.length; i++)&#123;
+
+        cup = cup + (int)Math.pow(Integer.parseInt(String.valueOf(ch[i])), 3) ;
+
+    &#125;
+
+    return (cup == n);
+
+&#125;
+
+
+
+public static void main(String[] args) &#123;
+
+    for(int i=100; i&lt;1000; i++)&#123;
+
+        if(isDaffodNumber(i))&#123;
+
+            System.out.print(i + &quot;,&quot;);
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>}<br>【程序4】FenJie.java <br>题目：将一个正整数分解质因数。例如：输入90,打印出90&#x3D;2<em>3</em>3*5。 <br>程序分析：对n进行分解质因数，应先找到一个最小的质数k，然后按下述步骤完成： <br>(1)如果这个质数恰等于n，则说明分解质因数的过程已经结束，打印出即可。 <br>(2)如果n&lt;&gt;k，但n能被k整除，则应打印出k的值，并用n除以k的商,作为新的正整数你n,重复执行第一步。 <br>(3)如果n不能被k整除，则用k+1作为k的值,重复执行第一步。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+/**
+</code></pre>
+<p> *程序分析：对n进行分解质因数，应先找到一个最小的质数k，然后按下述步骤完成： </p>
+<p> *(1)运用两层循环</p>
+<p> *(2)外循环得到2~n之间的所有质数，内循环将n循环除以质数，知道不能整除</p>
+<p> *(3)要是内循环n等于1了就说明n被完全整除了</p>
+<p> *&#x2F;</p>
+<pre><code>public class Explode &#123;
+
+public static boolean isPrimeNumber(int n)&#123;
+
+    if(n == 2) return true;
+
+    for(int i=2; i&lt;=n/2; i++)&#123;
+
+        if(n % i == 0) return false;
+
+    &#125;
+
+    return true;
+
+&#125;
+
+public static void main(String[] args) &#123;
+
+    BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+            System.in));
+
+    int N = 0;
+    try &#123;
+
+        N = Integer.parseInt(buffer.readLine());
+
+    &#125; catch (IOException e) &#123;
+
+        e.printStackTrace();
+
+    &#125;
+
+    System.out.print(N+&quot;=&quot;);
+
+    for(int i=2; i&lt;N; i++)&#123;
+
+        if(!isPrimeNumber(i)) continue;
+
+        while(N%i == 0)&#123;
+
+            System.out.print(i);
+
+            N = N/i;
+
+            if(N != 1) System.out.print(&quot;*&quot;);
+
+            else break;
+
+        &#125;
+
+    &#125;
+
+    if(N != 1) System.out.println(N);
+
+&#125;
+</code></pre>
+<p>}<br>【程序5】 ConditionOperator.java <br>题目：利用条件运算符的嵌套来完成此题：学习成绩&gt;&#x3D;90分的同学用A表示，60-89分之间的用B表示，60分以下的用C表示。 <br>1.程序分析：(a&gt;b)?a:b这是条件运算符的基本例子。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+public class ConditionOperator &#123;
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int N = 0;
+
+        try &#123;
+
+            N = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(&quot;学习成绩为：&quot; + ((N &lt; 60) ? &quot;C&quot; : (N &lt; 90) ? &quot;B&quot; : &quot;A&quot;));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序6】GcdTest.java辗转相除法 <br>题目：输入两个正整数m和n，求其最大公约数和最小公倍数。 <br>1.程序分析：利用辗除法。<br> 2.辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的相除余数的最大公约数。 </p>
+<p> 3.最小公倍数等于两数之积除以最大公约数</p>
+<p>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+public class GCDAndLCM &#123;
+
+    public static int getGCDNormal(int m, int n)&#123;//最大公约数普通求法
+
+        int i = (m &gt; n ? n : m);
+
+        for(; i&gt;1; i--)&#123;
+
+            if(m%i == 0 &amp;&amp; n%i == 0)
+
+                return i;
+
+        &#125;
+
+        return 1;
+
+    &#125;
+
+    
+
+    public static int getGCD(int m, int n)&#123;//最大公约数辗转相除法
+
+        if(m%n == 0) return n;
+
+        else return getGCD(n, m%n);//递归辗转相除
+
+    &#125;
+
+    
+
+    public static int getLCM(int m, int n)&#123;
+
+        return (m * n)/getGCD(m, n);//最小公倍数等于两数之积除以最大公约数
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int m = 0, n = 0;
+
+        try &#123;
+
+            m = Integer.parseInt(buffer.readLine());
+
+            n = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(&quot;最小公倍数:&quot; + getLCM(m, n));
+
+        System.out.println(&quot;最大公约数:&quot; + getGCD(m, n));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序7】 StChar.java <br>题目：输入一行字符，分别统计出其中英文字母、空格、数字和其它字符的个数。 <br>1.程序分析：利用while语句,条件为输入的字符不为’n’.<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.HashMap;
+
+import java.util.Iterator;
+
+import java.util.Map;
+
+import java.util.Set;
+
+/**
+
+*1.程序分析：利用循环,使用Map存储数据.其实完全可以使用4个变量来解决,这边舍近求远复习下Map啦
+
+*/
+
+public class StChar &#123;
+
+    public static Map&lt;Integer, Integer&gt; countChar(String str)&#123;
+
+        Map&lt;Integer, Integer&gt; m = new HashMap&lt;Integer, Integer&gt;();
+
+        m.put(1, 0);
+
+        m.put(2, 0);
+
+        m.put(3, 0);
+
+        m.put(4, 0);
+
+        char[] ch = str.toCharArray();
+
+        for(int i=0; i&lt;ch.length; i++)&#123;
+
+            if(ch[i] &gt;= &#39;a&#39; &amp;&amp; ch[i] &lt;= &#39;z&#39; || ch[i] &gt;= &#39;A&#39; &amp;&amp; ch[i] &lt;= &#39;Z&#39;)
+
+                m.put(1, m.get(1) + 1);
+
+            else if(ch[i] == &#39; &#39;)
+
+                m.put(2, m.get(2) + 1);
+
+            else if(ch[i] &gt;= &#39;0&#39; &amp;&amp; ch[i] &lt;= &#39;9&#39;)
+
+                m.put(3, m.get(3) + 1);
+
+            else
+
+                m.put(4, m.get(4) + 1);
+
+        &#125;
+
+        return m;
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        String str = null;
+
+        try &#123;
+
+            str = buffer.readLine();
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        Map&lt;Integer, Integer&gt; m = countChar(str);
+
+        Set&lt;Integer&gt; keys = m.keySet();
+
+        Iterator&lt;Integer&gt; it = keys.iterator();
+
+        int n, k;
+
+        while(it.hasNext())&#123;
+
+            k = it.next();
+
+            n = m.get(k);
+
+            switch (k) &#123;
+
+            case 1:
+
+                System.out.println(&quot;英文字母: &quot;+n);
+
+                break;
+
+            case 2:
+
+                System.out.println(&quot;空格: &quot;+n);
+
+                break;
+
+            case 3:
+
+                System.out.println(&quot;数字: &quot;+n);
+
+                break;
+
+            case 4:
+
+                System.out.println(&quot;其它字符: &quot;+n);
+
+                break;
+
+            default:
+
+                break;
+
+            &#125;
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序8】 TestAdd.java <br>题目：求s&#x3D;a+aa+aaa+aaaa+aa…a的值，其中a是一个数字。例如2+22+222+2222+22222(此时共有5个数相加)，几个数相加有键盘控制。 <br>1.程序分析：关键是计算出每一项的值。<br>解答：<br>    package test50;</p>
+<pre><code>import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+
+
+public class TestAdd &#123;
+
+    public static long sumAdd(int a, int n)&#123;
+
+        long cup = 0;
+
+        long ans = 0;
+
+        for(int i=0; i&lt;n; i++)&#123;
+
+            cup = 0;
+
+            for(int j=0; j&lt;=i; j++)&#123;
+
+                cup = cup + a * (long)Math.pow(10, j);
+
+            &#125;
+
+            ans = ans + cup;
+
+        &#125;
+
+        return ans;
+
+    &#125;
+
+    public static void main(String[] args) &#123;
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(
+
+                System.in));
+
+        int n = 0;
+
+        try &#123;
+
+            n = Integer.parseInt(buffer.readLine());
+
+        &#125; catch (IOException e) &#123;
+
+            e.printStackTrace();
+
+        &#125;
+
+        System.out.println(sumAdd(2, n));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序9】 WanShu.java <br>题目：一个数如果恰好等于它的因子之和，这个数就称为”完数”。例如6&#x3D;1＋2＋3.编程 找出1000以内的所有完数。<br>解答：<br>    package test50;</p>
+<pre><code>public class WanShu &#123;
+
+    public static boolean isWanShu(int a)&#123;
+
+        int cup = 0;
+
+        for(int i=1; i&lt;a; i++)&#123;
+
+            if(a%i == 0)
+
+                cup = cup + i;
+
+        &#125;
+
+        return (cup == a);
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        for(int i=1; i&lt;1000; i++)&#123;
+
+            if(isWanShu(i))&#123;
+
+                System.out.print(i + &quot;,&quot;);
+
+            &#125;
+
+        &#125;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序10】TestBall.java <br>题目：一球从100米高度自由落下，每次落地后反跳回原高度的一半；再落下，求它在第10次落地时，共经过多少米？第10次反弹多高？<br>1.程序分析:递归实现<br>解答：<br>    package test50;</p>
+<pre><code>public class TestBall &#123;
+
+    public static double sumBallHeight(double h, int n)&#123;
+
+        if(n == 1) return h/2;
+
+        else return sumBallHeight(h/2, n-1);
+
+    &#125;
+
+    
+
+    public static void main(String[] args) &#123;
+
+        System.out.println(sumBallHeight(100, 10));
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序11】 TestTN.java <br>题目：有1、2、3、4个数字，能组成多少个互不相同且无重复数字的三位数？都是多少？ <br>1.程序分析：可填在百位、十位、个位的数字都是1、2、3、4。组成所有的排列后再去 掉不满足条件的排列。<br>解答：<br>    package test50;</p>
+<pre><code>public class TestTN &#123;
+    public static void main(String[] args) &#123;
+        for(int i=1; i&lt;=4; i++)&#123;
+            for(int j=1; j&lt;=4; j++)&#123;
+                if(j == i) continue;
+                for(int k=1; k&lt;=4; k++)&#123;
+                    if(k == j || k == i) continue;
+                    System.out.print(i*100 + j*10 + k + &quot;,&quot;);
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序12】 MoneyAward.java <br>题目：企业发放的奖金根据利润提成。利润(I)低于或等于10万元时，奖金可提10%；利润高于10万元，低于20万元时，低于10万元的部分按10%提成，高于10万元的部分，可可提成7.5%；20万到40万之间时，高于20万元的部分，可提成5%；40万到60万之间时高于40万元的部分，可提成3%；60万到100万之间时，高于60万元的部分，可提成1.5%，高于100万元时，超过100万元的部分按1%提成，从键盘输入当月利润I，求应发放奖金总数？ <br>1.程序分析：请利用数轴来分界，定位。注意定义时需把奖金定义成长整型。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.InputStreamReader;</p>
+<pre><code>public class MoneyAward &#123;
+    public static double sumMoneyAward(double i)&#123;
+        if(i &lt;= 10)&#123;
+            return i * 0.1;
+        &#125;else if(i &lt; 20)&#123;
+            return ((i - 10) * 0.075 + 1);
+        &#125;else if(i &lt; 40)&#123;
+            return (i - 20) * 0.05;
+        &#125;else if(i &lt; 60)&#123;
+            return (i - 40) * 0.03;
+        &#125;else if(i &lt; 100)&#123;
+            return (i - 60) * 0.015;
+        &#125;else&#123;
+            return (i - 100) * 0.001;
+        &#125;
+    &#125;
+     
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        double I = 0;
+        try &#123;
+            System.out.println(&quot;请输入当月利润I：(单位：万)&quot;);
+            I = Integer.parseInt(br.readLine());
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(&quot;奖金总数:&quot; + sumMoneyAward(I) + &quot;万&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序13】FindNumber.java <br>题目：一个整数，它加上100后是一个完全平方数，再加上168又是一个完全平方数，请问该数是多少？ <br>1.程序分析：在10万以内判断，先将该数加上100后再开方，再将该数加上268后再开方，如果开方后的结果满足如下条件，即是结果。请看具体分析：<br>解答：<br>    package test50;<br>    public class FindNumber {<br>        public static void main(String[] args) {<br>            for(int i&#x3D;1; i&lt;100000; i++){<br>                if(Math.sqrt(i + 100) % 1 &#x3D;&#x3D; 0 &amp;&amp; Math.sqrt(i + 268) % 1 &#x3D;&#x3D; 0){<br>                    System.out.println(i);<br>    &#x2F;&#x2F;              break;<br>                }<br>            }<br>        }<br>    }<br>【程序14】 TestDay.java <br>题目：输入某年某月某日，判断这一天是这一年的第几天？ <br>1.程序分析：以3月5日为例，应该先把前两个月的加起来，然后再加上5天即本年的第几天，特殊情况，闰年且输入月份大于3时需考虑多加一天。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.InputStreamReader;</p>
+<pre><code>public class TestDay &#123;
+    public static boolean isLeapYear(int y)&#123;
+        if((y%4 == 0 &amp;&amp; y%100 != 100) || y%400 == 0)
+            return true;
+        else 
+            return false;
+    &#125;
+    
+    public static int sumDays(int y, int m, int d)&#123;
+        int[] MonthDays = &#123;31,28,31,30,31,30,31,31,30,31,30,31&#125;;
+        if(isLeapYear(y)) MonthDays[1] = 29;
+        int ans = 0;
+        for(int i=0; i&lt;m-1; i++)&#123;
+            ans = ans + MonthDays[i];
+        &#125;
+        return ans + d;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String in = null;
+        try &#123;
+            System.out.println(&quot;请输入年月日，例如：2014-01-01&quot;);
+            in = br.readLine();
+        &#125; catch (Exception e) &#123;
+            System.out.println(&quot;格式错误&quot;);
+        &#125;
+        int y = Integer.parseInt(in.substring(0, in.indexOf(&#39;-&#39;)));
+        int m = Integer.parseInt(in.substring(in.indexOf(&#39;-&#39;) + 1, in.lastIndexOf(&#39;-&#39;)));
+        int d = Integer.parseInt(in.substring(in.lastIndexOf(&#39;-&#39;) + 1));
+        System.out.println(sumDays(y, m, d));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序15】Sort.java <br>题目：输入三个整数x,y,z，请把这三个数由小到大输出。 <br>1.程序分析：我们想办法把最小的数放到x上，先将x与y进行比较，如果x&gt;y则将x与y的值进行交换，然后再用x与z进行比较，如果x&gt;z则将x与z的值进行交换，这样能使x最小。<br>解答：<br>    package test50;<br>    import java.io.BufferedReader;<br>    import java.io.IOException;<br>    import java.io.InputStreamReader;<br>    import java.util.ArrayList;<br>    import java.util.Collections;<br>    import java.util.Iterator;<br>    import java.util.List;</p>
+<pre><code>/**
+* 1.程序分析：舍近求远，练习容器，可以使用List容器很简单实现。
+*/
+public class Sort &#123;
+    public static List&lt;Double&gt; readDouble(String str, String sp)&#123;
+        List&lt;Double&gt; l = new ArrayList&lt;Double&gt;();
+        int j = 0;
+        for(int i=0; i&lt;str.length(); i++)&#123;
+            if(str.substring(i, i+1).equalsIgnoreCase(sp) )&#123;
+                l.add(Double.parseDouble(str.substring(j, i)));
+                j = i + 1;
+            &#125;
+        &#125;
+        return l;
+    &#125;
+    public static void main(String[] args) &#123;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List&lt;Double&gt; l = null;
+        try &#123;
+            System.out.println(&quot;输入数据，如:1,2,3,4,&quot;);
+            l = readDouble(br.readLine(), &quot;,&quot;);
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(l.isEmpty());
+        Collections.sort(l);
+        Iterator&lt;Double&gt; it = l.iterator();
+        while(it.hasNext())&#123;
+            System.out.print(it.next() + &quot; &quot;);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序16】Nine.java <br>题目：输出9*9口诀。 <br>1.程序分析：分行与列考虑，共9行9列，i控制行，j控制列。<br>解答：<br>    package test50;</p>
+<pre><code>public class Nine &#123;
+    public static void main(String[] args) &#123;
+        for(int i=1; i&lt;=9; i++)&#123;
+            for(int j=1; j&lt;=i; j++)&#123;
+                System.out.print(j + &quot;*&quot; + i + &quot;=&quot; + i*j + &quot;  &quot;);
+            &#125;
+            System.out.println();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序17】MonkeyEatPeach.java <br>题目：猴子吃桃问题：猴子第一天摘下若干个桃子，当即吃了一半，还不瘾，又多吃了一个 第二天早上又将剩下的桃子吃掉一半，又多吃了一个。以后每天早上都吃了前一天剩下的一半零一个。到第10天早上想再吃时，见只剩下一个桃子了。求第一天共摘了多少。 <br>1.程序分析：采取逆向思维的方法，从后往前推断。<br>解答：<br>    package test50;<br>    public class MonkeyEatPeach {<br>        public static int getNum(int d){<br>            if(d &#x3D;&#x3D; 0) return 1;<br>            else return (getNum(d-1) + 1) * 2;<br>        }<br>         <br>        public static void main(String[] args) {<br>            System.out.println(getNum(10));<br>        }<br>    }<br>【程序18】 Prog.java <br>题目：两个乒乓球队进行比赛，各出三人。甲队为a,b,c三人，乙队为x,y,z三人。已抽签决定比赛名单。有人向队员打听比赛的名单。a说他不和x比，c说他不和x,z比，请编程序找出三队赛手的名单。 <br>1.程序分析：判断素数的方法：用一个数分别去除2到sqrt(这个数)，如果能被整除， 则表明此数不是素数，反之是素数。<br>解答：<br>    package test50;<br>    public class Prog {<br>        public static void main(String[] args) {<br>            String[] team1 &#x3D; {“a”,”b”,”c”};<br>            String[] team2 &#x3D; {“x”,”y”,”z”};<br>            for(int i&#x3D;0; i&lt;3; i++){<br>                for(int j&#x3D;0; j&lt;3; j++){<br>                    if(i &#x3D;&#x3D; 0 &amp;&amp; j &#x3D;&#x3D; 0)&#x2F;&#x2F;a说他不和x比<br>                        continue;<br>                    else if(i &#x3D;&#x3D; 2 &amp;&amp; (j &#x3D;&#x3D; 0 || j &#x3D;&#x3D; 2))<br>                        continue;&#x2F;&#x2F;c说他不和x,z比<br>                    else{<br>                        System.out.println(team1[i] + “&lt;–&gt;” + team2[j]);<br>                    }<br>                }<br>            }<br>        }<br>    }<br>【程序19】LingXing.java <br>题目：打印出如下图案（菱形） <br>      * <br>    *** <br>  ***** <br>******* <br>  ***** <br>    *** <br>      * <br>1.程序分析：先把图形分成两部分来看待，前四行一个规律，后三行一个规律，利用双重 for循环，第一层控制行，第二层控制列。<br>解答：<br>    package test50;<br>    public class LingXing {<br>        public static void print(int n){<br>            int i &#x3D; 0;<br>            int j &#x3D; 0;<br>            for(i&#x3D;0; i&lt;n; i++){&#x2F;&#x2F;前四行<br>                for(j&#x3D;0; j&lt;n+i;j++){<br>                    if(j &lt; n-i-1)<br>                        System.out.print(“ “);<br>                    else<br>                        System.out.print(“<em>“);<br>                }<br>                System.out.println();<br>            }<br>            for(i&#x3D;1; i&lt;n; i++){&#x2F;&#x2F;后三行<br>                for(j&#x3D;0; j&lt;(2</em>n-i-1); j++){<br>                    if(j &lt; i)<br>                        System.out.print(“ “);<br>                    else<br>                        System.out.print(“*”);<br>                }<br>                System.out.println();<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        print(4);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序20】TestAdd2.java <br>题目：有一分数序列：2&#x2F;1，3&#x2F;2，5&#x2F;3，8&#x2F;5，13&#x2F;8，21&#x2F;13…求出这个数列的前20项之和。 <br>1.程序分析：请抓住分子与分母的变化规律。<br>解答：<br>    package test50;<br>    public class TestAdd2 {<br>        public static double add(int n){<br>            double ans &#x3D; 0;<br>            double a &#x3D; 2;<br>            double b &#x3D; 1;<br>            double cup &#x3D; 0;<br>            for(int i&#x3D;0; i&lt;n; i++){<br>                ans &#x3D; ans + a&#x2F;b;<br>                cup &#x3D; a;<br>                a &#x3D; a + b;<br>                b &#x3D; cup;<br>            }<br>            return ans;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(add(20));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序21】TestJieCheng.java <br>题目：求1+2!+3!+…+20!的和 <br>1.程序分析：此程序只是把累加变成了累乘。<br>解答：<br>    package test50;<br>    public class TestJieCheng {<br>        public static long jieCheng(int n){<br>            if(n &#x3D;&#x3D; 1) return 1;<br>            else return jieCheng(n-1)*n;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        long ans = 0;
+        for(int i=1; i&lt;=20; i++)&#123;
+            ans = ans + jieCheng(i);
+        &#125;
+        System.out.println(ans);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序22】TestJieCheng2.java <br>题目：利用递归方法求5!。 <br>1.程序分析：递归公式：fn&#x3D;fn_1*4!<br>解答：<br>    public static long jieCheng(int n){<br>        if(n &#x3D;&#x3D; 1) return 1;<br>        else return jieCheng(n-1)*n;<br>    }<br>【程序23】TestAge.java <br>题目：有5个人坐在一起，问第五个人多少岁？他说比第4个人大2岁。问第4个人岁数，他说比第3个人大2岁。问第三个人，又说比第2人大两岁。问第2个人，说比第一个人大两岁。最后问第一个人，他说是10岁。请问第五个人多大？ <br>1.程序分析：利用递归的方法，递归分为回推和递推两个阶段。要想知道第五个人岁数，需知道第四人的岁数,依次类推，推到第一人（10岁），再往回推。<br>解答：<br>    package test50;<br>    public class TestAge {<br>        public static int getAge(int n){<br>            if(n &#x3D;&#x3D; 1) return 10;<br>            else return getAge(n-1) + 2;<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(getAge(5));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序24】TestNumber.java <br>题目：给一个不多于5位的正整数，要求：一、求它是几位数，二、逆序打印出各位数字。<br>解答：<br>    package test50;</p>
+<pre><code>import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class TestNumber &#123;
+    public static List&lt;Integer&gt; explodeNumber(long n)&#123;
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        long cup = n;
+        while(cup != 0)&#123;
+            l.add((int) (cup%10));
+            cup = cup/10;
+        &#125;
+        return l;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;给一个不多于5位的正整数:&quot;);
+        Scanner s = new Scanner(System.in);
+        long n = 0;
+        if(s.hasNext()) n = s.nextInt();
+        List&lt;Integer&gt; l = explodeNumber(n);
+        System.out.println(&quot;它是&quot;+l.size()+&quot;位数&quot;);
+        Iterator&lt;Integer&gt; it = l.iterator();
+        while(it.hasNext())&#123;
+            System.out.print(it.next());
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序25】 HuiWenShu.java <br>题目：一个5位数，判断它是不是回文数。即12321是回文数，个位与万位相同，十位与千位相同。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;</p>
+<pre><code>public class HuiWenShu &#123;
+    public static List&lt;Integer&gt; explodeNumber(long n)&#123;
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        long cup = n;
+        while(cup != 0)&#123;
+            l.add((int) (cup%10));
+            cup = cup/10;
+        &#125;
+        return l;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入一个数:&quot;);
+        Scanner s = new Scanner(System.in);
+        long n = 0;
+        if(s.hasNext()) n = s.nextLong();
+        List&lt;Integer&gt; l = explodeNumber(n);
+        Integer[] a = (Integer[])l.toArray(new Integer[]&#123;&#125;);
+        for(int i=0; i&lt;=a.length/2; i++) &#123;
+            if(!a[i].equals(a[a.length-i-1]))&#123;
+                System.out.println(&quot;不是回文&quot;);
+                return;
+            &#125;
+        &#125;
+        System.out.println(&quot;是回文&quot;);
+    &#125;
+&#125;
+【程序26】Ex26.java (跳过了，好没意思的题啊) 
+</code></pre>
+<p>题目：请输入星期几的第一个字母来判断一下是星期几，如果第一个字母一样，则继续 判断第二个字母。 <br>1.程序分析：用情况语句比较好，如果第一个字母一样，则判断用情况语句或if语句判断第二个字母。<br>解答：<br>使用字符数组搞定<br>【程序27】 SuShu.java(详见【程序2】 FindPrimeNumber.java) <br>题目：求100之内的素数<br>解答：<br>参考见【程序2】 FindPrimeNumber.java <br>    public static boolean isPrimeNumber(int n){<br>        if(n &#x3D;&#x3D; 2) return true;<br>        for(int i&#x3D;2; i&lt;&#x3D;n&#x2F;2; i++){<br>            if(n % i &#x3D;&#x3D; 0) return false;<br>        }<br>        return true;<br>    }<br>【程序28】 TestSort.java <br>题目：对10个数进行排序 <br>1.程序分析：可以利用选择法，即从后9个比较过程中，选择一个最小的与第一个元素交换， 下次类推，即用第 <br>二个元素与后8个进行比较，并进行交换。<br>解答：<br>参见【程序15】Sort.java<br>【程序29】 TestAdd3.java <br>题目：求一个3*3矩阵对角线元素之和 <br>1.程序分析：利用双重for循环控制输入二维数组，再将a[i][i]累加后输出。<br>解答：<br>没啥意思的说。。。<br>【程序30】 ArraySort.java <br>题目：有一个已经排好序的数组。现输入一个数，要求按原来的规律将它插入数组中。 </p>
+<ol>
+<li><p>程序分析：首先判断此数是否大于最后一个数，然后再考虑插入中间的数的情况，插入后此元素之后的数， <br>依次后移一个位置。<br>解答：<br> package test50;</p>
+<p> &#x2F;**<br> *1. 程序分析：使用二分法<br> *&#x2F;<br> public class ArraySort {<br> public static int[] addNumber(int[] a, int n){<br>     int i&#x3D;0, j&#x3D;a.length-1;<br>     int cup &#x3D; 0;<br>     if(a[j]&lt;n) cup &#x3D; j+1;<br>     else if(a[i]&gt;n) cup &#x3D; i;<br>     else{<br>         while(j-i&gt;1){<br>             cup &#x3D; (i + j) &#x2F;2;<br>             if(n &gt; a[cup]){&#x2F;&#x2F;n大于中间数<br>                 i &#x3D; cup;<br>             }else if(n &lt; a[cup]){<br>                 j &#x3D; cup;<br>             }else{<br>                 break;<br>             }<br>         }<br>         cup &#x3D; j;<br>     }<br>     &#x2F;&#x2F;插入n<br>     int[] newa &#x3D; new int[a.length+1];<br>     for(i&#x3D;0,j&#x3D;0; i&lt;newa.length; i++){<br>         if(i &#x3D;&#x3D; cup){<br>             newa[i] &#x3D; n;<br>         }else{<br>             newa[i] &#x3D; a[j];<br>             j++;<br>         }<br>     }<br>     return newa;<br> }<br><br> public static void printArray(int[] a){<br>     for(int i&#x3D;0; i&lt;a.length; i++){<br>         System.out.print(a[i]+” “);<br>     }<br> }<br><br> public static void main(String[] args) {<br>     int[] a &#x3D; new int[]{2,3,5,6,7,9,12,16};&#x2F;&#x2F;已经排好序的数组<br>     a &#x3D; addNumber(a, 10);<br>     printArray(a);<br> }<br> }</p>
+</li>
+</ol>
+<p>【程序31】 ArrayConverse.java <br>题目：将一个数组逆序输出。 <br>1.程序分析：用第一个与最后一个交换。<br>解答：<br>    package test50;<br>    public class ArrayConverse {<br>        public static void arrayConverse(int[] a){<br>            int cup&#x3D;0;<br>            for(int i&#x3D;0,j&#x3D;a.length-1; i&lt;j; i++,j–){<br>                cup &#x3D; a[i];<br>                a[i] &#x3D; a[j];<br>                a[j] &#x3D; cup;<br>            }<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int[] a = new int[]&#123;1,2,3,4,5&#125;;
+        printArray(a);
+        arrayConverse(a);
+        printArray(a);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序32】 Ex32.java <br>题目：取一个整数a从右端开始的4～7位。 <br>程序分析：可以这样考虑： <br>(1)先使a右移4位。 <br>(2)设置一个低4位全为1,其余全为0的数。可用<del>(</del>0&lt;&lt;4) <br>(3)将上面二者进行&amp;运算。<br>解答：<br>    package test50;<br>    public class Ex32 {<br>        public static int[] getNum(int a, int m, int n){<br>            int[] ans &#x3D; new int[n-m+1];<br>            for(int i&#x3D;1,j&#x3D;0; j&lt;ans.length &amp;&amp; a&gt;0;i++){<br>                if(i&gt;&#x3D;m &amp;&amp; i&lt;&#x3D;n){<br>                    ans[j] &#x3D; a%10;<br>                    j++;<br>                }<br>                a &#x3D; a &#x2F; 10;<br>            }<br>            return ans;<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=a.length-1; i&gt;=0; i--)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int a = 123456789;
+        int[] ns = getNum(a, 4, 7);
+        System.out.println(a);
+        printArray(ns);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序33】YangHui.java <br>题目：打印出杨辉三角形（要求打印出10行如下图） <br>1.程序分析：  <br>       1 <br>      1 1 <br>     1 2 1 <br>    1 3 3 1 <br>   1 4 6 4 1 <br>1 5 10 10 5 1<br>解答：<br>    package test50;<br>    public class YangHui {<br>        public static int[][] getArray(int n){<br>            int[][] a &#x3D; new int[n][n];<br>            for(int i&#x3D;0; i&lt;n; i++){<br>                for(int j&#x3D;0; j&lt;&#x3D;i; j++){<br>                    if(j &#x3D;&#x3D; 0 || j &#x3D;&#x3D; i){<br>                        a[i][j] &#x3D; 1;<br>                    }else{<br>                        a[i][j] &#x3D; a[i-1][j-1] + a[i-1][j];<br>                    }<br>                }<br>            }<br>            return a;<br>        }</p>
+<pre><code>    public static void print(int[][] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            for(int j=0; j&lt;a.length-i-1; j++)&#123;
+                System.out.print(&quot; &quot;);
+            &#125;
+            for(int j=0; j&lt;a[i].length &amp;&amp; a[i][j]&gt;0; j++)&#123;
+                System.out.print(a[i][j]+&quot; &quot;);
+            &#125;
+            System.out.println();
+        &#125;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        print(getArray(6));
+    &#125;
+
+&#125;
+</code></pre>
+<p>【程序34】 略 前面更复杂的已经做过了 <br>题目：输入3个数a,b,c，按大小顺序输出。 <br>1.程序分析：利用指针方法。<br>解答：<br>参见【程序15】Sort.java<br>【程序35】 ArrayChange.java <br>题目：输入数组，最大的与第一个元素交换，最小的与最后一个元素交换，输出数组。<br>解答：<br>    package test50;<br>    public class ArrayChange {<br>        public static void sort(int[] a){&#x2F;&#x2F;类似冒泡排序<br>            int cup &#x3D; 0;<br>            int l &#x3D; a.length-1;<br>            for(int i&#x3D;1; i&lt;a.length-1; i++){<br>                if(a[i] &gt; a[0]){<br>                    cup &#x3D; a[i];<br>                    a[i] &#x3D; a[0];<br>                    a[0] &#x3D; cup;<br>                }<br>                if(a[i] &lt; a[l]){<br>                    cup &#x3D; a[i];<br>                    a[i] &#x3D; a[l];<br>                    a[l] &#x3D; cup;<br>                }<br>            }<br>        }</p>
+<pre><code>    public static void printArray(int[] a)&#123;
+        for(int i=0; i&lt;a.length; i++)&#123;
+            System.out.print(a[i]+&quot; &quot;);
+        &#125;
+        System.out.println();
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int[] a = new int[]&#123;2,3,5,1,2,34,1,0,24&#125;;
+        printArray(a);
+        sort(a);
+        printArray(a);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序36】 Array1.java <br>题目：有n个整数，使其前面各数顺序向后移m个位置，最后m个数变成最前面的m个数<br>解答：<br>注:我不是很理解这个题,按我的理解来做吧比如n&#x3D;{1,2,3,4,5,6,7,8,9} <br>m&#x3D;2,则应该得到的n&#x3D;{1,2,1,2,3,4,5,1,2} <br>m&#x3D;3,则应该得到的n&#x3D;{1,2,3,1,2,3,1,2,3}<br>【程序37】 Test3Quit.java <br>题目：有n个人围成一圈，顺序排号。从第一个人开始报数（从1到3报数），凡报到3的人退出圈子，问最后留下 <br>的是原来第几号的那位。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;<br>    &#x2F;**<br>    *有200个小朋友拉成一个圆圈，从其中一个小朋友开始依次编号1－200，从1号小朋友开始循环1－3报数，<br>    *数到3的小朋友就退出。编写一个Java应用程序，计算出最后一个小朋友的号码是多少。<br>    *&#x2F;<br>    public class Test3Quit {<br>        public static int play(List<Integer> l, int n, int m){<br>            int s &#x3D; l.size();<br>            if(s &lt;&#x3D; 1) return l.get(0);<br>            else {<br>                n &#x3D; n + m - 1;<br>                while(n &gt;&#x3D; s)<br>                    n &#x3D; n-s;<br>                l.remove(n);<br>                return play(l, n, m);<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入有多少个小朋友:&quot;);
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        List&lt;Integer&gt; l = new ArrayList&lt;Integer&gt;();
+        for(int i=1; i&lt;=n; i++)&#123;
+            l.add(i);
+        &#125;
+        System.out.println(play(l, 0, 3));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序38】 TestLength.java <br>题目：写一个函数，求一个字符串的长度，在main函数中输入字符串，并输出其长度。<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestLength &#123;
+    public static int getLength(String str)&#123;
+        return str.toCharArray().length;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        System.out.println(&quot;输入你的字符串：&quot;);
+        String str = new Scanner(System.in).next();
+        System.out.println(&quot;你的字符串长度为:&quot;+getLength(str));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序39】 Test2.java <br>题目：编写一个函数，输入n为偶数时，调用函数求1&#x2F;2+1&#x2F;4+…+1&#x2F;n,当输入n为奇数时，调用函数 <br>1&#x2F;1+1&#x2F;3+…+1&#x2F;n(利用指针函数)<br>注：java里面貌似没有指针函数吧！这个题是不是C++的啊！我就不纠结指针函数了，实现功能就行了<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class Test2 &#123;
+    public static double sum(int n)&#123;
+        double ans = 0;
+        int i = 1;
+        if(n%2 == 0)
+            i = 2;
+        for(; i&lt;=n;i=i+2)&#123;
+            ans = ans + 1.0/i;
+        &#125;
+        return ans;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int n = new Scanner(System.in).nextInt();
+        System.out.println(sum(n));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序40】 Test3.java <br>题目：字符串排序。<br>注:把字符串转成char，进行排序<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class Test3 &#123;
+    public static String bubbleSort(String str)&#123;
+        boolean flag = true;
+        char[] chs = str.toCharArray();
+        char cup = 0;
+        for(int i=0; i&lt;str.length()-1 &amp;&amp; flag; i++)&#123;
+            flag = false;
+            for(int j=0; j&lt;str.length()-1-i; j++)&#123;
+                if((int)chs[j+1] &lt; (int)chs[j])&#123;
+                    flag = true;
+                    cup = chs[j+1];
+                    chs[j+1] = chs[j];
+                    chs[j] = cup;
+                &#125;
+            &#125;
+        &#125;
+        return new String(chs);
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        String str = new Scanner(System.in).next();
+        System.out.println(bubbleSort(str));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序41】 MonkeyPeach.java <br>题目：海滩上有一堆桃子，五只猴子来分。第一只猴子把这堆桃子凭据分为五份，多了一个，这只猴子把多的一 <br>个扔入海中，拿走了一份。第二只猴子把剩下的桃子又平均分成五份，又多了一个，它同样把多的一个扔入海中 <br>，拿走了一份，第三、第四、第五只猴子都是这样做的，问海滩上原来最少有多少个桃子？<br>解答：<br>    package test50;<br>    public class MonkeyPeach {<br>        public static int getNum(int n, int m){<br>            if(n &gt; 5) return m*4;<br>            else {<br>                double ans &#x3D; getNum(n+1, m) &#x2F; 4.0 * 5 + 1;<br>                if(ans%1 !&#x3D; 0.0 || ans &#x3D;&#x3D; 1){&#x2F;&#x2F;判断结果是否为整数，或者结果不为1<br>                    return 0;<br>                }else<br>                    return (int)ans;<br>            }<br>        }</p>
+<pre><code>    public static void main(String[] args) &#123;
+        int ans = 0;
+        for(int i=1; ; i++)&#123;
+            ans = getNum(1, i);
+            if(ans != 0)&#123;
+                System.out.println(&quot;当最后一只猴子拿走&quot; + i + &quot;个桃子时，海滩上原来桃子得到最小值为：&quot;);
+                System.out.println(ans);
+                break;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+感觉上面的实现方案有点小题大做了，要是直接验证结果的话会更快的得到答案，看代码：
+package test50;
+public class MonkeyPeach_1 &#123;
+    public static boolean isRight(int n) &#123;
+        for(int i=0; i&lt;5; i++) &#123;
+            if(n % 5 == 1) &#123;
+                n = n - 1;
+                n = n - n / 5;
+            &#125;else
+                return false;
+        &#125;
+        return true;
+    &#125;
+
+    public static void main(String[] args) &#123;
+        for(int n=1; ; n++) &#123;
+            if(isRight(n)) &#123;
+                System.out.println(&quot;海滩上原来桃子得到最小值为：&quot; + n);
+                return;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序42】 Test4.java <br>题目：809*??&#x3D;800*??+9*??+1 <br>其中??代表的两位数,8*??的结果为两位数，9*??的结果为3位数。求??代表的两位数，及809*??后的结果。<br>解答：<br>第一种：所有的？？代表同一个数<br>    package test50;<br>    public class Test4 {<br>        public static void main(String[] args) {<br>            for(int i&#x3D;10; i&lt;100 &amp;&amp; 8<em>i&lt;100 &amp;&amp; 9</em>i&lt;1000; i++){<br>                if(809<em>i &#x3D;&#x3D; (800</em>i + 9<em>i + 1)){<br>                    System.out.println(“??代表的两位数:” + i);<br>                    System.out.println(“809</em>??后的结果” + i*809);<br>                    return;<br>                }<br>            }<br>            System.out.println(“没有符合的数”);<br>        }<br>    }</p>
+<pre><code> 
+第二种：所有的？？都不同
+package test50;
+public class Test4_1 &#123;
+    public static void main(String[] args) &#123;
+        for(int i=10; i&lt;100; i++)&#123;
+            for(int j=10; j&lt;100 &amp;&amp; 8*j&lt;100; j++)&#123;
+                for(int l=10; l&lt;100 &amp;&amp; 9*l&lt;1000; l++)&#123;
+                    if(809*i == 800*j + 9*l + 1)&#123;
+                        System.out.println(&quot;809*&quot;+i+&quot; == 800*&quot;+j+&quot;+ 9*&quot;+l+&quot; + 1&quot;);
+                        System.out.println(&quot;809*??后的结果&quot; + i*809);
+                        return;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        System.out.println(&quot;没有符合的数&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>【程序43】 Test5.java <br>题目：求0—7所能组成的奇数个数。<br>注：当有一位数时：有1.3.5.7这4个奇数<br>当有两位数时：最高为有7种（除0）选择，最低为有4（1.3.5.7为奇数的条件）种  总数为4<em>7<br>当有三位数时：最高为有7中（除0）选择，第二位有8中选择，最后一位4种（1.3.5.7） 总数 4</em>8<em>7<br>当有四位数时：最高为有7中（除0）选择，第三位有8中选择，第二位有8中选择，最后一位4种（1.3.5.7） 总数 4</em>8<em>8</em>7<br>解答：<br>    package test50;<br>    public class Test5 {<br>        public static void main(String[] args) {<br>            int cup &#x3D; 7<em>4;&#x2F;&#x2F;二位数<br>            int count &#x3D; cup + 4;<br>            for(int i&#x3D;2; i&lt;8; i++){<br>                cup &#x3D; 8</em>cup;<br>                count &#x3D; count + cup;<br>            }<br>            System.out.println(“0—7所能组成的奇数个数:” + count);<br>        }<br>    }<br>【程序44】 TestEven.java <br>题目：一个偶数总能表示为两个素数之和。<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestEven &#123;
+    public static boolean isPrimeNumber(int n)&#123;
+        if(n &lt; 2)return false;
+        for(int i=2; i&lt;n; i++)&#123;
+            if(n%i == 0)
+                return false;
+        &#125;
+        return true;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        int n = new Scanner(System.in).nextInt();
+        
+        if(n%2 != 0)&#123;
+            System.out.println(&quot;输入的不是偶数&quot;);
+            return;
+        &#125;
+        for(int i=2; i&lt;n; i++)&#123;
+            if(isPrimeNumber(i) &amp;&amp; isPrimeNumber(n - i))&#123;
+                System.out.println(n + &quot; = &quot; + i + &quot;+&quot; + (n-i));
+                return;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序45】TestPrime9.java <br>题目：判断一个素数能被几个9整除<br>解答：<br>这个题貌是有问题吧，素数只能被1和自身整除啊，9都不是素数。。。无解<br>【程序46】 TestString.java <br>题目：两个字符串连接程序<br>注：转换成数组的连接,实际使用String.concat()<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestString &#123;
+    public static String connextString(String str1, String str2)&#123;
+        byte[] buf = new byte[str1.length() + str2.length()];
+        str1.getBytes(0, str1.length(), buf, 0);
+        str2.getBytes(0, str2.length(), buf, str1.length());
+        return new String(buf);
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        System.out.println(&quot;输入第一个字符串:&quot;);
+        String str1 = s.next();
+        System.out.println(&quot;输入第二个字符串:&quot;);
+        String str2 = s.next();
+        System.out.println(connextString(str1, str2));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序47】 TestPrint.java <br>题目：读取7个数（1—50）的整数值，每读取一个值，程序打印出该值个数的＊。<br>解答：<br>    package test50;<br>    import java.util.Scanner;<br>    public class TestPrint {<br>        public static void main(String[] args) {<br>            Scanner s &#x3D; new Scanner(System.in);<br>            int[] a &#x3D; new int[7];<br>            for(int i&#x3D;0; i&lt;7; i++){<br>                System.out.print(“输入第”+(i+1)+”个整数：”);<br>                a[i] &#x3D; s.nextInt();<br>            }<br>            for(int i&#x3D;0; i&lt;7; i++){<br>                for(int j&#x3D;0; j&lt;a[i]; j++){<br>                    System.out.print(“*”);<br>                }<br>                System.out.println();<br>            }<br>        }<br>    }<br>【程序48】 TestCode.java <br>题目：某个公司采用公用电话传递数据，数据是四位的整数，在传递过程中是加密的，加密规则如下：每位数字 <br>都加上5,然后用和除以10的余数代替该数字，再将第一位和第四位交换，第二位和第三位交换。<br>解答：<br>    package test50;<br>    import java.util.ArrayList;<br>    import java.util.List;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestCode &#123;
+    public static void encrypt(int[] a)&#123;
+        int cup = 0;
+        for(int i=0; i&lt;4; i++)&#123;
+            a[i] = (a[i] + 5) % 10;
+        &#125;
+        cup = a[0];
+        a[0] = a[3];
+        a[3] = cup;
+        
+        cup = a[1];
+        a[1] = a[2];
+        a[2] = cup;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        int[] a = new int[4];
+        for(int i=0; i&lt;4; i++)&#123;
+            System.out.print(&quot;输入第&quot;+(i+1)+&quot;位数：&quot;);
+            a[i] = s.nextInt();
+        &#125;
+        encrypt(a);
+        for(int i=0; i&lt;4; i++)&#123;
+            System.out.print(a[i]);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>【程序49】 TestString2.java <br>题目：计算字符串中子串出现的次数<br>解答：<br>    package test50;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestString2 &#123;
+    public static int findString(String str1, String str2)&#123;
+        int count = 0;
+        char[] chs1 = str1.toCharArray();
+        char[] chs2 = str2.toCharArray();
+        for(int i=0,j=0; i&lt;chs1.length; i++)&#123;
+            for(j=0; j&lt;chs2.length; j++)&#123;
+                if(chs1[i+j] != chs2[j])
+                    break;
+            &#125;
+            if(j == chs2.length)&#123;//完全匹配
+                count++;
+                i = i + j - 1;
+            &#125;
+        &#125;
+        return count;
+    &#125;
+    
+    public static void main(String[] args) &#123;
+        Scanner s = new Scanner(System.in);
+        System.out.println(&quot;输入字符串:&quot;);
+        String str1 = s.next();
+        System.out.println(&quot;输入要查找的字符串:&quot;);
+        String str2 = s.next();
+        System.out.println(&quot;查找到的个数：&quot; + findString(str1, str2));
+    &#125;
+&#125;
+</code></pre>
+<p>【程序50】TestStu.java <br>题目：有五个学生，每个学生有3门课的成绩，从键盘输入以上数据（包括学生号，姓名，三门课成绩），计算 <br>出平均成绩，况原有的数据和计算出的平均分数存放在磁盘文件”stud”中。<br>解答：<br>    package test50;<br>    import java.io.BufferedWriter;<br>    import java.io.File;<br>    import java.io.FileWriter;<br>    import java.io.IOException;<br>    import java.util.Scanner;</p>
+<pre><code>public class TestStu &#123;
+    public static void main(String[] args) &#123;
+        int n = 5;//人数
+        Scanner s = new Scanner(System.in);
+        String[] num = new String[n];
+        String[] name = new String[n];
+        float[][] grade = new float[n][3];
+        float[] ave = new float[n];
+        //输入数据
+        for(int i=0; i&lt;n; i++)&#123;
+            System.out.print(&quot;学号:&quot;);
+            num[i] = s.next();
+            System.out.print(&quot;姓名:&quot;);
+            name[i] = s.next();
+            for(int j=0; j&lt;3; j++)&#123;
+                System.out.print(&quot;第&quot;+(j+1)+&quot;门课成绩:&quot;);
+                grade[i][j] = s.nextFloat();
+            &#125;
+        &#125;
+        //处理数据
+        for(int i=0; i&lt;n; i++)&#123;
+            for(int j=0; j&lt;3; j++)&#123;
+                ave[i] += grade[i][j];
+            &#125;
+            ave[i] /= 3;
+        &#125;
+        //写入文件
+        try &#123;
+            FileWriter fw = new FileWriter(new File(&quot;d://stud.txt&quot;));
+            BufferedWriter bw  = new BufferedWriter(fw);
+            for(int i=0; i&lt;n; i++)&#123;
+                bw.write(&quot;学号:&quot; + num[i] + &quot;  &quot;);
+                bw.write(&quot;姓名:&quot; + name[i] + &quot;  &quot;);
+                bw.write(&quot;成绩:&#123;  &quot;);
+                for(int j=0; j&lt;3; j++)&#123;
+                    bw.write(grade[i][j] + &quot;  &quot;);
+                &#125;
+                bw.write(&quot;&#125; &quot;);
+                bw.write(&quot;平均成绩: &quot; + ave[i]);
+                bw.newLine();
+            &#125;
+            bw.close();
+        &#125; catch (IOException e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/VellBibi/p/3500671.html">https://www.cnblogs.com/VellBibi/p/3500671.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/02/09/50Programming/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+=======
+>>>>>>> 435d24f4e2a17833936d288d8ff246628a7b68a1
+=======
+>>>>>>> 921078452d3253008459c7d151399f8544a93ba3
+=======
+>>>>>>> 132430bd9034dfe3b9cdbf46a8628323e846c747
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>

@@ -14,6 +14,8 @@ yum install epel-release
 对于 CLI 环境，你可以安装 xclip 或 xsel 工具，然后使用它们的命令来实现复制粘贴。
 sudo yum install xclip
 
+ubuntu安装docker参考
+https://blog.csdn.net/Apricity_L/article/details/137064982
 
 一、安装docker
 1.1、删除之前安装的docker(若之前未安装过，此步骤省略…)
@@ -290,7 +292,6 @@ services:
       --explicit_defaults_for_timestamp=true
       --lower_case_table_names=1
     privileged: true
-    
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -323,8 +324,6 @@ services:
       - /docker/redis/data/:/redis/data/
     command: "redis-server /redis/config/redis.conf"
     privileged: true
-
-
 
   nginx:
     image: nginx:latest

@@ -226,11 +226,13 @@ http {
         # 多个项目（前端H5客户端）
         location / {
             root   /usr/share/nginx/html/webapp/dist;
+            try_files $uri $uri/ /index.html;
             index  index.html index.htm;
         }
         # 多个项目（后台管理系统）
         location /manage {
             alias  /usr/share/nginx/html/manage/dist;
+            try_files $uri $uri/ /index.html;
             index  index.html;
         }
        

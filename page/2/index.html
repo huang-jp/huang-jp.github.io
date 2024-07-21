@@ -143,73 +143,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/Shiro/">Shiro入门教程</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/Shiro/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.254Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
-<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
-<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
-<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
-<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/Shiro/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Search" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -277,6 +210,133 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/11/27/Search/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-List" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/List/">ArrayList、Vector、LinkedList三者的异同点</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/List/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、ArrayList<br>ArrayList是一个可以处理变长数组的类型，这里不局限于“数”组，ArrayList是一个泛型类，可以存放任意类型的对象。顾名思义，ArrayList是一个数组列表，因此其内部是使用一个数组来存放对象的，因为Object是一切类型的父类，因而ArrayList内部是有一个Object类型的数组类存放对象。ArrayList类常用的方法有add()、clear()、get()、indexOf()、remove()、sort()、toArray()、toString()等等，同时ArrayList内部有一个私有类实现Iterator接口，因此可以使用iterator()方法得到ArrayList的迭代器，同时，还有一个私有类实现了ListIterator接口，因此ArrayList也可以调用listIterator()方法得到ListIterator迭代器。<br>由于ArrayList是依靠数组来存放对象的，只不过封装起来了而已，因此其一些查找方法的效率都是O(n)，跟普通的数组效率差不多，只不过这个ArrayList是一个可变”数组“，并且可以存放一切指定的对象。<br>另外，由于ArrayList的所有方法都是默认在单一线程下进行的，因此ArrayList不具有线程安全性。若想在多线程下使用，应该使用Colletions类中的静态方法synchronizedList()对ArrayList进行调用即可。<br>二、LinkedList<br>LinkedList可以看做为一个双向链表，所有的操作都可以认为是一个双向链表的操作，因为它实现了Deque接口和List接口。同样，LinkedList也是线程不安全的，如果在并发环境下使用它，同样用Colletions类中的静态方法synchronizedList()对LinkedList进行调用即可。<br>在LinkedList的内部实现中，并不是用普通的数组来存放数据的，而是使用结点<Node>来存放数据的，有一个指向链表头的结点first和一个指向链表尾的结点last。不同于ArrayList只能在数组末尾添加数据，LinkList可以很方便在链表头或者链表尾插入数据，或者在指定结点前后插入数据，还提供了取走链表头或链表尾的结点，或取走中间某个结点，还可以查询某个结点是否存在。add()方法默认在链表尾部插入数据。总之，LinkedList提供了大量方便的操作方法，并且它的插入或增加等方法的效率明显高于ArrayList类型，但是查询的效率要低一点，因为它是一个双向链表。<br>因此，LinkedList与ArrayList最大的区别是LinkedList更加灵活，并且部分方法的效率比ArrayList对应方法的效率要高很多，对于数据频繁出入的情况下，并且要求操作要足够灵活，建议使用LinkedList；对于数组变动不大，主要是用来查询的情况下，可以使用ArrayList。<br>三、Vector<br>Vector也是一个类似于ArrayList的可变长度的数组类型，它的内部也是使用数组来存放数据对象的。值得注意的是Vector与ArrayList唯一的区别是，Vector是线程安全的，即它的大部分方法都包含有关键字synchronized，因此，若对于单一线程的应用来说，最好使用ArrayList代替Vector，因为这样效率会快很多（类似的情况有StringBuffer与StringBuilder）；而在多线程程序中，为了保证数据的同步和一致性，可以使用Vector代替ArrayList实现同样的功能。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/List/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-LogSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/LogSystem/">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/LogSystem/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>       Logstash是一个完全开源的工具，他可以对你的日志进行收集、分析，并将其存储供以后使用（如，搜索），您可以使用它。说到搜索，logstash带有一个web界面，搜索和展示所有日志。<br>        kibana 也是一个开源和免费的工具，他可以帮助您汇总、分析和搜索重要数据日志并提供友好的web界面。他可以为 Logstash 和 ElasticSearch 提供的日志分析的 Web 界面</p>
+<p> 简单来讲他具体的工作流程就是 logstash agent 监控并过滤日志，将过滤后的日志内容发给redis(这里的redis只处理队列不做存储)，logstash index将日志收集在一起交给<br>全文搜索服务ElasticSearch 可以用ElasticSearch进行自定义搜索 通过Kibana 来结合 自定义搜索进行页面展示，下图是 Kibana官网上的流程图<br><img src="/images/LogSystem/1.png" alt="1"><br>具体的网址：<a target="_blank" rel="noopener" href="http://blog.51cto.com/storysky/1158707">http://blog.51cto.com/storysky/1158707</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/LogSystem/">展开全文 >></a>
         </p>
       
 
@@ -377,133 +437,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/11/27/LogPlatform/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LogSystem" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/LogSystem/">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/LogSystem/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>       Logstash是一个完全开源的工具，他可以对你的日志进行收集、分析，并将其存储供以后使用（如，搜索），您可以使用它。说到搜索，logstash带有一个web界面，搜索和展示所有日志。<br>        kibana 也是一个开源和免费的工具，他可以帮助您汇总、分析和搜索重要数据日志并提供友好的web界面。他可以为 Logstash 和 ElasticSearch 提供的日志分析的 Web 界面</p>
-<p> 简单来讲他具体的工作流程就是 logstash agent 监控并过滤日志，将过滤后的日志内容发给redis(这里的redis只处理队列不做存储)，logstash index将日志收集在一起交给<br>全文搜索服务ElasticSearch 可以用ElasticSearch进行自定义搜索 通过Kibana 来结合 自定义搜索进行页面展示，下图是 Kibana官网上的流程图<br><img src="/images/LogSystem/1.png" alt="1"><br>具体的网址：<a target="_blank" rel="noopener" href="http://blog.51cto.com/storysky/1158707">http://blog.51cto.com/storysky/1158707</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/LogSystem/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-List" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/List/">ArrayList、Vector、LinkedList三者的异同点</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/List/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一、ArrayList<br>ArrayList是一个可以处理变长数组的类型，这里不局限于“数”组，ArrayList是一个泛型类，可以存放任意类型的对象。顾名思义，ArrayList是一个数组列表，因此其内部是使用一个数组来存放对象的，因为Object是一切类型的父类，因而ArrayList内部是有一个Object类型的数组类存放对象。ArrayList类常用的方法有add()、clear()、get()、indexOf()、remove()、sort()、toArray()、toString()等等，同时ArrayList内部有一个私有类实现Iterator接口，因此可以使用iterator()方法得到ArrayList的迭代器，同时，还有一个私有类实现了ListIterator接口，因此ArrayList也可以调用listIterator()方法得到ListIterator迭代器。<br>由于ArrayList是依靠数组来存放对象的，只不过封装起来了而已，因此其一些查找方法的效率都是O(n)，跟普通的数组效率差不多，只不过这个ArrayList是一个可变”数组“，并且可以存放一切指定的对象。<br>另外，由于ArrayList的所有方法都是默认在单一线程下进行的，因此ArrayList不具有线程安全性。若想在多线程下使用，应该使用Colletions类中的静态方法synchronizedList()对ArrayList进行调用即可。<br>二、LinkedList<br>LinkedList可以看做为一个双向链表，所有的操作都可以认为是一个双向链表的操作，因为它实现了Deque接口和List接口。同样，LinkedList也是线程不安全的，如果在并发环境下使用它，同样用Colletions类中的静态方法synchronizedList()对LinkedList进行调用即可。<br>在LinkedList的内部实现中，并不是用普通的数组来存放数据的，而是使用结点<Node>来存放数据的，有一个指向链表头的结点first和一个指向链表尾的结点last。不同于ArrayList只能在数组末尾添加数据，LinkList可以很方便在链表头或者链表尾插入数据，或者在指定结点前后插入数据，还提供了取走链表头或链表尾的结点，或取走中间某个结点，还可以查询某个结点是否存在。add()方法默认在链表尾部插入数据。总之，LinkedList提供了大量方便的操作方法，并且它的插入或增加等方法的效率明显高于ArrayList类型，但是查询的效率要低一点，因为它是一个双向链表。<br>因此，LinkedList与ArrayList最大的区别是LinkedList更加灵活，并且部分方法的效率比ArrayList对应方法的效率要高很多，对于数据频繁出入的情况下，并且要求操作要足够灵活，建议使用LinkedList；对于数组变动不大，主要是用来查询的情况下，可以使用ArrayList。<br>三、Vector<br>Vector也是一个类似于ArrayList的可变长度的数组类型，它的内部也是使用数组来存放数据对象的。值得注意的是Vector与ArrayList唯一的区别是，Vector是线程安全的，即它的大部分方法都包含有关键字synchronized，因此，若对于单一线程的应用来说，最好使用ArrayList代替Vector，因为这样效率会快很多（类似的情况有StringBuffer与StringBuilder）；而在多线程程序中，为了保证数据的同步和一致性，可以使用Vector代替ArrayList实现同样的功能。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/List/">展开全文 >></a>
         </p>
       
 
@@ -2236,6 +2169,73 @@ public List&lt;TbUser&gt; selectUser() &#123;
 
 
   
+    <article id="post-DuplicateRemoval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/DuplicateRemoval/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.212Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>查询相同数据：	<br>select * from table1 inner join table2 on table1.codeid&#x3D;table2.codeid </p>
+<p>两张表数据数据（去掉重复数据）：		<br>select t1.codeid ,t1.cedename from  table1  union  select t2.codeid ,t2.cedename from  table1</p>
+<p>全部数据（包括重复数据）：       	<br>select codeid,cedename from table1 union all select codeid,cedename from table2  </p>
+<p>SQL查询一个表中另外一个表不存在的数据：</p>
+<p>#方法一：使用 not in ,容易理解,效率低  <del>执行时间为：1.395秒</del><br>SELECT table1.name FROM table1 WHERE table1.name NOT IN (SELECT table2.name FROM table2);<br>#方法二：使用 left join…on… , “B.ID isnull” 表示左连接之后在B.ID 字段为 null的记录  <del>执行时间：0.739秒</del><br>SELECT COUNT(1) FROM ecs_goods LEFT JOIN ecs_member_price ON ecs_goods.goods_id&#x3D;ecs_member_price.goods_id WHERE ecs_member_price.goods_id IS NULL;<br>#方法三：逻辑相对复杂,但是速度最快  <del>执行时间: 0.570秒</del><br>SELECT COUNT(1) FROM  ecs_goods c WHERE (SELECT COUNT(1) AS num FROM ecs_member_price WHERE ecs_member_price.goods_id&#x3D;ecs_goods.goods_id) &#x3D; 0;</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/DuplicateRemoval/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
@@ -2381,7 +2381,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://192.168.216.128:9000/buckets/record/browse/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">

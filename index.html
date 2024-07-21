@@ -214,79 +214,6 @@
 
 
   
-    <article id="post-baidu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>const axios &#x3D; require(‘axios’);</p>
-<p>&#x2F;&#x2F; 登录百度网盘，获取Cookies<br>async function loginToBaiduPan(username, password) {<br>    const loginUrl &#x3D; ‘<a target="_blank" rel="noopener" href="https://pan.baidu.com/api/login&#39;">https://pan.baidu.com/api/login&#39;</a>;<br>    const loginData &#x3D; {<br>        username: username,<br>        password: password<br>    };</p>
-<pre><code>try &#123;
-    const response = await axios.post(loginUrl, loginData, &#123; withCredentials: true &#125;);
-    return response.headers[&#39;set-cookie&#39;];
-&#125; catch (error) &#123;
-    console.error(&#39;登录失败:&#39;, error);
-    return null;
-&#125;
-</code></pre>
-<p>}</p>
-<p>&#x2F;&#x2F; 使用Cookies请求百度网盘数据<br>async function fetchBaiduPanData(cookies) {<br>    const dataFetchUrl &#x3D; ‘<a target="_blank" rel="noopener" href="https://pan.baidu.com/api/your-data-endpoint&#39;">https://pan.baidu.com/api/your-data-endpoint&#39;</a>;</p>
-<pre><code>try &#123;
-    const response = await axios.get(dataFetchUrl, &#123;
-        headers: &#123; &#39;Cookie&#39;: cookies.join(&#39;; &#39;) &#125;,
-        withCredentials: true
-    &#125;);
-    return response.data;
-&#125; catch (error) &#123;
-    console.error(&#39;数据请求失败:&#39;, error);
-    return null;
-&#125;
-</code></pre>
-<p>}</p>
-<p>&#x2F;&#x2F; 使用示例<br>async function main() {<br>    const username &#x3D; ‘你的百度账号’;<br>    const password &#x3D; ‘你的百度密码’;<br>    const cookies &#x3D; await loginToBaiduPan(username, password);<br>    if (cookies) {<br>        const data &#x3D; await fetchBaiduPanData(cookies);<br>        console.log(data);<br>    }<br>}</p>
-<p>main();</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/04/19/baidu/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-DockerAndJiteeAndVue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -779,6 +706,71 @@
 
 
   
+    <article id="post-ThreeCharacteristics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/ThreeCharacteristics/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.封装<br>封装的概念：把对象的属性和方法结合成一个独立的整体，隐藏实现细节，并提供对外访问的接口。<br>封装的好处：<br>（1）：隐藏实现细节。好比你买了台电视机，你只需要怎么使用，并不用了解其实现原理。<br>（2）：安全性。比如你在程序中私有化了age属性，并提供了对外的get和set方法，当外界 使用set<br>方法为属性设值的时候 你可以在set方法里面做个if判断，把值设值在0-80岁，那样他就不能随意赋值了。<br>（3）：增加代码的复用性。好比在工具类中封装的各种方法，你可以在任意地方重复调用，<br>而不用再每处都去实现其细节。<br>（4）：模块化。封装分为属性封装，方法封装，类封装，插件封装，模块封装，系统封装等等。有<br>利于程序的协助分工，互不干扰，方便了模块之间的相互组合与分解，也有利于代码的调试和维护。比如人体由各个器官所组成，如果有个器官出现问题，你只要去对这个器官进行医治就行了。<br>2.继承<br>继承的概念：从已知的一个类中派生出新的一个类，叫子类。子类实现了父类所有非私有化属性和方<br>法，并能根据自己的实际需求扩展出新的行为。<br>继承的好处：<br>（1）：继承是传递的，容易在其基础上构造，建立和扩充出新的类。<br>（2）：简化了人们对事物的认识和描述，能清晰体现相关类之间的层次结构关系。<br>（3）：能减少数据和代码的冗余度。<br>（4）：大大增加了代码的维护性。<br>3.多态<br>多态的概念：多个不同的对象对同一消息作出响应，同一消息根据不同的对象而采用各种不同的行为方法。<br>多态的好处：主要是利于扩展。直接上代码自己来体会。<br>&#x2F;&#x2F;比如我在马剑威磨砺营毕业后，找到一份工作，前期买了一辆大众车，实现代码如下：  <br>public class test{  <br>    public static void main(String[] args){  <br>        DZ dz &#x3D;new DZ(“大众”);  <br>        people p &#x3D;new people();  <br>        p.drive(dz);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(“上海大众在已120迈的速度在跑”);  <br>    }  <br>}  </p>
+<p>&#x2F;&#x2F;后期如果我有钱以后又买了一辆奔驰，我要换奔驰 ，不用多态的情况下代码如下：  <br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>    }  <br>}  <br>    }  <br>      <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public Benz benz;  <br>      <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>      <br>    public void drive(Benz benz){  <br>        this.benz&#x3D;benz;  <br>        benz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>  <br>class Benz{  <br>    public String name;  <br>    public Benz(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>      <br>}  </p>
+<p>&#x2F;&#x2F;这样是不是程序粘连性太强，不利于扩展，而且Java特性是对扩展开放，对修改关闭 我每换一辆车就需要改代码。  <br>&#x2F;&#x2F;那样代码修改太多，也不安全，用了多态以后，效果就很不一样了，妈妈在也不用担心我换车了<br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        DZ dz&#x3D;new DZ(“大众车”);  <br>        BMW bmw&#x3D;new BMW(“宝马车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>        p.drive(dz);  <br>        p.drive(bmw);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public Car car;  <br>      <br>      <br>        this.car&#x3D;car;  <br>        car.run();  <br>    public void drive(Car car){  <br>}  <br>  <br>class Car{  <br>    public String name;  <br>      <br>    public Car(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>      <br>    public void run(){  <br>        System.out.println(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>class DZ extends Car{  <br>   public DZ(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class Benz extends Car{  <br>    public Benz(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class BMW extends Car{  <br>    public BMW(String name){  <br>        super(name);  <br>    }  <br>   <br>}  <br>4.抽象<br>抽象的概念：通过特定的实例抽取出共同的特征以后形成的概念的过程，它强调主要特征和忽略次要<br>特征。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/ThreeCharacteristics/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -825,71 +817,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/11/27/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ThreeCharacteristics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/ThreeCharacteristics/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.封装<br>封装的概念：把对象的属性和方法结合成一个独立的整体，隐藏实现细节，并提供对外访问的接口。<br>封装的好处：<br>（1）：隐藏实现细节。好比你买了台电视机，你只需要怎么使用，并不用了解其实现原理。<br>（2）：安全性。比如你在程序中私有化了age属性，并提供了对外的get和set方法，当外界 使用set<br>方法为属性设值的时候 你可以在set方法里面做个if判断，把值设值在0-80岁，那样他就不能随意赋值了。<br>（3）：增加代码的复用性。好比在工具类中封装的各种方法，你可以在任意地方重复调用，<br>而不用再每处都去实现其细节。<br>（4）：模块化。封装分为属性封装，方法封装，类封装，插件封装，模块封装，系统封装等等。有<br>利于程序的协助分工，互不干扰，方便了模块之间的相互组合与分解，也有利于代码的调试和维护。比如人体由各个器官所组成，如果有个器官出现问题，你只要去对这个器官进行医治就行了。<br>2.继承<br>继承的概念：从已知的一个类中派生出新的一个类，叫子类。子类实现了父类所有非私有化属性和方<br>法，并能根据自己的实际需求扩展出新的行为。<br>继承的好处：<br>（1）：继承是传递的，容易在其基础上构造，建立和扩充出新的类。<br>（2）：简化了人们对事物的认识和描述，能清晰体现相关类之间的层次结构关系。<br>（3）：能减少数据和代码的冗余度。<br>（4）：大大增加了代码的维护性。<br>3.多态<br>多态的概念：多个不同的对象对同一消息作出响应，同一消息根据不同的对象而采用各种不同的行为方法。<br>多态的好处：主要是利于扩展。直接上代码自己来体会。<br>&#x2F;&#x2F;比如我在马剑威磨砺营毕业后，找到一份工作，前期买了一辆大众车，实现代码如下：  <br>public class test{  <br>    public static void main(String[] args){  <br>        DZ dz &#x3D;new DZ(“大众”);  <br>        people p &#x3D;new people();  <br>        p.drive(dz);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(“上海大众在已120迈的速度在跑”);  <br>    }  <br>}  </p>
-<p>&#x2F;&#x2F;后期如果我有钱以后又买了一辆奔驰，我要换奔驰 ，不用多态的情况下代码如下：  <br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>    }  <br>}  <br>    }  <br>      <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public Benz benz;  <br>      <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>      <br>    public void drive(Benz benz){  <br>        this.benz&#x3D;benz;  <br>        benz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>  <br>class Benz{  <br>    public String name;  <br>    public Benz(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>      <br>}  </p>
-<p>&#x2F;&#x2F;这样是不是程序粘连性太强，不利于扩展，而且Java特性是对扩展开放，对修改关闭 我每换一辆车就需要改代码。  <br>&#x2F;&#x2F;那样代码修改太多，也不安全，用了多态以后，效果就很不一样了，妈妈在也不用担心我换车了<br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        DZ dz&#x3D;new DZ(“大众车”);  <br>        BMW bmw&#x3D;new BMW(“宝马车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>        p.drive(dz);  <br>        p.drive(bmw);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public Car car;  <br>      <br>      <br>        this.car&#x3D;car;  <br>        car.run();  <br>    public void drive(Car car){  <br>}  <br>  <br>class Car{  <br>    public String name;  <br>      <br>    public Car(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>      <br>    public void run(){  <br>        System.out.println(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>class DZ extends Car{  <br>   public DZ(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class Benz extends Car{  <br>    public Benz(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class BMW extends Car{  <br>    public BMW(String name){  <br>        super(name);  <br>    }  <br>   <br>}  <br>4.抽象<br>抽象的概念：通过特定的实例抽取出共同的特征以后形成的概念的过程，它强调主要特征和忽略次要<br>特征。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/ThreeCharacteristics/">展开全文 >></a>
         </p>
       
 
@@ -1936,6 +1863,73 @@ return config
 
 
   
+    <article id="post-Shiro" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/Shiro/">Shiro入门教程</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/Shiro/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.254Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>第一步我们首先需要了解一下shiro框架是java的一种安全框架，具有认证，授权，加密和会话功能，是一个权限安全框架，经常用于登录权限和用户角色权限分配，如下图所示：<br><img src="/images/Shiro/1.png" alt="1"><br>第二步我们可以看一下shiro的完整架构图，主要包括Authentication和Authorization两个用户权限认证，Subject，SecurityManager等一些组件，如下图所示：<br><img src="/images/Shiro/2.jpg" alt="2"><br>第三步下面通过shiro的登录权限认证和角色权限分配来进行shiro框架的入门，首先创建数据库，这里创建一个用户表user，如下图所示：<br><img src="/images/Shiro/3.jpg" alt="3"></p>
+<p>第四步创建一张角色表t_role，并创建一张用户和角色的关系表t_user_role，以及一张权限控制表t_permission，如下图所示：<br><img src="/images/Shiro/4.jpg" alt="4"><br>第五步创建完数据库之后，开始编写逻辑业务操作的service层，这里通过用户名称去获取对象和权限资源，主要代码如下图所示：<br><img src="/images/Shiro/5.jpg" alt="5"><br>第六步开始编写shiro组件自己定义的Realm，通过pc.fromRealm(getName()).iterator().next()代码获取授权信息，资源的url信息，获取认证信息等，如下图所示：<br><img src="/images/Shiro/6.jpg" alt="6"></p>
+<p>第七步编写程序的controller层，实现shiro框架控制用户登录的权限和角色的权限控制等， UsernamePasswordToken token &#x3D; new UsernamePasswordToken（）；存进shiro token 里面实现权限控制，如下图所示：<br><img src="/images/Shiro/7.jpg" alt="7"><br>第八步编写用户登录成功之后的跳转页面，这里只写了一个简单的登录成功四个字的页面，如下图所示：<br><img src="/images/Shiro/8.jpg" alt="8"></p>
+<p>第九步最后我们需要对shiro.xml文件进行配置，用户登录和授权都需要在位置文件进行配置，通过 &#x2F;toLogin &#x3D; authc 和&#x2F;home &#x3D; authc, perms[&#x2F;home]来控制权限访问，如下图所示：<br><img src="/images/Shiro/9.jpg" alt="9"></p>
+<p>第十步我们配置好shiro.xml文件后，在浏览器中运行项目，可以看到进去登录界面，数据库添加一个用户之后，输入用户名和密码，可以看到跳转到登录成功的界面，这样成功用shiro框架实现了一个基本的用户登录授权，认证，权限控制的入门例子，如下图所示:<br><img src="/images/Shiro/10.png" alt="10"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/Shiro/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -2081,7 +2075,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://192.168.216.128:9000/buckets/record/browse/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">

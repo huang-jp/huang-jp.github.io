@@ -143,73 +143,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-DuplicateRemoval" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/DuplicateRemoval/">mysql 查询两个表相同数据 全部数据 查询一个表中另外一个表不存在的数据</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/DuplicateRemoval/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.212Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查询相同数据：	<br>select * from table1 inner join table2 on table1.codeid&#x3D;table2.codeid </p>
-<p>两张表数据数据（去掉重复数据）：		<br>select t1.codeid ,t1.cedename from  table1  union  select t2.codeid ,t2.cedename from  table1</p>
-<p>全部数据（包括重复数据）：       	<br>select codeid,cedename from table1 union all select codeid,cedename from table2  </p>
-<p>SQL查询一个表中另外一个表不存在的数据：</p>
-<p>#方法一：使用 not in ,容易理解,效率低  <del>执行时间为：1.395秒</del><br>SELECT table1.name FROM table1 WHERE table1.name NOT IN (SELECT table2.name FROM table2);<br>#方法二：使用 left join…on… , “B.ID isnull” 表示左连接之后在B.ID 字段为 null的记录  <del>执行时间：0.739秒</del><br>SELECT COUNT(1) FROM ecs_goods LEFT JOIN ecs_member_price ON ecs_goods.goods_id&#x3D;ecs_member_price.goods_id WHERE ecs_member_price.goods_id IS NULL;<br>#方法三：逻辑相对复杂,但是速度最快  <del>执行时间: 0.570秒</del><br>SELECT COUNT(1) FROM  ecs_goods c WHERE (SELECT COUNT(1) AS num FROM ecs_member_price WHERE ecs_member_price.goods_id&#x3D;ecs_goods.goods_id) &#x3D; 0;</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/DuplicateRemoval/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-DesignMode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -392,69 +325,6 @@
 
 
   
-    <article id="post-CommonTechnologies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/CommonTechnologies/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.207Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经常使用到的技术：<br>1.html、css<br>2.java工作原理（jvm）<br>3.java语法、数据结构和算法<br>4.java语言特性（封装、继承、多态、抽象）<br>5.java设计模式（在开发中会经常用到）<br>6.java反射机制（常用框架都会用到反射机制）<br>7.io（文件读写）<br>8.多线程<br>9.网络编程<br>10.javascript<br>11.jquery<br>12.数据库（oracle、mysql等等）<br>13.servlet<br>14.JDBC<br>15.javabean<br>16.WEB项目分层架构<br>17.前后台交互<br>18.ajax<br>19.过滤器及过滤器原理<br>20.常用框架（Struts、hibernate、spring、springMVC、i&#x2F;mybatis）<br>21.框架整合<br>22.工作流（流程引擎工作机制）<br>23.xml、properties、json<br>24.常用页面以及后台插件（tree、时间、poi等等）<br>25.nosql数据库以及应用场景（mongoDB）<br>26.缓存数据库以及机制（redis、memcached）<br>27.第三方接口调用<br>28.SDK<br>29.web应用服务器（tomcat、weblogic）<br>30.linux<br>31.日志<br>32.数据库连接池<br>33.maven<br>34.svn<br>35.建模工具（powerdesiner、axure）使用<br>36.TCP&#x2F;IP<br><img src="/images/CommonTechnologies/1.png" alt="1"><br><img src="/images/CommonTechnologies/2.png" alt="2"><br><img src="/images/CommonTechnologies/3.png" alt="3"><br><img src="/images/CommonTechnologies/4.png" alt="4"><br><img src="/images/CommonTechnologies/5.png" alt="5"><br><img src="/images/CommonTechnologies/6.png" alt="6"><br><img src="/images/CommonTechnologies/7.png" alt="7"><br><img src="/images/CommonTechnologies/8.png" alt="8"><br><img src="/images/CommonTechnologies/9.png" alt="9"><br><img src="/images/CommonTechnologies/10.png" alt="10"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/CommonTechnologies/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-BigData" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -499,6 +369,69 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/11/27/BigData/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CommonTechnologies" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/CommonTechnologies/">2017年——10年JAVA大神告诉你最常用的20%技术有哪些？</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/CommonTechnologies/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.207Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经常使用到的技术：<br>1.html、css<br>2.java工作原理（jvm）<br>3.java语法、数据结构和算法<br>4.java语言特性（封装、继承、多态、抽象）<br>5.java设计模式（在开发中会经常用到）<br>6.java反射机制（常用框架都会用到反射机制）<br>7.io（文件读写）<br>8.多线程<br>9.网络编程<br>10.javascript<br>11.jquery<br>12.数据库（oracle、mysql等等）<br>13.servlet<br>14.JDBC<br>15.javabean<br>16.WEB项目分层架构<br>17.前后台交互<br>18.ajax<br>19.过滤器及过滤器原理<br>20.常用框架（Struts、hibernate、spring、springMVC、i&#x2F;mybatis）<br>21.框架整合<br>22.工作流（流程引擎工作机制）<br>23.xml、properties、json<br>24.常用页面以及后台插件（tree、时间、poi等等）<br>25.nosql数据库以及应用场景（mongoDB）<br>26.缓存数据库以及机制（redis、memcached）<br>27.第三方接口调用<br>28.SDK<br>29.web应用服务器（tomcat、weblogic）<br>30.linux<br>31.日志<br>32.数据库连接池<br>33.maven<br>34.svn<br>35.建模工具（powerdesiner、axure）使用<br>36.TCP&#x2F;IP<br><img src="/images/CommonTechnologies/1.png" alt="1"><br><img src="/images/CommonTechnologies/2.png" alt="2"><br><img src="/images/CommonTechnologies/3.png" alt="3"><br><img src="/images/CommonTechnologies/4.png" alt="4"><br><img src="/images/CommonTechnologies/5.png" alt="5"><br><img src="/images/CommonTechnologies/6.png" alt="6"><br><img src="/images/CommonTechnologies/7.png" alt="7"><br><img src="/images/CommonTechnologies/8.png" alt="8"><br><img src="/images/CommonTechnologies/9.png" alt="9"><br><img src="/images/CommonTechnologies/10.png" alt="10"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/CommonTechnologies/">展开全文 >></a>
         </p>
       
 
@@ -2185,7 +2118,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://192.168.216.128:9000/buckets/record/browse/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">

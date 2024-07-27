@@ -6,17 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>使用logstash+elasticsearch+kibana快速搭建日志平台 | Hexo</title>
+  <title>Archives: 2024/7 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:根据关键字查询日志详情监控系统的运行状况统计分析，比如接口的调用次数、执行时间、成功率等异常数据自动触发消息通知基于日志的数据挖掘很多团队在日志方面可能遇到的一些问题有:开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力日志数据分散在多个系统，难以查找日志数据量大，查询速度慢一个调用会涉及多">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用logstash+elasticsearch+kibana快速搭建日志平台">
-<meta property="og:url" content="http://example.com/2023/11/27/LogPlatform/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/archives/2024/07/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:根据关键字查询日志详情监控系统的运行状况统计分析，比如接口的调用次数、执行时间、成功率等异常数据自动触发消息通知基于日志的数据挖掘很多团队在日志方面可能遇到的一些问题有:开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力日志数据分散在多个系统，难以查找日志数据量大，查询速度慢一个调用会涉及多">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-11-27T10:15:06.243Z">
-<meta property="article:modified_time" content="2023-11-27T10:15:06.243Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -145,202 +141,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-LogPlatform" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      使用logstash+elasticsearch+kibana快速搭建日志平台
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2024" class="archive-year">2024</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2024/07/27/Ngrok/" class="archive-article-date">
+  	<time datetime="2024-07-27T07:59:58.753Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-27</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2024/07/27/Ngrok/">Ngrok 内网穿透全网最详细教程</a>
     </h1>
   
 
-        
-        <a href="/2023/11/27/LogPlatform/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.243Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>日志的分析和监控在系统开发中占非常重要的地位，系统越复杂，日志的分析和监控就越重要，常见的需求有:<br>根据关键字查询日志详情<br>监控系统的运行状况<br>统计分析，比如接口的调用次数、执行时间、成功率等<br>异常数据自动触发消息通知<br>基于日志的数据挖掘<br>很多团队在日志方面可能遇到的一些问题有:<br>开发人员不能登录线上服务器查看详细日志，经过运维周转费时费力<br>日志数据分散在多个系统，难以查找<br>日志数据量大，查询速度慢<br>一个调用会涉及多个系统，难以在这些系统的日志中快速定位数据<br>数据不够实时<br>常见的一些重量级的开源Trace系统有<br>facebook scribe<br>cloudera flume<br>twitter zipkin<br>storm<br>这些项目功能强大，但对于很多团队来说过于复杂，配置和部署比较麻烦，在系统规模大到一定程度前推荐轻量级下载即用的方案，比如logstash+elasticsearch+kibana(LEK)组合。<br>对于日志来说，最常见的需求就是收集、查询、显示，正对应logstash、elasticsearch、kibana的功能。<br>logstash<br>logstash主页<br>logstash部署简单，下载一个jar就可以用了，对日志的处理逻辑也很简单，就是一个pipeline的过程<br>inputs &gt;&gt; codecs &gt;&gt; filters &gt;&gt; outputs</p>
-<p>对应的插件有<br>从上面可以看到logstash支持常见的日志类型，与其他监控系统的整合也很方便，可以将数据输出到zabbix、nagios、email等。<br>推荐用redis作为输入缓冲队列。<br>你还可以把数据统计后输出到graphite，实现统计数据的可视化显示。<br>elasticsearch<br>elasticsearch主页<br>elasticsearch是基于lucene的开源搜索引擎<br>kibana<br>kibana主页<br>kibana是一个功能强大的elasticsearch数据显示客户端，logstash已经内置了kibana，你也可以单独部署kibana，最新版的kibana3是纯html+js客户端，可以很方便的部署到Apache、Nginx等Http服务器。<br>安装部署<br>下面列一下一个简易LEK体验环境的搭建步骤<br>安装jdk 1.7<br>oracle java主页<br>省略安装过程，推荐1.7+版本<br>java -version</p>
-<p>设置java的环境变量，比如<br>sudo vim ~&#x2F;.bashrc</p>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>export JAVA_HOME&#x3D;&#x2F;usr&#x2F;lib&#x2F;jvm&#x2F;java-7-oracle<br>export JRE_HOME&#x3D;${JAVA_HOME}&#x2F;jre<br>export CLASSPATH&#x3D;.:${JAVA_HOME}&#x2F;lib:${JRE_HOME}&#x2F;lib<br>export PATH&#x3D;${JAVA_HOME}&#x2F;bin:$PATH  </p>
-<blockquote>
-</blockquote>
-</blockquote>
-<p>source ~&#x2F;.bashrc</p>
-<p>安装redis<br>redis主页<br>cd ~&#x2F;src<br>wget <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-2.6.16.tar.gz">http://download.redis.io/releases/redis-2.6.16.tar.gz</a><br>tar -zxf redis-2.6.16.tar.gz<br>cd redis-2.6.16<br>make<br>sudo make install</p>
-<p>可以通过redis源代码里utils&#x2F;install_server下的脚本简化配置工作<br>cd utils<br>sudo .&#x2F;install_server.sh </p>
-<p>install_server.sh在问你几个问题后会把redis安装为开机启动的服务，可以通过下面的命令行来启动&#x2F;停止服务<br>sudo &#x2F;etc&#x2F;init.d&#x2F;redis_ start&#x2F;end </p>
-<p>启动redis客户端来验证安装<br>redis-cli</p>
-<blockquote>
-<p>keys *</p>
-</blockquote>
-<p>安装Elasticsearch<br>Elasticsearch主页<br>cd &#x2F;search<br>sudo mkdir elasticsearch<br>cd elasticsearch<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip">http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.5.zip</a><br>sudo unzip elasticsearch-0.90.5.zip</p>
-<p>elasticsearch解压即可使用非常方便，接下来我们看一下效果，首先启动ES服务，切换到elasticsearch目录，运行bin下的elasticsearch<br>cd &#x2F;search&#x2F;elasticsearch&#x2F;elasticsearch-0.90.5<br>bin&#x2F;elasticsearch -f</p>
-<p>访问默认的9200端口<br>curl -X GET <a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200</a></p>
-<p>安装logstash<br>logstash主页<br>cd &#x2F;search<br>sudo mkdir logstash<br>cd logstash<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar">http://download.elasticsearch.org/logstash/logstash/logstash-1.2.1-flatjar.jar</a></p>
-<p>logstash下载即可使用，命令行参数可以参考logstash flags，主要有<br>agent   #运行Agent模式<br>-f CONFIGFILE #指定配置文件</p>
-<p>web     #自动Web服务<br>-p PORT #指定端口，默认9292</p>
-<p>安装kibana<br>logstash的最新版已经内置kibana，你也可以单独部署kibana。kibana3是纯粹JavaScript+html的客户端，所以可以部署到任意http服务器上。<br>cd &#x2F;search<br>sudo mkdir kibana<br>sudo wget <a target="_blank" rel="noopener" href="http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip">http://download.elasticsearch.org/kibana/kibana/kibana-latest.zip</a><br>sudo unzip kibana-latest.zip<br>sudo cp -r  kibana-latest &#x2F;var&#x2F;www&#x2F;html</p>
-<p>可以修改config.js来配置elasticsearch的地址和索引。<br>用浏览器访问试试看 <a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html">http://127.0.0.1/html/kibana-latest/index.html</a><br>集成<br>把上面的系统集成起来<br>首先把redis和elasticsearch都启动起来<br>为logstash新建一个配置文件<br>cd &#x2F;search&#x2F;logstash<br>sudo vi redis.conf</p>
-<p>配置文件内容如下<br>input {<br>  redis {<br>    host &#x3D;&gt; “127.0.0.1”<br>    port &#x3D;&gt; “6379”<br>    key &#x3D;&gt; “logstash:demo”<br>    data_type &#x3D;&gt; “list”<br>    codec  &#x3D;&gt; “json”<br>    type &#x3D;&gt; “logstash-redis-demo”<br>    tags &#x3D;&gt; [“logstashdemo”]<br>  }<br>}</p>
-<p>output {<br>  elasticsearch {<br>    host &#x3D;&gt; “127.0.0.1”<br>  }</p>
-<p>}</p>
-<p>用这个配置文件启动logstash agent<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar agent -f &#x2F;search&#x2F;logstash&#x2F;redis.conf &amp;</p>
-<p>启动logstash内置的web<br>java -jar &#x2F;search&#x2F;logstash&#x2F;logstash-1.2.1-flatjar.jar web &amp;</p>
-<p>查看web，应该还没有数据<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>在redis 加一条数据<br>RPUSH logstash:demo “{&quot;time&quot;: &quot;2013-01-01T01:23:55&quot;, &quot;message&quot;: &quot;logstash demo message&quot;}”</p>
-<p>看看elasticsearch中的索引现状<br>curl 127.0.0.1:9200&#x2F;_search?pretty&#x3D;true </p>
-<p>curl -s <a target="_blank" rel="noopener" href="http://127.0.0.1:9200/_status?pretty=true">http://127.0.0.1:9200/_status?pretty=true</a> | grep logstash</p>
-<p>再通过logstash web查询一下看看<br><a target="_blank" rel="noopener" href="http://127.0.0.1:9292/">http://127.0.0.1:9292</a></p>
-<p>通过单独的kibana界面查看<br><a target="_blank" rel="noopener" href="http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json">http://127.0.0.1/html/kibana-latest/index.html#/dashboard/file/logstash.json</a></p>
-<p>数据清理<br>logstash默认按天创建ES索引，这样的好处是删除历史数据时直接删掉整个索引就可以了，方便快速。<br>elasticsearch也可以设置每个文档的ttl(time to live)，相当于设置文档的过期时间，但相比删除整个索引要耗费更多的IO操作。<br>索引<br>elasticsearch默认会按照分隔符对字段拆分，日志有些字段不要分词，比如url，可以为这类字段设置not_analyzed属性。<br>设置multi-field-type属性可以将字段映射到其他类型。multi-field-type。<br>大量日志导入时用bulk方式。<br>对于日志查询来说，filter比query更快 过滤器里不会执行评分而且可以被自动缓存。query-dsl。<br>elasticsearch默认一个索引操作会在所有分片都完成对文档的索引后才返回，你可以把复制设置为异步来加快批量日志的导入。<br>elasticsearch 优化<br>优化JVM <br>优化系统可以打开最大文件描述符的数量 <br>适当增加索引刷新的间隔<br>最佳实践<br>首先你的程序要写日志<br>记录的日志要能帮助你分析问题，只记录”参数错误”这样的日志对解决问题毫无帮助<br>不要依赖异常，异常只处理你没考虑到的地方<br>要记录一些关键的参数，比如发生时间、执行时间、日志来源、输入参数、输出参数、错误码、异常堆栈信息等<br>要记录sessionid、transitionid、userid等帮你快速定位以及能把各个系统的日志串联起来的关键参数<br>推荐纯文本+json格式<br>使用队列<br>具体网址：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html">https://www.cnblogs.com/buzzlight/p/logstash_elasticsearch_kibana_log.html</a><br>或<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ityouknow/p/4933103.html">https://www.cnblogs.com/ityouknow/p/4933103.html</a></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/11/27/LogPlatform/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2023/11/27/List/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ArrayList、Vector、LinkedList三者的异同点
-        
-      </div>
-    </a>
   
   
-    <a href="/2023/11/27/LogSystem/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">用Kibana和logstash快速搭建实时日志查询、收集与分析系统</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -363,8 +206,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

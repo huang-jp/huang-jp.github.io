@@ -798,6 +798,71 @@
 
 
   
+    <article id="post-ThreeCharacteristics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/11/27/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
+    </h1>
+  
+
+        
+        <a href="/2023/11/27/ThreeCharacteristics/" class="archive-article-date">
+  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.封装<br>封装的概念：把对象的属性和方法结合成一个独立的整体，隐藏实现细节，并提供对外访问的接口。<br>封装的好处：<br>（1）：隐藏实现细节。好比你买了台电视机，你只需要怎么使用，并不用了解其实现原理。<br>（2）：安全性。比如你在程序中私有化了age属性，并提供了对外的get和set方法，当外界 使用set<br>方法为属性设值的时候 你可以在set方法里面做个if判断，把值设值在0-80岁，那样他就不能随意赋值了。<br>（3）：增加代码的复用性。好比在工具类中封装的各种方法，你可以在任意地方重复调用，<br>而不用再每处都去实现其细节。<br>（4）：模块化。封装分为属性封装，方法封装，类封装，插件封装，模块封装，系统封装等等。有<br>利于程序的协助分工，互不干扰，方便了模块之间的相互组合与分解，也有利于代码的调试和维护。比如人体由各个器官所组成，如果有个器官出现问题，你只要去对这个器官进行医治就行了。<br>2.继承<br>继承的概念：从已知的一个类中派生出新的一个类，叫子类。子类实现了父类所有非私有化属性和方<br>法，并能根据自己的实际需求扩展出新的行为。<br>继承的好处：<br>（1）：继承是传递的，容易在其基础上构造，建立和扩充出新的类。<br>（2）：简化了人们对事物的认识和描述，能清晰体现相关类之间的层次结构关系。<br>（3）：能减少数据和代码的冗余度。<br>（4）：大大增加了代码的维护性。<br>3.多态<br>多态的概念：多个不同的对象对同一消息作出响应，同一消息根据不同的对象而采用各种不同的行为方法。<br>多态的好处：主要是利于扩展。直接上代码自己来体会。<br>&#x2F;&#x2F;比如我在马剑威磨砺营毕业后，找到一份工作，前期买了一辆大众车，实现代码如下：  <br>public class test{  <br>    public static void main(String[] args){  <br>        DZ dz &#x3D;new DZ(“大众”);  <br>        people p &#x3D;new people();  <br>        p.drive(dz);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(“上海大众在已120迈的速度在跑”);  <br>    }  <br>}  </p>
+<p>&#x2F;&#x2F;后期如果我有钱以后又买了一辆奔驰，我要换奔驰 ，不用多态的情况下代码如下：  <br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>    }  <br>}  <br>    }  <br>      <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public Benz benz;  <br>      <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>      <br>    public void drive(Benz benz){  <br>        this.benz&#x3D;benz;  <br>        benz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>  <br>class Benz{  <br>    public String name;  <br>    public Benz(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>      <br>}  </p>
+<p>&#x2F;&#x2F;这样是不是程序粘连性太强，不利于扩展，而且Java特性是对扩展开放，对修改关闭 我每换一辆车就需要改代码。  <br>&#x2F;&#x2F;那样代码修改太多，也不安全，用了多态以后，效果就很不一样了，妈妈在也不用担心我换车了<br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        DZ dz&#x3D;new DZ(“大众车”);  <br>        BMW bmw&#x3D;new BMW(“宝马车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>        p.drive(dz);  <br>        p.drive(bmw);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public Car car;  <br>      <br>      <br>        this.car&#x3D;car;  <br>        car.run();  <br>    public void drive(Car car){  <br>}  <br>  <br>class Car{  <br>    public String name;  <br>      <br>    public Car(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>      <br>    public void run(){  <br>        System.out.println(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>class DZ extends Car{  <br>   public DZ(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class Benz extends Car{  <br>    public Benz(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class BMW extends Car{  <br>    public BMW(String name){  <br>        super(name);  <br>    }  <br>   <br>}  <br>4.抽象<br>抽象的概念：通过特定的实例抽取出共同的特征以后形成的概念的过程，它强调主要特征和忽略次要<br>特征。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/11/27/ThreeCharacteristics/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -844,71 +909,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2023/11/27/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ThreeCharacteristics" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2023/11/27/ThreeCharacteristics/">封装，继承，多态和抽象,好处与用法</a>
-    </h1>
-  
-
-        
-        <a href="/2023/11/27/ThreeCharacteristics/" class="archive-article-date">
-  	<time datetime="2023-11-27T10:15:06.292Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-11-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.封装<br>封装的概念：把对象的属性和方法结合成一个独立的整体，隐藏实现细节，并提供对外访问的接口。<br>封装的好处：<br>（1）：隐藏实现细节。好比你买了台电视机，你只需要怎么使用，并不用了解其实现原理。<br>（2）：安全性。比如你在程序中私有化了age属性，并提供了对外的get和set方法，当外界 使用set<br>方法为属性设值的时候 你可以在set方法里面做个if判断，把值设值在0-80岁，那样他就不能随意赋值了。<br>（3）：增加代码的复用性。好比在工具类中封装的各种方法，你可以在任意地方重复调用，<br>而不用再每处都去实现其细节。<br>（4）：模块化。封装分为属性封装，方法封装，类封装，插件封装，模块封装，系统封装等等。有<br>利于程序的协助分工，互不干扰，方便了模块之间的相互组合与分解，也有利于代码的调试和维护。比如人体由各个器官所组成，如果有个器官出现问题，你只要去对这个器官进行医治就行了。<br>2.继承<br>继承的概念：从已知的一个类中派生出新的一个类，叫子类。子类实现了父类所有非私有化属性和方<br>法，并能根据自己的实际需求扩展出新的行为。<br>继承的好处：<br>（1）：继承是传递的，容易在其基础上构造，建立和扩充出新的类。<br>（2）：简化了人们对事物的认识和描述，能清晰体现相关类之间的层次结构关系。<br>（3）：能减少数据和代码的冗余度。<br>（4）：大大增加了代码的维护性。<br>3.多态<br>多态的概念：多个不同的对象对同一消息作出响应，同一消息根据不同的对象而采用各种不同的行为方法。<br>多态的好处：主要是利于扩展。直接上代码自己来体会。<br>&#x2F;&#x2F;比如我在马剑威磨砺营毕业后，找到一份工作，前期买了一辆大众车，实现代码如下：  <br>public class test{  <br>    public static void main(String[] args){  <br>        DZ dz &#x3D;new DZ(“大众”);  <br>        people p &#x3D;new people();  <br>        p.drive(dz);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(“上海大众在已120迈的速度在跑”);  <br>    }  <br>}  </p>
-<p>&#x2F;&#x2F;后期如果我有钱以后又买了一辆奔驰，我要换奔驰 ，不用多态的情况下代码如下：  <br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>    }  <br>}  <br>    }  <br>      <br>  <br>class people{  <br>    public String name;  <br>    public DZ dz;  <br>    public Benz benz;  <br>      <br>    public void drive(DZ dz){  <br>        this.dz&#x3D;dz;  <br>        dz.run();  <br>    }  <br>      <br>    public void drive(Benz benz){  <br>        this.benz&#x3D;benz;  <br>        benz.run();  <br>    }  <br>}  <br>  <br>class DZ{  <br>    public String name ;  <br>      <br>    public DZ(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>  <br>class Benz{  <br>    public String name;  <br>    public Benz(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>    public void run(){  <br>        System.out.print(name+”已在路上飞快的奔跑”);  <br>    }  <br>      <br>}  </p>
-<p>&#x2F;&#x2F;这样是不是程序粘连性太强，不利于扩展，而且Java特性是对扩展开放，对修改关闭 我每换一辆车就需要改代码。  <br>&#x2F;&#x2F;那样代码修改太多，也不安全，用了多态以后，效果就很不一样了，妈妈在也不用担心我换车了<br>public class test{  <br>    public static void main(String[] args){       <br>        Benz benz&#x3D;new Benz(“奔驰车”);  <br>        DZ dz&#x3D;new DZ(“大众车”);  <br>        BMW bmw&#x3D;new BMW(“宝马车”);  <br>        people p &#x3D;new people();  <br>        p.drive(benz);  <br>        p.drive(dz);  <br>        p.drive(bmw);  <br>    }  <br>}  <br>  <br>class people{  <br>    public String name;  <br>    public Car car;  <br>      <br>      <br>        this.car&#x3D;car;  <br>        car.run();  <br>    public void drive(Car car){  <br>}  <br>  <br>class Car{  <br>    public String name;  <br>      <br>    public Car(String name){  <br>        this.name&#x3D;name;  <br>    }  <br>      <br>    public void run(){  <br>        System.out.println(name+”已在路上飞快的奔跑”);  <br>    }  <br>}  <br>class DZ extends Car{  <br>   public DZ(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class Benz extends Car{  <br>    public Benz(String name){  <br>        super(name);  <br>    }  <br>}  <br>  <br>class BMW extends Car{  <br>    public BMW(String name){  <br>        super(name);  <br>    }  <br>   <br>}  <br>4.抽象<br>抽象的概念：通过特定的实例抽取出共同的特征以后形成的概念的过程，它强调主要特征和忽略次要<br>特征。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2023/11/27/ThreeCharacteristics/">展开全文 >></a>
         </p>
       
 
